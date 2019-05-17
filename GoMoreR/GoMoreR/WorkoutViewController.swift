@@ -30,7 +30,7 @@ class WorkoutViewController: UIViewController {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (_) in
             guard let self = self else { return }
             self.time += 1
-            self.vm.rows[0] = (type: .time, data: "00:00:\(self.time.string)")
+            self.vm.rows[0] = (type: .time, data: "00:00:\(String(format: "%02d", self.time))")
             self.tableView.reloadData()
         }
         
@@ -39,7 +39,7 @@ class WorkoutViewController: UIViewController {
                                           y: waveView.frame.height - height,
                                           width: waveView.frame.width,
                                           height: height))
-        wave.waveCurvature = 2
+        wave.waveCurvature = 3
         waveView.addSubview(wave)
         
     }

@@ -207,15 +207,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVL-Km-Sqd">
-                                <rect key="frame" x="20" y="64" width="28" height="28"/>
+                            <button opaque="NO" contentMode="TopLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVL-Km-Sqd">
+                                <rect key="frame" x="20" y="64" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="CQP-Wi-c2d"/>
+                                    <constraint firstAttribute="height" constant="60" id="Jgb-Ks-EaJ"/>
+                                </constraints>
                                 <state key="normal" image="icLogout"/>
                                 <connections>
                                     <action selector="tapLogoutButton:" destination="cVE-6g-glZ" eventType="touchUpInside" id="DmL-Qo-mL3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dih-O1-cgV">
-                                <rect key="frame" x="366" y="64" width="28" height="28"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dih-O1-cgV">
+                                <rect key="frame" x="334" y="64" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Vds-4n-3EX"/>
+                                    <constraint firstAttribute="width" constant="60" id="zb2-G7-3fX"/>
+                                </constraints>
                                 <state key="normal" image="icSetting"/>
                                 <connections>
                                     <action selector="tapSettingButton:" destination="cVE-6g-glZ" eventType="touchUpInside" id="rk7-aN-Ldp"/>
@@ -529,7 +537,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="tIZ-eP-tsz" firstAttribute="top" secondItem="nx5-ob-I9N" secondAttribute="bottom" constant="3" id="CSt-BZ-QET"/>
                                                         <constraint firstItem="nx5-ob-I9N" firstAttribute="top" secondItem="NJc-F3-wzS" secondAttribute="top" constant="15" id="MAR-1d-X3L"/>
@@ -557,6 +565,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="NJc-F3-wzS" firstAttribute="top" secondItem="QUv-xG-boT" secondAttribute="top" constant="5" id="OwL-wy-wdt"/>
                                                 <constraint firstAttribute="trailing" secondItem="NJc-F3-wzS" secondAttribute="trailing" constant="20" id="TSE-Ka-DrI"/>
