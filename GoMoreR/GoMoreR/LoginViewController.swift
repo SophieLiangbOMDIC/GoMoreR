@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var backView: UIView!
@@ -24,13 +25,28 @@ class LoginViewController: UIViewController {
         accountTextField.layer.cornerRadius = 16
         passwordTextField.layer.cornerRadius = 16
         loginButton.layer.cornerRadius = 25
+        
+        accountTextField.text = "chris.luo+474@bomdic.com"
+        passwordTextField.text = "111111"
 
     }
 
     @IBAction func clickLoginButton(_ sender: Any) {
         if let controller = storyboard?.instantiateViewController(withClass: LiteViewController.self) {
+            if let account = accountTextField.text, let password = passwordTextField.text {
+                ServerManager.sdk.loginGoMore(email: account, pwd: password) { (resultType) in
+                    switch resultType {
+                        
+                    case .success( _):
+                        self.present(controller, animated: true, completion: nil)
+
+                    case .failure(let error):
+                        print("login fail \(error)")
+                    }
+                }
+            }
 //        if let controller = storyboard?.instantiateViewController(withClass: MainViewController.self) {
-            present(controller, animated: true, completion: nil)
+//            present(controller, animated: true, completion: nil)
         }
     }
     

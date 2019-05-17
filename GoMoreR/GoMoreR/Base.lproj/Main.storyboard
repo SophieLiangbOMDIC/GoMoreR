@@ -51,7 +51,7 @@
                                                         <rect key="frame" x="0.0" y="88.5" width="324" height="68.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>

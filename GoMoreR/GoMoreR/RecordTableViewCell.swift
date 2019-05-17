@@ -28,13 +28,13 @@ class RecordTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setLabel(data: (distance: Double, time: Int, date: Date, stamina: CGFloat)) {
-        distanceLabel.text = String(format: "%.2f", data.distance) + " km"
-        timeLabel.text = String(format: "0%d", Int(data.time / 60 / 60)) + ":" + Int(data.time / 60).string + ":" + Int(data.time % 60).string
-        staminaLabel.text = String(format: "%.f", data.stamina * 100) + "%"
-        dateLabel.text = data.date.string(withFormat: "yyyy.MM.dd HH:mm")
+    func setLabel(distance: Double, time: Int, date: Date, stamina: CGFloat) {
+        distanceLabel.text = String(format: "%.2f", distance) + " km"
+        timeLabel.text = secondsToString(time)
+        staminaLabel.text = String(format: "%.f", stamina * 100) + "%"
+        dateLabel.text = date.string(withFormat: "yyyy.MM.dd HH:mm")
         
-        let height = waveView.frame.height * data.stamina
+        let height = waveView.frame.height * stamina
         let wave = WaveView(frame: CGRect(x: 0,
                                           y: waveView.frame.height - height,
                                           width: waveView.frame.width + 10,
@@ -50,4 +50,13 @@ class RecordTableViewCell: UITableViewCell {
         waveView.subviews.forEach { $0.removeFromSuperview() }
     }
 
+}
+
+func secondsToString(_ seconds : Int) -> String {
+    
+    let hours = Int(seconds / 3600)
+    let minutes = Int(seconds % 3600 / 60)
+    let second = Int(seconds - hours * 3600 - minutes * 60)
+
+    return String(format: "%02d", hours) + ":" + String(format: "%02d", minutes) + ":" + String(format: "%02d", second)
 }

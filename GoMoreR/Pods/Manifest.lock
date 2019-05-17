@@ -1,0 +1,32 @@
+PODS:
+  - Alamofire (4.8.2)
+  - GMServerSDK (0.1.0):
+    - Alamofire
+    - Zip
+  - Zip (1.1.0)
+
+DEPENDENCIES:
+  - GMServerSDK (from `https://github.com/bOMDIC/Kit_iOS_ServerAPI.git`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Zip
+
+EXTERNAL SOURCES:
+  GMServerSDK:
+    :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
+
+CHECKOUT OPTIONS:
+  GMServerSDK:
+    :commit: 2d9b168e09dac5ab68302b275664fb617e382c65
+    :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  GMServerSDK: 3a4a40493c381542f7e18dfc4a621cdffaad31f3
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
+
+PODFILE CHECKSUM: 02a5c0ea078484dc888acbe320928c26474b957b
+
+COCOAPODS: 1.6.1

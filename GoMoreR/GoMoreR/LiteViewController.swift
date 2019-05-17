@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GMServerSDK
 
 class LiteViewController: UIViewController {
     
@@ -39,12 +40,23 @@ class LiteViewController: UIViewController {
         }
         return arr
     }()
-    
+    var data: [GMSResponseWorkout] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        
+        ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 6, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
+            switch resultType {
+                
+            case .success( _, _, let data):
+                self.data = data
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
 
@@ -52,13 +64,14 @@ class LiteViewController: UIViewController {
 
 extension LiteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mockData.count
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: RecordTableViewCell.self, for: indexPath)
-        let thisData = mockData[indexPath.row]
-        cell.setLabel(data: thisData)
+        let thisData = data[indexPath.row]
+        cell.setLabel(distance: thisData.distanceKm ?? 0.0, time: thisData.timeSeconds ?? 0, date: thisData.timeStart ?? Date(), stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00))
+//        cell.setLabel(data: thisData)
         return cell
     }
     

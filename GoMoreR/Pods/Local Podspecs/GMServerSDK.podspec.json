@@ -1,0 +1,32 @@
+{
+  "name": "GMServerSDK",
+  "version": "0.1.0",
+  "summary": "GMServerSDK",
+  "swift_version": "5.0",
+  "source_files": [
+    "Classes",
+    "GMServerSDK/**/*.{swift}"
+  ],
+  "description": "Use GMServerSDK to use http api",
+  "homepage": "https://github.com/bOMDIC/Kit_iOS_ServerAPI.git",
+  "license": "proprietary",
+  "authors": {
+    "Sophie Liang": "sophie.liang@bomdic.com"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "source": {
+    "git": "https://github.com/bOMDIC/Kit_iOS_ServerAPI.git",
+    "tag": "0.1.0"
+  },
+  "exclude_files": "Classes/Exclude",
+  "dependencies": {
+    "Alamofire": [
+
+    ],
+    "Zip": [
+
+    ]
+  }
+}
