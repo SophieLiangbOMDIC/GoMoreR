@@ -1,0 +1,4 @@
+framework module GMBluetoothSDK {
+  header "GMBluetoothSDK-Swift.h"
+  requires objc
+}

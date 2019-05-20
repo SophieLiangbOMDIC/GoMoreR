@@ -41,6 +41,7 @@
 		44F3789922895C32000A4B5C /* MainCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */; };
 		44F3789B22895C84000A4B5C /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789A22895C84000A4B5C /* WaveView.swift */; };
 		44F3789D22896CC7000A4B5C /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789C22896CC7000A4B5C /* DoubleExtension.swift */; };
+		44F5945522925EE3008D4728 /* GMBluetoothSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F5945422925EE3008D4728 /* GMBluetoothSDK.framework */; };
 		A272AB63E784FB5B8C170859 /* Pods_MessageIntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FA05123E0AF9F43F052DCB /* Pods_MessageIntentsUI.framework */; };
 		C3D172E1AC98BB17FE9490D4 /* Pods_MessageIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63BFB14B2329B83CF0389C33 /* Pods_MessageIntents.framework */; };
 /* End PBXBuildFile section */
@@ -127,6 +128,8 @@
 		44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainCollectionViewCell.xib; sourceTree = "<group>"; };
 		44F3789A22895C84000A4B5C /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		44F3789C22896CC7000A4B5C /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		44F5944E22924BFA008D4728 /* GMBluetoothSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GMBluetoothSDK.framework; sourceTree = "<group>"; };
+		44F5945422925EE3008D4728 /* GMBluetoothSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GMBluetoothSDK.framework; sourceTree = "<group>"; };
 		45C36C7274ABB09D83FA0AE4 /* Pods-MessageIntents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageIntents.debug.xcconfig"; path = "Target Support Files/Pods-MessageIntents/Pods-MessageIntents.debug.xcconfig"; sourceTree = "<group>"; };
 		63BFB14B2329B83CF0389C33 /* Pods_MessageIntents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageIntents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		760EF56A998C902D51206A4B /* Pods-MessageIntentsUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageIntentsUI.release.xcconfig"; path = "Target Support Files/Pods-MessageIntentsUI/Pods-MessageIntentsUI.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44F5945522925EE3008D4728 /* GMBluetoothSDK.framework in Frameworks */,
 				442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */,
 				38C3B4273AC2E0480067683C /* Pods_GoMoreR.framework in Frameworks */,
 			);
@@ -228,6 +232,7 @@
 		23D396E2228514D300441B40 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				44F5944E22924BFA008D4728 /* GMBluetoothSDK.framework */,
 				44F3789022895308000A4B5C /* UITableViewExtension.swift */,
 				44F3789222895473000A4B5C /* UICollectionViewExtension.swift */,
 				44F3789422895694000A4B5C /* UIStoryboardExtension.swift */,
@@ -242,6 +247,7 @@
 		442EA472228BDA3B007DF0FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44F5945422925EE3008D4728 /* GMBluetoothSDK.framework */,
 				442EA489228BDB93007DF0FD /* Intents.framework */,
 				442EA473228BDA3B007DF0FD /* IntentsUI.framework */,
 				DF1F1174524E68DD08BFB80B /* Pods_GoMoreR.framework */,
@@ -733,6 +739,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoMoreR",
+					"$(PROJECT_DIR)/GoMoreR/Extension",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = GoMoreR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -758,6 +766,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoMoreR",
+					"$(PROJECT_DIR)/GoMoreR/Extension",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = GoMoreR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
