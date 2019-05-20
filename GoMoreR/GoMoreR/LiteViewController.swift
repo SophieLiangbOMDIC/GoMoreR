@@ -70,8 +70,11 @@ extension LiteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: RecordTableViewCell.self, for: indexPath)
         let thisData = data[indexPath.row]
-        cell.setLabel(distance: thisData.distanceKm ?? 0.0, time: thisData.timeSeconds ?? 0, date: thisData.timeStart ?? Date(), stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00))
-//        cell.setLabel(data: thisData)
+        cell.setLabel(distance: thisData.distanceKm ?? 0.0,
+                      time: thisData.timeSeconds ?? 0,
+                      date: thisData.timeStart ?? Date(),
+                      stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00))
+
         return cell
     }
     
