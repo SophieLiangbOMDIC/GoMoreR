@@ -154,11 +154,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi

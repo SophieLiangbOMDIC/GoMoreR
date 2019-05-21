@@ -1,0 +1,6 @@
+framework module GMBluetoothSDK {
+  umbrella header "GMBluetoothSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

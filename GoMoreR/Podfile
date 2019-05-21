@@ -6,6 +6,7 @@ target 'GoMoreR' do
   use_frameworks!
 
   pod 'GMServerSDK', :git => 'https://github.com/bOMDIC/Kit_iOS_ServerAPI.git'
+  pod ‘GMBluetoothSDK’, :git => ’https://github.com/bOMDIC/SDK_iOS_Bluetooth.git'
 
   # Pods for GoMoreR
 

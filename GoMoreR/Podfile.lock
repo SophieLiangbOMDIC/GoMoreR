@@ -1,11 +1,13 @@
 PODS:
   - Alamofire (4.8.2)
+  - GMBluetoothSDK (1.0.0)
   - GMServerSDK (0.1.0):
     - Alamofire
     - Zip
   - Zip (1.1.0)
 
 DEPENDENCIES:
+  - GMBluetoothSDK (from `https://github.com/bOMDIC/SDK_iOS_Bluetooth.git`)
   - GMServerSDK (from `https://github.com/bOMDIC/Kit_iOS_ServerAPI.git`)
 
 SPEC REPOS:
@@ -14,19 +16,25 @@ SPEC REPOS:
     - Zip
 
 EXTERNAL SOURCES:
+  GMBluetoothSDK:
+    :git: https://github.com/bOMDIC/SDK_iOS_Bluetooth.git
   GMServerSDK:
     :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
 
 CHECKOUT OPTIONS:
+  GMBluetoothSDK:
+    :commit: f6855f3e43c1eb0cd1340c6627b36313cf81c765
+    :git: https://github.com/bOMDIC/SDK_iOS_Bluetooth.git
   GMServerSDK:
     :commit: 2d9b168e09dac5ab68302b275664fb617e382c65
     :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  GMBluetoothSDK: 4005bcdd1f72cb8fb09dd4324f9706db6ff3ec38
   GMServerSDK: 3a4a40493c381542f7e18dfc4a621cdffaad31f3
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 02a5c0ea078484dc888acbe320928c26474b957b
+PODFILE CHECKSUM: 85fe3613bb18ef42023c913eb431cb47b8c856cb
 
 COCOAPODS: 1.6.1

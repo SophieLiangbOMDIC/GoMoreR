@@ -56,8 +56,6 @@ extension WorkoutViewController: UITableViewDataSource {
         cell.dataLabel.text = vm.rows[indexPath.row].data
         return cell
     }
-    
-    
 }
 
 extension WorkoutViewController: UITableViewDelegate {
@@ -65,6 +63,5 @@ extension WorkoutViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView.frame.height / 4
     }
-    
     
 }

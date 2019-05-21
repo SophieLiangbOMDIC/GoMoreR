@@ -41,7 +41,7 @@
 		44F3789922895C32000A4B5C /* MainCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */; };
 		44F3789B22895C84000A4B5C /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789A22895C84000A4B5C /* WaveView.swift */; };
 		44F3789D22896CC7000A4B5C /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789C22896CC7000A4B5C /* DoubleExtension.swift */; };
-		44F5945522925EE3008D4728 /* GMBluetoothSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F5945422925EE3008D4728 /* GMBluetoothSDK.framework */; };
+		44F5945B2292AA48008D4728 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5945A2292AA48008D4728 /* BTManager.swift */; };
 		A272AB63E784FB5B8C170859 /* Pods_MessageIntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FA05123E0AF9F43F052DCB /* Pods_MessageIntentsUI.framework */; };
 		C3D172E1AC98BB17FE9490D4 /* Pods_MessageIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63BFB14B2329B83CF0389C33 /* Pods_MessageIntents.framework */; };
 /* End PBXBuildFile section */
@@ -64,16 +64,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		442EA45A228BB7C4007DF0FD /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		442EA488228BDA3B007DF0FD /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,7 +119,7 @@
 		44F3789A22895C84000A4B5C /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		44F3789C22896CC7000A4B5C /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		44F5944E22924BFA008D4728 /* GMBluetoothSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GMBluetoothSDK.framework; sourceTree = "<group>"; };
-		44F5945422925EE3008D4728 /* GMBluetoothSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GMBluetoothSDK.framework; sourceTree = "<group>"; };
+		44F5945A2292AA48008D4728 /* BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
 		45C36C7274ABB09D83FA0AE4 /* Pods-MessageIntents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageIntents.debug.xcconfig"; path = "Target Support Files/Pods-MessageIntents/Pods-MessageIntents.debug.xcconfig"; sourceTree = "<group>"; };
 		63BFB14B2329B83CF0389C33 /* Pods_MessageIntents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageIntents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		760EF56A998C902D51206A4B /* Pods-MessageIntentsUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageIntentsUI.release.xcconfig"; path = "Target Support Files/Pods-MessageIntentsUI/Pods-MessageIntentsUI.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,7 +135,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44F5945522925EE3008D4728 /* GMBluetoothSDK.framework in Frameworks */,
 				442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */,
 				38C3B4273AC2E0480067683C /* Pods_GoMoreR.framework in Frameworks */,
 			);
@@ -215,6 +204,7 @@
 				23D396D12285077800441B40 /* LaunchScreen.storyboard */,
 				23D396D42285077800441B40 /* Info.plist */,
 				23D396C82285077700441B40 /* AppDelegate.swift */,
+				44F5945A2292AA48008D4728 /* BTManager.swift */,
 				44E63E4B228D6A28006CF8EC /* ServerManager.swift */,
 				44F3789A22895C84000A4B5C /* WaveView.swift */,
 				23D396CA2285077700441B40 /* LoginViewController.swift */,
@@ -223,6 +213,8 @@
 				44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */,
 				44E63E45228D4C39006CF8EC /* WorkoutViewController.swift */,
 				44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */,
+				442EA452228BB1C5007DF0FD /* PairViewController.swift */,
+				442EA454228BB58E007DF0FD /* PairTableViewCell.swift */,
 				44E63E4D228D6BAB006CF8EC /* Old */,
 				23D396CF2285077800441B40 /* Assets.xcassets */,
 			);
@@ -247,7 +239,6 @@
 		442EA472228BDA3B007DF0FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				44F5945422925EE3008D4728 /* GMBluetoothSDK.framework */,
 				442EA489228BDB93007DF0FD /* Intents.framework */,
 				442EA473228BDA3B007DF0FD /* IntentsUI.framework */,
 				DF1F1174524E68DD08BFB80B /* Pods_GoMoreR.framework */,
@@ -280,8 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				23D396DA2285083700441B40 /* MainViewController.swift */,
-				442EA452228BB1C5007DF0FD /* PairViewController.swift */,
-				442EA454228BB58E007DF0FD /* PairTableViewCell.swift */,
 				442EA4AD228BFA95007DF0FD /* SidebarViewController.swift */,
 				23D396DC22850A2D00441B40 /* TransitioningDelegate.swift */,
 				44F37896228957E9000A4B5C /* MainCollectionViewCell.swift */,
@@ -301,7 +290,6 @@
 				23D396C12285077700441B40 /* Sources */,
 				23D396C22285077700441B40 /* Frameworks */,
 				23D396C32285077700441B40 /* Resources */,
-				442EA45A228BB7C4007DF0FD /* Embed Frameworks */,
 				442EA488228BDA3B007DF0FD /* Embed App Extensions */,
 				17104ED34A66C1B5F5984DE5 /* [CP] Embed Pods Frameworks */,
 			);
@@ -438,6 +426,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GoMoreR/Pods-GoMoreR-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
@@ -446,6 +435,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GMBluetoothSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GMServerSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
@@ -541,6 +531,7 @@
 				442EA4B0228BFE46007DF0FD /* DateExtension.swift in Sources */,
 				44E9B5EE228D391A009A1D7B /* UIViewExtension.swift in Sources */,
 				23D396C92285077700441B40 /* AppDelegate.swift in Sources */,
+				44F5945B2292AA48008D4728 /* BTManager.swift in Sources */,
 				442EA4AE228BFA95007DF0FD /* SidebarViewController.swift in Sources */,
 				44F3789B22895C84000A4B5C /* WaveView.swift in Sources */,
 				442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */,
@@ -736,6 +727,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoMoreR/GoMoreR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JRH8E985QQ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoMoreR",
@@ -763,6 +755,7 @@
 				CODE_SIGN_ENTITLEMENTS = GoMoreR/GoMoreR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JRH8E985QQ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoMoreR",
