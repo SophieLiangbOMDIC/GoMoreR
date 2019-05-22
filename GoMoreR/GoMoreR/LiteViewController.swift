@@ -24,23 +24,36 @@ class LiteViewController: UIViewController {
     }
     
     @IBAction func tapStartButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "LiteToWorkout", sender: nil)
+        
+        BTManager.shared.scan(type: [.hr, .cadence, .power], poweredOff: {
+            
+        }, poweredOn: {
+            self.showBlur()
+        
+            if let vc = self.storyboard?.instantiateViewController(withClass: PairViewController.self) {
+                self.addChild(vc)
+                self.view.addSubview(vc.view)
+                vc.tableView.frame = CGRect(x: 0,
+                                            y: self.view.frame.height,
+                                            width: vc.tableView.frame.width,
+                                            height: vc.tableView.frame.height)
+                
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
+                    vc.tableView.frame = CGRect(x: 0,
+                                                y: self.view.frame.minY,
+                                                width: vc.tableView.frame.width,
+                                                height: vc.tableView.frame.height)
+                }, completion: { finished in
+                })
+            }
+        }, poweredOther: {
+            
+        })
+//        self.performSegue(withIdentifier: "LiteToWorkout", sender: nil)
     }
     
-    var mockData: [(distance: Double, time: Int, date: Date, stamina: CGFloat)] = {
-        var arr: [(distance: Double, time: Int, date: Date, stamina: CGFloat)] = []
-        for i in 0...5 {
-            let date = Date().adding(.day, value: -i)
-            let date2 = date.adding(.minute, value: Int.random(in: 0...60))
-            let finalDate = date2.adding(.hour, value: Int.random(in: 0...5))
-            arr.append((distance: Double.random(in: 1...10),
-                        time: Int.random(in: 30...4000),
-                        date: finalDate,
-                        stamina: CGFloat.random(in: 0.05...0.99)))
-        }
-        return arr
-    }()
     var data: [GMSResponseWorkout] = []
+    var blurView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +72,29 @@ class LiteViewController: UIViewController {
         }
     }
     
+    func showBlur() {
+        if blurView == nil {
+            blurView = UIView(frame: view.frame)
+            blurView = blurView?.blur()
+        }
+        if let blur = blurView {
+            blur.alpha = 0
+            view.addSubview(blur)
+            UIView.animate(withDuration: 0.3, animations: {
+                blur.alpha = 1
+            })
+        }
+    }
+    
+    func closeBlur() {
+        if let blur = blurView {
+            UIView.animate(withDuration: 0.3, animations: {
+                blur.alpha = 0
+            }, completion: { finished in
+                blur.removeFromSuperview()
+            })
+        }
+    }
 
 }
 
@@ -77,7 +113,6 @@ extension LiteViewController: UITableViewDataSource {
 
         return cell
     }
-    
     
 }
 

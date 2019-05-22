@@ -1,9 +1,9 @@
 //
-//  UITableViewCell.swift
-//  GoMoreR
+//  UITableView.swift
+//  GMFoundation
 //
-//  Created by Sophie Liang on 2019/5/13.
-//  Copyright © 2019 jake. All rights reserved.
+//  Created by Sophie Liang on 2019/5/21.
+//  Copyright © 2019 bOMDIC. All rights reserved.
 //
 
 import Foundation

@@ -179,7 +179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCL-Pb-NJg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="788"/>
+            <point key="canvasLocation" x="145" y="881"/>
         </scene>
         <!--Lite View Controller-->
         <scene sceneID="Fbk-kw-UWj">
@@ -432,6 +432,7 @@
                         <outlet property="tableView" destination="PZy-OX-QS8" id="NjM-u4-LFY"/>
                         <outlet property="userNameLabel" destination="2DY-Xf-wQ1" id="bDe-6X-cWb"/>
                         <segue destination="Iz1-Dq-Dh0" kind="presentation" identifier="LiteToWorkout" id="Mxd-M6-fXT"/>
+                        <segue destination="Mmu-yV-nLK" kind="presentation" identifier="LiteToPair" id="pyK-45-Nkq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ucq-Ce-vCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -496,7 +497,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sev-1c-DOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909" y="788"/>
+            <point key="canvasLocation" x="936" y="881"/>
         </scene>
         <!--Workout View Controller-->
         <scene sceneID="FjJ-g0-NiS">
@@ -693,7 +694,7 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.31085372596269623" green="0.71017080817730904" blue="0.19466666473168937" alpha="0.79944349315068497" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" red="0.71017080817730904" green="0.21858340893843836" blue="0.13769960915410456" alpha="0.79944349315068497" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstItem="Gwc-aU-Kxi" firstAttribute="top" secondItem="h12-wk-RIz" secondAttribute="bottom" constant="15" id="4Q7-Oy-myd"/>
                                                         <constraint firstItem="Gwc-aU-Kxi" firstAttribute="centerX" secondItem="g2X-vy-Dry" secondAttribute="centerX" id="MoP-ey-iZw"/>
@@ -757,7 +758,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7U-IB-LZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1728" y="788"/>
+            <point key="canvasLocation" x="1755" y="889"/>
         </scene>
     </scenes>
     <resources>

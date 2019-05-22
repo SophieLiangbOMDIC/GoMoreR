@@ -14,8 +14,11 @@ class PairTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var connectButton: UIButton!
     @IBAction func tapConnectButton(_ sender: UIButton) {
-        connectButton.isSelected = !connectButton.isSelected
+//        connectButton.isSelected = !connectButton.isSelected
+        tapConnectButton?()
     }
+    
+    var tapConnectButton: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()

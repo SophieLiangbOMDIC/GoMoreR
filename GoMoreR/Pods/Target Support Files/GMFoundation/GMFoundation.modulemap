@@ -1,0 +1,6 @@
+framework module GMFoundation {
+  umbrella header "GMFoundation-umbrella.h"
+
+  export *
+  module * { export * }
+}

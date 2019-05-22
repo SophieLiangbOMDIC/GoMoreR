@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import GMBluetoothSDK
 
 class WorkoutViewController: UIViewController {
 
@@ -30,8 +31,18 @@ class WorkoutViewController: UIViewController {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (_) in
             guard let self = self else { return }
             self.time += 1
-            self.vm.rows[0] = (type: .time, data: "00:00:\(String(format: "%02d", self.time))")
+            let data = self.time.hhmmss()
+            self.vm.rows[0] = (type: .time, data: data)
             self.tableView.reloadData()
+            
+//            self.stamina -= 0.005
+//            if let wave = self.waveView.subviews[0] as? WaveView {
+//                let height = self.waveView.frame.height * self.stamina
+//                wave.frame = CGRect(x: 0,
+//                                    y: self.waveView.frame.height - height,
+//                                    width: self.waveView.frame.width,
+//                                    height: height)
+//            }
         }
         
         let height = waveView.frame.height * stamina
@@ -62,6 +73,55 @@ extension WorkoutViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView.frame.height / 4
+    }
+    
+}
+
+extension WorkoutViewController: GMBTManagerDelegate {
+    
+    func managerPowerOff() {
+        
+    }
+    
+    func hrConnected(btsdkHr: GMBTHr) {
+
+    }
+    
+    func cadenceConnected(btsdkCadence: GMBTCadence) {
+
+    }
+    
+    func powerConnected(btsdkPower: GMBTPower) {
+
+    }
+    
+    func hrDisconnect() {
+        
+    }
+    
+    func cadenceDisconnect() {
+        
+    }
+    
+    func powerDisconnect() {
+        
+    }
+    
+    func sensorInfo() {
+        
+    }
+    
+    func sensorHr(hr: Int) {
+        self.vm.rows[3] = (type: .heartRate, data: hr.string)
+        tableView.reloadData()
+    }
+    
+    func sensorCadence(cadence: Int) {
+        
+    }
+    
+    func sensorPower(power: Int) {
+        
     }
     
 }

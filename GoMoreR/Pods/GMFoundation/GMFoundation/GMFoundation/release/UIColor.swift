@@ -1,15 +1,14 @@
 //
-//  ColorExtension.swift
-//  GoMoreR
+//  UIColor.swift
+//  GMFoundation
 //
-//  Created by Sophie Liang on 2019/5/15.
-//  Copyright © 2019 jake. All rights reserved.
+//  Created by Sophie Liang on 2019/5/21.
+//  Copyright © 2019 bOMDIC. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-extension UIColor {
+public extension UIColor {
     
     convenience init?(red: Int, green: Int, blue: Int, alpha: CGFloat = 1) {
         guard red >= 0 && red <= 255 else { return nil }
@@ -22,6 +21,4 @@ extension UIColor {
         
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: alpha)
     }
-    
-    
 }

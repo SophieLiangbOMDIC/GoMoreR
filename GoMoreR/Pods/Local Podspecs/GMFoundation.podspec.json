@@ -1,0 +1,24 @@
+{
+  "name": "GMFoundation",
+  "version": "1.0.2",
+  "summary": "A short description of GMFoundation.",
+  "swift_version": "5.0",
+  "description": "Asdasd\nAsdasd",
+  "homepage": "http://EXAMPLE/GMFoundation",
+  "license": "proprietary",
+  "authors": {
+    "JakeChang": ""
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "source": {
+    "git": "https://github.com/bOMDIC/Kit_iOS_Foundation.git",
+    "tag": "1.0.2"
+  },
+  "source_files": [
+    "Classes",
+    "GMFoundation/GMFoundation/release/*.{swift}"
+  ],
+  "exclude_files": "Classes/Exclude"
+}
