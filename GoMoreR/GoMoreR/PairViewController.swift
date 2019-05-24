@@ -39,6 +39,10 @@ class PairViewController: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
             self.tableView.reloadData()
         }
+        
+        if BTManager.shared.hrArray.contains(where: { $0.state == .connected }) {
+            self.close()
+        }
     }
     
     func getSensorArr(index: Int) -> [GMBTSensor] {
