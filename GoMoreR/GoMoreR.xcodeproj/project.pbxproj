@@ -25,6 +25,10 @@
 		442EA4C5228C13EE007DF0FD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442EA4C3228C13EE007DF0FD /* MainInterface.storyboard */; };
 		442EA4C9228C13EE007DF0FD /* MessageIntentsUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 442EA4BE228C13EE007DF0FD /* MessageIntentsUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		442EA4CC228C13EE007DF0FD /* MessageIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 442EA4B5228C13EE007DF0FD /* MessageIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449DEFB622966F7C0005215E /* GoMoreKit.framework */; };
+		449DEFB9229670BC0005215E /* PublicEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFB8229670BC0005215E /* PublicEnum.swift */; };
+		449DEFBB22978BF40005215E /* RMWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFBA22978BF40005215E /* RMWorkout.swift */; };
+		449DEFBE229790560005215E /* GMKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFBD229790560005215E /* GMKitManager.swift */; };
 		44E63E46228D4C39006CF8EC /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E45228D4C39006CF8EC /* WorkoutViewController.swift */; };
 		44E63E48228D4C77006CF8EC /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */; };
 		44E63E4A228D4EA1006CF8EC /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */; };
@@ -96,6 +100,11 @@
 		442EA4C4228C13EE007DF0FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		442EA4C6228C13EE007DF0FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4446CB1E2293AAB2002DE47F /* GoMoreR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoMoreR.h; sourceTree = "<group>"; };
+		449DEFB622966F7C0005215E /* GoMoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoMoreKit.framework; sourceTree = "<group>"; };
+		449DEFB8229670BC0005215E /* PublicEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicEnum.swift; sourceTree = "<group>"; };
+		449DEFBA22978BF40005215E /* RMWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMWorkout.swift; sourceTree = "<group>"; };
+		449DEFBD229790560005215E /* GMKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMKitManager.swift; sourceTree = "<group>"; };
+		449DEFBF2297A34D0005215E /* GMServerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GMServerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E63E45228D4C39006CF8EC /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 		44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
@@ -123,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */,
+				449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */,
 				38C3B4273AC2E0480067683C /* Pods_GoMoreR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,15 +195,13 @@
 		23D396C72285077700441B40 /* GoMoreR */ = {
 			isa = PBXGroup;
 			children = (
+				449DEFBC22978BFA0005215E /* Model */,
 				4446CB1E2293AAB2002DE47F /* GoMoreR.h */,
 				442EA463228BD7E5007DF0FD /* GoMoreR.entitlements */,
 				23D396CC2285077700441B40 /* Main.storyboard */,
 				23D396D12285077800441B40 /* LaunchScreen.storyboard */,
 				23D396D42285077800441B40 /* Info.plist */,
 				23D396C82285077700441B40 /* AppDelegate.swift */,
-				44F5945A2292AA48008D4728 /* BTManager.swift */,
-				44E63E4B228D6A28006CF8EC /* ServerManager.swift */,
-				44F3789A22895C84000A4B5C /* WaveView.swift */,
 				23D396CA2285077700441B40 /* LoginViewController.swift */,
 				44E9B5EB228D3118009A1D7B /* LiteViewController.swift */,
 				44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */,
@@ -211,6 +219,8 @@
 		442EA472228BDA3B007DF0FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				449DEFBF2297A34D0005215E /* GMServerSDK.framework */,
+				449DEFB622966F7C0005215E /* GoMoreKit.framework */,
 				44F5944E22924BFA008D4728 /* GMBluetoothSDK.framework */,
 				442EA489228BDB93007DF0FD /* Intents.framework */,
 				442EA473228BDA3B007DF0FD /* IntentsUI.framework */,
@@ -238,6 +248,19 @@
 				442EA4C6228C13EE007DF0FD /* Info.plist */,
 			);
 			path = MessageIntentsUI;
+			sourceTree = "<group>";
+		};
+		449DEFBC22978BFA0005215E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				44F5945A2292AA48008D4728 /* BTManager.swift */,
+				44E63E4B228D6A28006CF8EC /* ServerManager.swift */,
+				449DEFBA22978BF40005215E /* RMWorkout.swift */,
+				449DEFB8229670BC0005215E /* PublicEnum.swift */,
+				44F3789A22895C84000A4B5C /* WaveView.swift */,
+				449DEFBD229790560005215E /* GMKitManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		44E63E4D228D6BAB006CF8EC /* Old */ = {
@@ -402,6 +425,8 @@
 				"${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/GMFoundation/GMFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -412,6 +437,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GMBluetoothSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GMFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GMServerSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,7 +525,9 @@
 				23D396CB2285077700441B40 /* LoginViewController.swift in Sources */,
 				442EA453228BB1C5007DF0FD /* PairViewController.swift in Sources */,
 				44E63E4A228D4EA1006CF8EC /* WorkoutViewModel.swift in Sources */,
+				449DEFBB22978BF40005215E /* RMWorkout.swift in Sources */,
 				44E63E4C228D6A28006CF8EC /* ServerManager.swift in Sources */,
+				449DEFBE229790560005215E /* GMKitManager.swift in Sources */,
 				23D396C92285077700441B40 /* AppDelegate.swift in Sources */,
 				44F5945B2292AA48008D4728 /* BTManager.swift in Sources */,
 				442EA4AE228BFA95007DF0FD /* SidebarViewController.swift in Sources */,
@@ -506,6 +535,7 @@
 				442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */,
 				44E63E46228D4C39006CF8EC /* WorkoutViewController.swift in Sources */,
 				44F37897228957E9000A4B5C /* MainCollectionViewCell.swift in Sources */,
+				449DEFB9229670BC0005215E /* PublicEnum.swift in Sources */,
 				23D396DD22850A2D00441B40 /* TransitioningDelegate.swift in Sources */,
 				23D396DB2285083700441B40 /* MainViewController.swift in Sources */,
 			);

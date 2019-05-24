@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "066E2396DF0A4B9E004D058F8E45D589"
+               BlueprintIdentifier = "EF09E6A99775159CE33F1E46A5FE791C"
                BuildableName = "Pods_GoMoreR.framework"
                BlueprintName = "Pods-GoMoreR"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "066E2396DF0A4B9E004D058F8E45D589"
+            BlueprintIdentifier = "EF09E6A99775159CE33F1E46A5FE791C"
             BuildableName = "Pods_GoMoreR.framework"
             BlueprintName = "Pods-GoMoreR"
             ReferencedContainer = "container:Pods.xcodeproj">

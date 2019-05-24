@@ -1,0 +1,4 @@
+framework module GoMoreKit {
+  header "GoMoreKit-Swift.h"
+  requires objc
+}

@@ -157,6 +157,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GMFoundation/GMFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -164,6 +166,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GMFoundation/GMFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

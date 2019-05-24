@@ -5,16 +5,24 @@ PODS:
   - GMServerSDK (0.1.0):
     - Alamofire
     - Zip
+  - Realm (3.15.0):
+    - Realm/Headers (= 3.15.0)
+  - Realm/Headers (3.15.0)
+  - RealmSwift (3.15.0):
+    - Realm (= 3.15.0)
   - Zip (1.1.0)
 
 DEPENDENCIES:
   - GMBluetoothSDK (from `https://github.com/bOMDIC/SDK_iOS_Bluetooth.git`)
   - GMFoundation (from `https://github.com/bOMDIC/Kit_iOS_Foundation.git`)
   - GMServerSDK (from `https://github.com/bOMDIC/Kit_iOS_ServerAPI.git`)
+  - RealmSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Realm
+    - RealmSwift
     - Zip
 
 EXTERNAL SOURCES:
@@ -41,8 +49,10 @@ SPEC CHECKSUMS:
   GMBluetoothSDK: 4005bcdd1f72cb8fb09dd4324f9706db6ff3ec38
   GMFoundation: 013f41e7fdc135883db2f8c8cfeb60efe344307a
   GMServerSDK: 3a4a40493c381542f7e18dfc4a621cdffaad31f3
+  Realm: 9b834e1be6062f544805252c812348872dc5d4ed
+  RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 2815804ab17e4225747f01af5a8aae4469a3a973
+PODFILE CHECKSUM: 6ed45beb8528bbef0596e01c5e55194f7d2ad541
 
 COCOAPODS: 1.6.1
