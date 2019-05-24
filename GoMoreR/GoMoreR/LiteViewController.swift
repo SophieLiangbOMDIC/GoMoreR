@@ -9,6 +9,7 @@
 import UIKit
 import GMServerSDK
 import GoMoreKit
+import RealmSwift
 
 class LiteViewController: UIViewController {
     
@@ -50,7 +51,6 @@ class LiteViewController: UIViewController {
         }, poweredOther: {
             
         })
-//        self.performSegue(withIdentifier: "LiteToWorkout", sender: nil)
     }
     
     var data: [GMSResponseWorkout] = []
@@ -60,6 +60,10 @@ class LiteViewController: UIViewController {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        
+        let realm = try! Realm()
+        let workoutDatas = realm.objects(RMWorkoutData.self)
+        print(workoutDatas)
         
         ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
             switch resultType {

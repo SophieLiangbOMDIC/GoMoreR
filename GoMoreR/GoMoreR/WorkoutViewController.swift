@@ -10,6 +10,7 @@
 import UIKit
 import GMBluetoothSDK
 import CoreLocation
+import RealmSwift
 
 class WorkoutViewController: UIViewController {
 
@@ -21,10 +22,11 @@ class WorkoutViewController: UIViewController {
     @IBOutlet weak var waveView: UIView!
     
     let vm = WorkoutViewModel()
-    var timer: Timer!
+    var timer: DispatchSourceTimer!
     var time: Int = 0
     var stamina: Float = 1
     let locationManager = CLLocationManager()
+    let workoutData = RMWorkoutData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,11 @@ class WorkoutViewController: UIViewController {
         wave.waveCurvature = 3
         waveView.addSubview(wave)
         
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (_) in
+        let realm = try! Realm()
+        
+        timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+        timer.schedule(deadline: .now(), repeating: .seconds(1))
+        timer.setEventHandler { [weak self] in
             guard let self = self else { return }
             
             let _ = GMKitManager.shared.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
@@ -55,37 +61,62 @@ class WorkoutViewController: UIViewController {
                                                  cyclingCadence: -1,
                                                  cyclingPower: -1)
             
-            // update time
+            // MARK: update time
             self.time += 1
             let data = self.time.hhmmss()
             self.vm.rows[0] = (type: .time, data: data)
 
-            // update distance
+            // MARK: update distance
             self.vm.distance = GMKitManager.shared.updateRoute(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
                                                                timerSec: self.time,
                                                                longitude: self.vm.longitude,
                                                                latitude: self.vm.latitude,
                                                                altitude: Float(self.vm.altitude))
+            print(self.time)
             
-            // update zone
+            // MARK: update zone
             self.vm.zone = GMKitManager.shared.hrZone(hrRaw: self.vm.hr)
 
-            // update stamina
+            // MARK: update stamina
             self.stamina = GMKitManager.shared.stamina()
-            self.staminaLabel.text = String(format: "%02d", Int(self.stamina))
-            if let wave = self.waveView.subviews[0] as? WaveView {
-                let height = self.waveView.frame.height * CGFloat(self.stamina / 100)
-                wave.frame = CGRect(x: 0,
-                                    y: self.waveView.frame.height - height,
-                                    width: self.waveView.frame.width,
-                                    height: height)
-            }
-
-            self.vm.updateData()
             
-            self.tableView.reloadData()
+            self.vm.updateData()
+            DispatchQueue.main.async {
+                self.staminaLabel.text = String(format: "%02d", Int(self.stamina)) + "%"
+                if let wave = self.waveView.subviews[0] as? WaveView {
+                    let height = self.waveView.frame.height * CGFloat(self.stamina / 100)
+                    wave.frame = CGRect(x: 0,
+                                        y: self.waveView.frame.height - height,
+                                        width: self.waveView.frame.width,
+                                        height: height)
+                }
+                self.tableView.reloadData()
+                
+                let workoutData = RMWorkoutData()
+                workoutData.timeDate = Date()
+                workoutData.seconds = self.time
+                workoutData.hr = self.vm.hr
+                workoutData.hrZone = self.vm.zone
+                workoutData.kcal = GMKitManager.shared.kcal()
+                workoutData.latitude = self.vm.latitude
+                workoutData.longtitude = self.vm.longitude
+                try! realm.write {
+                    realm.add(workoutData)
+                }
+
+            }
         }
-        
+        timer.resume()
+    }
+    
+    func stopTimer() {
+        timer.cancel()
+        timer = nil
+    }
+    
+    deinit {
+        timer.setEventHandler { }
+        timer.cancel()
     }
 }
 
