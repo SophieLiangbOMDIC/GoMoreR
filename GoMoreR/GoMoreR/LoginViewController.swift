@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import GoMoreKit
 
 class LoginViewController: UIViewController {
 
@@ -36,9 +36,22 @@ class LoginViewController: UIViewController {
             if let account = accountTextField.text, let password = passwordTextField.text {
                 ServerManager.sdk.loginGoMore(email: account, pwd: password) { (resultType) in
                     switch resultType {
-                        
-                    case .success( _):
-                        self.present(controller, animated: true, completion: nil)
+                    case .success(let data):
+                        ServerManager.sdk.getSdkAuth(userId: data.userId ?? "", deviceId: "AAAAAAAA", completionHandler: { (resultType) in
+                            switch resultType {
+                            case .success(let data):
+                                UserDefaults.standard.set(data.attribute, forKey: UserDefaultsKey.attribute.rawValue)
+                                UserDefaults.standard.set(data.secretKey, forKey: UserDefaultsKey.secretKey.rawValue)
+                                UserDefaults.standard.synchronize()
+                                let initStatus = GMKitStaminaS().sdkInit(pKey: data.secretKey ?? "", attribute: data.attribute ?? "", deviceId: "AAAAAAAA", currentDateTime: Int(Date().timeIntervalSince1970))
+                                if initStatus == 0 {
+                                    self.present(controller, animated: true, completion: nil)
+                                }
+                                
+                            case .failure(let error):
+                                print("getSdkAuth fail \(error)")
+                            }
+                        })
 
                     case .failure(let error):
                         print("login fail \(error)")

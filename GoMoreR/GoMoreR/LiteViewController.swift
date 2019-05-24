@@ -8,6 +8,7 @@
 
 import UIKit
 import GMServerSDK
+import GoMoreKit
 
 class LiteViewController: UIViewController {
     
@@ -59,6 +60,47 @@ class LiteViewController: UIViewController {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        
+        ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
+            switch resultType {
+            case .success(let workout):
+                ServerManager.sdk.getUser { (resultType) in
+                    switch resultType {
+                    case .success(let data):
+                        let s = GMKitManager.shared.initUser(age: (data.birthday ?? Date()).age(),
+                                                             gender: data.gender == "male" ? 1: 0,
+                                                             heightCm: data.heightCm ?? 0,
+                                                             weightKg: data.weightKg ?? 0,
+                                                             hrMax: data.heartRateMax[0].heartRateMax ?? 0,
+                                                             hrRest: data.restingHeartRate ?? 0,
+                                                             aerobicPtc: Float(workout.prevAerobicPtc ?? 100.0),
+                                                             anaerobicPtc: Float(workout.prevAnaerobicPtc ?? 100.0),
+                                                             staminaLevel: -1,
+                                                             teAerobic: 0,
+                                                             teAnaerobic: 0,
+                                                             teStamina: 0,
+                                                             kcal: 0,
+                                                             distance: 0,
+                                                             elapsedSecond: 0,
+                                                             checkSum: workout.workoutInitDetail.filter { $0.typeId == .run }.first?.checksum ?? "",
+                                                             sportType: 31)
+                        print(s)
+                        let percentageArr = GMKitManager.shared.getPercentageAfterRecovery(
+                            aerobicPtc: Float(workout.prevAerobicPtc ?? 100.0),
+                            anaerobicPtc: Float(workout.prevAnaerobicPtc ?? 100.0),
+                            elapsedSecond: 0)
+                        let stamina = percentageArr[0] as? String ?? "100.0"
+                        self.staminaLabel.text = String(stamina.split(separator: ".").first ?? "100") + "%"
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
         
         ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 6, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
             switch resultType {

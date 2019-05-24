@@ -72,7 +72,8 @@ extension PairViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: PairTableViewCell.self, for: indexPath)
-        guard indexPath.row < tableView.numberOfRows(inSection: indexPath.section) else { return UITableViewCell() }
+        guard indexPath.row < tableView.numberOfRows(inSection: indexPath.section),
+              indexPath.row < getSensorArr(index: indexPath.section).count else { return UITableViewCell() }
         let sensor = getSensorArr(index: indexPath.section)[indexPath.row]
         cell.nameLabel.text = sensor.name ?? ""
         cell.tapConnectButton = {

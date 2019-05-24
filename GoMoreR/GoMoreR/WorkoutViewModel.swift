@@ -31,9 +31,9 @@ class WorkoutViewModel {
     
     init() {
         self.rows = [(type: .time, data: "00:00:00"),
-                     (type: .distance, data: String(format: "%.2f", mockData.distance)),
-                     (type: .speed, data: String(format: "%.2f", mockData.speed)),
-                     (type: .heartRate, data: mockData.heartRate.string + "&" + mockData.zone.string)]
+                     (type: .distance, data: String(format: "%.2f", self.distance)),
+                     (type: .speed, data: String(format: "%.2f", self.speed)),
+                     (type: .heartRate, data: self.hr.string + "&" + self.zone.string)]
     }
     
     var rows: [(type: CellType, data: String)]
@@ -43,5 +43,18 @@ class WorkoutViewModel {
                 heartRate: Int.random(in: 60...200),
                 zone: Int.random(in: 1...5))
     }()
+    var longitude: Double = -1
+    var latitude: Double = -1
+    var altitude: Double = -1
+    var distance: Float = 0
+    var speed: Double = 0
+    var hr: Int = 0
+    var zone: Int = 1
+    
+    func updateData() {
+        self.rows[1] = (type: .distance, data: String(format: "%.2f", self.distance))
+        self.rows[2] = (type: .speed, data: String(format: "%.2f", self.speed))
+        self.rows[3] = (type: .heartRate, data: self.hr.string + "&" + self.zone.string)
+    }
     
 }

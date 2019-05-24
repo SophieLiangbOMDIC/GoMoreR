@@ -9,6 +9,7 @@
 
 import UIKit
 import GMBluetoothSDK
+import CoreLocation
 
 class WorkoutViewController: UIViewController {
 
@@ -22,36 +23,68 @@ class WorkoutViewController: UIViewController {
     let vm = WorkoutViewModel()
     var timer: Timer!
     var time: Int = 0
-    var stamina: CGFloat = 0.6
+    var stamina: Float = 1
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (_) in
-            guard let self = self else { return }
-            self.time += 1
-            let data = self.time.hhmmss()
-            self.vm.rows[0] = (type: .time, data: data)
-            self.tableView.reloadData()
-            
-//            self.stamina -= 0.005
-//            if let wave = self.waveView.subviews[0] as? WaveView {
-//                let height = self.waveView.frame.height * self.stamina
-//                wave.frame = CGRect(x: 0,
-//                                    y: self.waveView.frame.height - height,
-//                                    width: self.waveView.frame.width,
-//                                    height: height)
-//            }
-        }
         
-        let height = waveView.frame.height * stamina
+        BTManager.shared.delegate = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        let height = waveView.frame.height * CGFloat(stamina)
         let wave = WaveView(frame: CGRect(x: 0,
                                           y: waveView.frame.height - height,
                                           width: waveView.frame.width,
                                           height: height))
         wave.waveCurvature = 3
         waveView.addSubview(wave)
+        
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (_) in
+            guard let self = self else { return }
+            
+            let _ = GMKitManager.shared.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
+                                                 timerSec: self.time,
+                                                 hrRaw: self.vm.hr,
+                                                 speed: -1,
+                                                 cyclingCadence: -1,
+                                                 cyclingPower: -1)
+            
+            // update time
+            self.time += 1
+            let data = self.time.hhmmss()
+            self.vm.rows[0] = (type: .time, data: data)
+
+            // update distance
+            self.vm.distance = GMKitManager.shared.updateRoute(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
+                                                               timerSec: self.time,
+                                                               longitude: self.vm.longitude,
+                                                               latitude: self.vm.latitude,
+                                                               altitude: Float(self.vm.altitude))
+            
+            // update zone
+            self.vm.zone = GMKitManager.shared.hrZone(hrRaw: self.vm.hr)
+
+            // update stamina
+            self.stamina = GMKitManager.shared.stamina()
+            self.staminaLabel.text = String(format: "%02d", Int(self.stamina))
+            if let wave = self.waveView.subviews[0] as? WaveView {
+                let height = self.waveView.frame.height * CGFloat(self.stamina / 100)
+                wave.frame = CGRect(x: 0,
+                                    y: self.waveView.frame.height - height,
+                                    width: self.waveView.frame.width,
+                                    height: height)
+            }
+
+            self.vm.updateData()
+            
+            self.tableView.reloadData()
+        }
         
     }
 }
@@ -79,49 +112,29 @@ extension WorkoutViewController: UITableViewDelegate {
 
 extension WorkoutViewController: GMBTManagerDelegate {
     
-    func managerPowerOff() {
-        
-    }
-    
-    func hrConnected(btsdkHr: GMBTHr) {
-
-    }
-    
-    func cadenceConnected(btsdkCadence: GMBTCadence) {
-
-    }
-    
-    func powerConnected(btsdkPower: GMBTPower) {
-
-    }
-    
-    func hrDisconnect() {
-        
-    }
-    
-    func cadenceDisconnect() {
-        
-    }
-    
-    func powerDisconnect() {
-        
-    }
-    
-    func sensorInfo() {
-        
-    }
+    func managerPowerOff() { }
+    func hrConnected(btsdkHr: GMBTHr) { }
+    func cadenceConnected(btsdkCadence: GMBTCadence) { }
+    func powerConnected(btsdkPower: GMBTPower) { }
+    func hrDisconnect() { }
+    func cadenceDisconnect() { }
+    func powerDisconnect() { }
+    func sensorInfo() { }
     
     func sensorHr(hr: Int) {
-        self.vm.rows[3] = (type: .heartRate, data: hr.string)
-        tableView.reloadData()
+        self.vm.hr = hr
     }
     
-    func sensorCadence(cadence: Int) {
-        
-    }
+    func sensorCadence(cadence: Int) { }
+    func sensorPower(power: Int) { }
+}
+
+extension WorkoutViewController: CLLocationManagerDelegate {
     
-    func sensorPower(power: Int) {
-        
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let loc = locations.last else { return }
+        vm.latitude = loc.coordinate.latitude
+        vm.longitude = loc.coordinate.longitude
+        vm.altitude = loc.altitude
     }
-    
 }
