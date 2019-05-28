@@ -31,4 +31,8 @@ public extension Double {
     var string: String {
         return String(describing: self)
     }
+    
+    var int: Int? {
+        return Int(self)
+    }
 }

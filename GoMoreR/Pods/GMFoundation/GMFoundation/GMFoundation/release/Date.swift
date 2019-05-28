@@ -11,7 +11,7 @@ import Foundation
 public extension Date {
     
     //Date Format
-    func string(withFormat format: String) -> String {
+    func string(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.dateFormat = format // "yyyy-MM-dd"
@@ -25,21 +25,11 @@ public extension Date {
     
     //計算年齡
     func age() -> Int {
-        let dateNow = Date()
-        let yearThis = Int(dateNow.string(withFormat: "yyyy")) ?? 0
-        let yearBirthday = Int(self.string(withFormat: "yyyy")) ?? 0
-        let monthDayThis = Int(dateNow.string(withFormat: "MMdd")) ?? 0
-        let monthDayBirthday = Int(self.string(withFormat: "MMdd")) ?? 0
-        
-        var age = 0
-        if monthDayBirthday > monthDayThis {
-            age = yearThis - yearBirthday - 1
-        }
-        else {
-            age = yearThis - yearBirthday
-        }
-        
-        return age
+        let now = Date()
+        let calendar = Calendar.current
+
+        let ageComponents = calendar.dateComponents([.year], from: self, to: now)
+        return ageComponents.year ?? 0
     }
     
     //取得時區

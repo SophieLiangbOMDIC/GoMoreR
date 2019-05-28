@@ -1,6 +1,6 @@
 {
   "name": "GMFoundation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "summary": "A short description of GMFoundation.",
   "swift_version": "5.0",
   "description": "Asdasd\nAsdasd",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/bOMDIC/Kit_iOS_Foundation.git",
-    "tag": "1.0.2"
+    "tag": "1.0.3"
   },
   "source_files": [
     "Classes",

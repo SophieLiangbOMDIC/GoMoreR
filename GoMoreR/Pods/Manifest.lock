@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - GMBluetoothSDK (1.0.1)
-  - GMFoundation (1.0.2)
+  - GMFoundation (1.0.3)
   - GMServerSDK (0.1.1):
     - Alamofire
     - Zip
@@ -38,16 +38,16 @@ CHECKOUT OPTIONS:
     :commit: 4edfe55511dfe78f1ed091c69ac33474d5d4c886
     :git: https://github.com/bOMDIC/SDK_iOS_Bluetooth.git
   GMFoundation:
-    :commit: d463dc057c4a595cbc9fbc8608426cba269e55d0
+    :commit: ffe2037ca30f2221911dc3573e49bd7acb82609b
     :git: https://github.com/bOMDIC/Kit_iOS_Foundation.git
   GMServerSDK:
-    :commit: d4812ae2edfc723b98a3ec191d2ff0b5a8391d49
+    :commit: 6757bb6d9853e55c509a07719db6c3f65cf90fb7
     :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   GMBluetoothSDK: 3e6e3998e948fd4f829693c596baa5252331cdee
-  GMFoundation: 013f41e7fdc135883db2f8c8cfeb60efe344307a
+  GMFoundation: cf12477cb26007ca0498b0acb20a410632d415c0
   GMServerSDK: 2e4fb131a8809fd83b42c7e75660d86612a3e165
   Realm: 9b834e1be6062f544805252c812348872dc5d4ed
   RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79

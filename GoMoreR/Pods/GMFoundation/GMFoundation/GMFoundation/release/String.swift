@@ -54,4 +54,15 @@ public extension String {
             return nil
         }
     }
+    
+    var int: Int? {
+        return Int(self)
+    }
+    
+    func double(locale: Locale = .current) -> Double? {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.allowsFloats = true
+        return formatter.number(from: self) as? Double
+    }
 }
