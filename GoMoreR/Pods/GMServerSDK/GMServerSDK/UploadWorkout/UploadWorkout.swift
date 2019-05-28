@@ -21,13 +21,13 @@ extension GMSManager {
         }
                 
         let weatherFilePath = NSTemporaryDirectory() + "file_weather.txt"
-        try? requestData.weatherJson?.write(toFile: weatherFilePath, atomically: true, encoding: .utf8)
+        try? requestData.weatherJson.write(toFile: weatherFilePath, atomically: true, encoding: .utf8)
         
         let dataFilePath = NSTemporaryDirectory() + "file_data.txt"
-        try? requestData.dataJson?.write(toFile: dataFilePath, atomically: true, encoding: .utf8)
+        try? requestData.dataJson.write(toFile: dataFilePath, atomically: true, encoding: .utf8)
         
         let debugFilePath = NSTemporaryDirectory() + "file_debug.txt"
-        try? requestData.debugJson?.write(toFile: debugFilePath, atomically: true, encoding: .utf8)
+        try? requestData.debugJson.write(toFile: debugFilePath, atomically: true, encoding: .utf8)
         
         let zipUrl = try? Zip.quickZipFiles([URL(string: weatherFilePath)!, URL(string: dataFilePath)!, URL(string: debugFilePath)!], fileName: "file_zip")
         

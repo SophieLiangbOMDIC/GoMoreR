@@ -33,7 +33,7 @@ public extension UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         var allButtons = buttonTitles ?? [String]()
         if allButtons.count == 0 {
-            allButtons.append("确认")
+            allButtons.append("確認")
         }
         
         for index in 0..<allButtons.count {

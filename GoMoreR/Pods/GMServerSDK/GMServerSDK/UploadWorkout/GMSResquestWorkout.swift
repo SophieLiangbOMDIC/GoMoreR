@@ -33,11 +33,11 @@ public class GMSRequestWorkout {
     public var teAnaer: Float
     public var sdkVersion: String?
     public var userSensor: String?
-    public var weatherJson: String?
-    public var dataJson: String?
-    public var debugJson: String?
+    public var weatherJson: String
+    public var dataJson: String
+    public var debugJson: String
     
-    public init(typeId: GMSTypeId, timeStart: Date, timeSeconds: Int, timeSecondsRecovery: Int, commentTitle: String? = nil, commentDescription: String? = nil, kcal: Int, kcalMax: Int, distanceKm: Float, distanceKmMax: Float, questionBreath: GMSBreath, questionMuscle: GMSMuscle, questionRpe: GMSRpe, appVersion: String, missionName: GMSMissionName, missionStatus: GMSMissionStatus, missionError: String? = nil, teTarget: String? = nil, teStamina: Float, teAer: Float, teAnaer: Float, sdkVersion: String? = nil, userSensor: String? = nil, weatherJson: String? = nil, dataJson: String? = nil, debugJson: String? = nil) {
+    public init(typeId: GMSTypeId, timeStart: Date, timeSeconds: Int, timeSecondsRecovery: Int, commentTitle: String? = nil, commentDescription: String? = nil, kcal: Int, kcalMax: Int, distanceKm: Float, distanceKmMax: Float, questionBreath: GMSBreath, questionMuscle: GMSMuscle, questionRpe: GMSRpe, appVersion: String, missionName: GMSMissionName, missionStatus: GMSMissionStatus, missionError: String? = nil, teTarget: String? = nil, teStamina: Float, teAer: Float, teAnaer: Float, sdkVersion: String? = nil, userSensor: String? = nil, weatherJson: String, dataJson: String, debugJson: String) {
         self.typeId = typeId
         self.timeStart = timeStart
         self.timeSecondsRecovery = timeSecondsRecovery
