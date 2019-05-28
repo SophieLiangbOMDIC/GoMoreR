@@ -36,6 +36,7 @@
 		44E63E4C228D6A28006CF8EC /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E4B228D6A28006CF8EC /* ServerManager.swift */; };
 		44E9B5EC228D3118009A1D7B /* LiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EB228D3118009A1D7B /* LiteViewController.swift */; };
 		44E9B5F0228D3A37009A1D7B /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */; };
+		44EFBE4E229CE87F00E5473D /* GMServerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */; };
 		44F37897228957E9000A4B5C /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F37896228957E9000A4B5C /* MainCollectionViewCell.swift */; };
 		44F3789922895C32000A4B5C /* MainCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */; };
 		44F3789B22895C84000A4B5C /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789A22895C84000A4B5C /* WaveView.swift */; };
@@ -113,6 +114,7 @@
 		44E63E4B228D6A28006CF8EC /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		44E9B5EB228D3118009A1D7B /* LiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteViewController.swift; sourceTree = "<group>"; };
 		44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
+		44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GMServerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F37896228957E9000A4B5C /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainCollectionViewCell.xib; sourceTree = "<group>"; };
 		44F3789A22895C84000A4B5C /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44EFBE4E229CE87F00E5473D /* GMServerSDK.framework in Frameworks */,
 				442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */,
 				449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */,
 				38C3B4273AC2E0480067683C /* Pods_GoMoreR.framework in Frameworks */,
@@ -221,6 +224,7 @@
 		442EA472228BDA3B007DF0FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */,
 				449DEFBF2297A34D0005215E /* GMServerSDK.framework */,
 				449DEFB622966F7C0005215E /* GoMoreKit.framework */,
 				44F5944E22924BFA008D4728 /* GMBluetoothSDK.framework */,

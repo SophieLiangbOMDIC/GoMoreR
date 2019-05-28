@@ -44,6 +44,7 @@ class WorkoutViewModel {
     var speed: Double = 0
     var hr: Int = 0
     var zone: Int = 1
+    var workoutId: Int = 0
     
     func updateData() {
         self.rows[1] = (type: .distance, data: String(format: "%.2f", self.distance))

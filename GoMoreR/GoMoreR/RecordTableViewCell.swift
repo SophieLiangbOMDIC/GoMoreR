@@ -10,6 +10,7 @@ import UIKit
 
 class RecordTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var workoutIdLabel: UILabel!
     @IBOutlet weak var cellBackView: UIView!
     @IBOutlet weak var waveView: UIView!
     @IBOutlet weak var staminaLabel: UILabel!
@@ -28,11 +29,12 @@ class RecordTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setLabel(distance: Double, time: Int, date: Date, stamina: CGFloat) {
+    func setLabel(distance: Double, time: Int, date: Date, stamina: CGFloat, workoutId: String) {
         distanceLabel.text = String(format: "%.2f", distance) + " km"
         timeLabel.text = secondsToString(time)
         staminaLabel.text = String(format: "%.f", stamina * 100) + "%"
         dateLabel.text = date.string(withFormat: "yyyy.MM.dd HH:mm")
+        workoutIdLabel.text = workoutId
         
         let height = waveView.frame.height * stamina
         let wave = WaveView(frame: CGRect(x: 0,

@@ -283,20 +283,26 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="BGN-co-506">
                                                                     <rect key="frame" x="104.5" y="20" width="189.5" height="64.5"/>
                                                                     <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJ7-Vb-UGv">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="34.5" height="16"/>
+                                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                                            <color key="textColor" red="0.25982448460000002" green="0.2414722443" blue="0.39138430359999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfG-w6-a9d">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="34.5" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="16" width="34.5" height="16.5"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                             <color key="textColor" red="0.2598244845867157" green="0.24147224426269531" blue="0.3913843035697937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJN-LM-evf">
-                                                                            <rect key="frame" x="0.0" y="21.5" width="34.5" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="32.5" width="34.5" height="16"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                             <color key="textColor" red="0.25982448460000002" green="0.2414722443" blue="0.39138430359999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1h-Bf-QE5">
-                                                                            <rect key="frame" x="0.0" y="43" width="34.5" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="48.5" width="34.5" height="16"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                             <color key="textColor" red="0.25982448460000002" green="0.2414722443" blue="0.39138430359999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -355,6 +361,7 @@
                                                     <outlet property="staminaLabel" destination="ji9-re-B2q" id="7jx-LH-W50"/>
                                                     <outlet property="timeLabel" destination="TJN-LM-evf" id="3Sh-PI-BGo"/>
                                                     <outlet property="waveView" destination="gKo-tO-p6h" id="NmA-ix-6XT"/>
+                                                    <outlet property="workoutIdLabel" destination="zJ7-Vb-UGv" id="Bnn-9k-Upb"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -437,7 +444,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ucq-Ce-vCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="968" y="127"/>
+            <point key="canvasLocation" x="966.66666666666674" y="126.5625"/>
         </scene>
         <!--Sidebar View Controller-->
         <scene sceneID="wmS-4t-ukD">

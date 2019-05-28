@@ -26,7 +26,6 @@ class LiteViewController: UIViewController {
     }
     
     @IBAction func tapStartButton(_ sender: Any) {
-        
         BTManager.shared.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
             guard let self = self else { return }
             if isPowerOn {
@@ -37,6 +36,7 @@ class LiteViewController: UIViewController {
                         
                         self.addChild(vc)
                         self.view.addSubview(vc.view)
+                        
                         vc.tableView.frame = CGRect(x: 0,
                                                     y: self.view.frame.height,
                                                     width: vc.tableView.frame.width,
@@ -63,6 +63,9 @@ class LiteViewController: UIViewController {
     
     var data: [GMSResponseWorkout] = []
     var blurView: UIView!
+    var workoutData: GMSResponseWorkoutInit!
+    var userData: GMSResponseUser!
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,27 +78,13 @@ class LiteViewController: UIViewController {
         ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
             switch resultType {
             case .success(let workout):
+                self.workoutData = workout
                 ServerManager.sdk.getUser { (resultType) in
                     switch resultType {
                     case .success(let data):
-                        let _ = GMKitManager.shared.initUser(age: (data.birthday ?? Date()).age(),
-                                                             gender: data.gender == "male" ? 1: 0,
-                                                             heightCm: data.heightCm ?? 0,
-                                                             weightKg: data.weightKg ?? 0,
-                                                             hrMax: data.heartRateMax[0].heartRateMax ?? 0,
-                                                             hrRest: data.restingHeartRate ?? 0,
-                                                             aerobicPtc: Float(workout.prevAerobicPtc ?? 100.0),
-                                                             anaerobicPtc: Float(workout.prevAnaerobicPtc ?? 100.0),
-                                                             staminaLevel: -1,
-                                                             teAerobic: 0,
-                                                             teAnaerobic: 0,
-                                                             teStamina: 0,
-                                                             kcal: 0,
-                                                             distance: 0,
-                                                             elapsedSecond: 0,
-                                                             checkSum: workout.workoutInitDetail.filter { $0.typeId == .run }.first?.checksum ?? "",
-                                                             sportType: 31)
-                        let percentageArr = GMKitManager.shared.getPercentageAfterRecovery(
+                        self.userData = data
+                        let _ = GMKitManager.shared.initUser(userData: data, workoutData: workout)
+                        let percentageArr = GMKitManager.kit.getPercentageAfterRecovery(
                             aerobicPtc: Float(workout.prevAerobicPtc ?? 100.0),
                             anaerobicPtc: Float(workout.prevAnaerobicPtc ?? 100.0),
                             elapsedSecond: 0)
@@ -110,8 +99,9 @@ class LiteViewController: UIViewController {
                 print(error)
             }
         }
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 6, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
             switch resultType {
             case .success( _, _, let data):
@@ -120,6 +110,17 @@ class LiteViewController: UIViewController {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is WorkoutViewController {
+            let lastWorkout = realm.objects(RMWorkoutData.self).last ?? RMWorkoutData(value: "")
+            let second = (Date().timeIntervalSince1970 - lastWorkout.timeDate.timeIntervalSince1970)
+            
+            let _ = GMKitManager.shared.initUser(userData: self.userData,
+                                                 workoutData: self.workoutData,
+                                                 second: second)
         }
     }
     
@@ -156,7 +157,8 @@ extension LiteViewController: UITableViewDataSource {
         cell.setLabel(distance: thisData.distanceKm ?? 0.0,
                       time: thisData.timeSeconds ?? 0,
                       date: thisData.timeStart ?? Date(),
-                      stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00))
+                      stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00),
+                      workoutId: thisData.userWorkoutId?.string ?? "")
 
         return cell
     }
