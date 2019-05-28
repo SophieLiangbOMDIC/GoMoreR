@@ -27,28 +27,35 @@ class LiteViewController: UIViewController {
     
     @IBAction func tapStartButton(_ sender: Any) {
         
-        BTManager.shared.scan(type: [.hr, .cadence, .power]) { (isPowerOn) in
+        BTManager.shared.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
+            guard let self = self else { return }
             if isPowerOn {
-                self.showBlur()
-                
-                if let vc = self.storyboard?.instantiateViewController(withClass: PairViewController.self) {
-                    self.addChild(vc)
-                    self.view.addSubview(vc.view)
-                    vc.tableView.frame = CGRect(x: 0,
-                                                y: self.view.frame.height,
-                                                width: vc.tableView.frame.width,
-                                                height: vc.tableView.frame.height)
+                DispatchQueue.main.async {
+                    self.showBlur()
                     
-                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
+                    if let vc = self.storyboard?.instantiateViewController(withClass: PairViewController.self) {
+                        
+                        self.addChild(vc)
+                        self.view.addSubview(vc.view)
                         vc.tableView.frame = CGRect(x: 0,
-                                                    y: self.view.frame.minY,
+                                                    y: self.view.frame.height,
                                                     width: vc.tableView.frame.width,
                                                     height: vc.tableView.frame.height)
-                    }, completion: { finished in
-                    })
+                        
+                        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
+                            vc.tableView.frame = CGRect(x: 0,
+                                                        y: self.view.frame.minY,
+                                                        width: vc.tableView.frame.width,
+                                                        height: vc.tableView.frame.height)
+                        }, completion: { finished in
+                        })
+                    }
                 }
+                
             } else {
-                self.showAlert(title: "請開啟藍芽", message: nil)
+                DispatchQueue.main.async {
+                    self.showAlert(title: "請開啟藍芽", message: nil)
+                }
             }
         }
         
@@ -61,6 +68,9 @@ class LiteViewController: UIViewController {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        
+        blurView = UIView(frame: view.frame)
+        blurView = blurView?.blur()
         
         ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
             switch resultType {
@@ -114,10 +124,6 @@ class LiteViewController: UIViewController {
     }
     
     func showBlur() {
-        if blurView == nil {
-            blurView = UIView(frame: view.frame)
-            blurView = blurView?.blur()
-        }
         if let blur = blurView {
             blur.alpha = 0
             view.addSubview(blur)
