@@ -8,6 +8,7 @@
 
 import UIKit
 import GMBluetoothSDK
+import GMServerSDK
 
 class PairViewController: UIViewController {
     
@@ -135,9 +136,7 @@ extension PairViewController: GMBTManagerDelegate {
     }
     
     func hrConnected(btsdkHr: GMBTHr) {
-        self.showAlert(title: "已連上藍芽裝置", message: btsdkHr.name ?? "") { index in
-            self.close()
-        }
+        
     }
     
     func cadenceConnected(btsdkCadence: GMBTCadence) {
@@ -153,7 +152,13 @@ extension PairViewController: GMBTManagerDelegate {
     }
     
     func sensorHr(hr: Int) {
-        
+        if hr > 0 {
+            self.showAlert(title: "已連上藍芽裝置", message: "") { index in
+                self.close()
+            }
+        } else {
+            self.showAlert(title: "無法取得心率", message: "")
+        }
     }
     
     func sensorCadence(cadence: Int) {
