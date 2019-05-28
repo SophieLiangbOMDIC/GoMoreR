@@ -11,11 +11,26 @@ import UIKit
 import GMBluetoothSDK
 import CoreLocation
 import RealmSwift
+import GMServerSDK
 
 class WorkoutViewController: UIViewController {
 
     @IBAction func tapFinishButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.stopTimer()
+        self.upload {
+            ServerManager.sdk.calculateWorkout(userWorkoutId: self.vm.workoutId, completionHandler: { (resultType) in
+                switch resultType {
+                case .success(let status):
+                    print(status)
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            })
+        }
     }
     @IBOutlet weak var staminaLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -26,7 +41,8 @@ class WorkoutViewController: UIViewController {
     var time: Int = 0
     var stamina: Float = 1
     let locationManager = CLLocationManager()
-    let workoutData = RMWorkoutData()
+    let workoutFinal = RMWorkoutFinal()
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +50,14 @@ class WorkoutViewController: UIViewController {
         tableView.isScrollEnabled = false
         
         BTManager.shared.delegate = self
+        
+        // MARK: set location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
+        // MARK: set waveView
         let height = waveView.frame.height * CGFloat(stamina)
         let wave = WaveView(frame: CGRect(x: 0,
                                           y: waveView.frame.height - height,
@@ -47,14 +66,21 @@ class WorkoutViewController: UIViewController {
         wave.waveCurvature = 3
         waveView.addSubview(wave)
         
-        let realm = try! Realm()
+        // MARK: write WorkoutFinal into realm
+        workoutFinal.timeStart = Date()
+        let workoutDatas = self.realm.objects(RMWorkoutData.self)
+
+        try! realm.write {
+            realm.delete(workoutDatas)
+            realm.add(workoutFinal)
+        }
         
         timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
         timer.schedule(deadline: .now(), repeating: .seconds(1))
         timer.setEventHandler { [weak self] in
             guard let self = self else { return }
             
-            let _ = GMKitManager.shared.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
+            let _ = GMKitManager.kit.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
                                                  timerSec: self.time,
                                                  hrRaw: self.vm.hr,
                                                  speed: -1,
@@ -67,7 +93,7 @@ class WorkoutViewController: UIViewController {
             self.vm.rows[0] = (type: .time, data: data)
 
             // MARK: update distance
-            self.vm.distance = GMKitManager.shared.updateRoute(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
+            self.vm.distance = GMKitManager.kit.updateRoute(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
                                                                timerSec: self.time,
                                                                longitude: self.vm.longitude,
                                                                latitude: self.vm.latitude,
@@ -75,10 +101,10 @@ class WorkoutViewController: UIViewController {
             print(self.time)
             
             // MARK: update zone
-            self.vm.zone = GMKitManager.shared.hrZone(hrRaw: self.vm.hr)
+            self.vm.zone = GMKitManager.kit.hrZone(hrRaw: self.vm.hr)
 
             // MARK: update stamina
-            self.stamina = GMKitManager.shared.stamina()
+            self.stamina = GMKitManager.kit.stamina()
             
             self.vm.updateData()
             DispatchQueue.main.async {
@@ -92,31 +118,73 @@ class WorkoutViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 
+                guard self.vm.hr > 0 else { return }
                 let workoutData = RMWorkoutData()
                 workoutData.timeDate = Date()
                 workoutData.seconds = self.time
                 workoutData.hr = self.vm.hr
                 workoutData.hrZone = self.vm.zone
-                workoutData.kcal = GMKitManager.shared.kcal()
+                workoutData.kcal = GMKitManager.kit.kcal()
                 workoutData.latitude = self.vm.latitude
-                workoutData.longtitude = self.vm.longitude
-                try! realm.write {
-                    realm.add(workoutData)
+                workoutData.longitude = self.vm.longitude
+                workoutData.altitude = self.vm.altitude
+                try! self.realm.write {
+                    self.realm.add(workoutData)
                 }
-
             }
         }
         timer.resume()
     }
     
     func stopTimer() {
+        guard self.timer != nil else { return }
         timer.cancel()
         timer = nil
     }
     
-    deinit {
-        timer.setEventHandler { }
-        timer.cancel()
+    func upload(completionHandler: @escaping () -> Void) {
+        var dataArray: [[String: Any]] = []
+        
+        let workoutDataArr = realm.objects(RMWorkoutData.self)
+        for workoutData in workoutDataArr {
+            dataArray.append(workoutData.toDict())
+        }
+        let dataJson = (try? JSONSerialization.data(withJSONObject: dataArray, options: .prettyPrinted)) ?? Data()
+        let dataJsonString = String(data: dataJson, encoding: .utf8) ?? ""
+        
+        let requestData = GMSRequestWorkout(typeId: .run,
+                                            timeStart: Date(),
+                                            timeSeconds: self.time,
+                                            timeSecondsRecovery: 0,
+                                            kcal: Int(GMKitManager.kit.kcal()) < 0 ? 0 : Int(GMKitManager.kit.kcal()),
+                                            kcalMax: 0,
+                                            distanceKm: self.vm.distance,
+                                            distanceKmMax: self.vm.distance,
+                                            questionBreath: GMSBreath.easy,
+                                            questionMuscle: GMSMuscle.fine,
+                                            questionRpe: GMSRpe.easy,
+                                            appVersion: "0.1.0",
+                                            missionName: GMSMissionName.calBasic,
+                                            missionStatus: GMSMissionStatus.success,
+                                            teStamina: GMKitManager.kit.teStamina(),
+                                            teAer: GMKitManager.kit.teAerobic(),
+                                            teAnaer: GMKitManager.kit.teAnaerobic(),
+                                            sdkVersion: GMKitManager.kit.version(),
+                                            weatherJson: "",
+                                            dataJson: dataJsonString,
+                                            debugJson: "")
+        ServerManager.sdk.uploadWorkout(requestData: requestData) { (resultType) in
+            switch resultType {
+            case .success(let workoutId):
+                print(workoutId)
+                self.vm.workoutId = workoutId.int ?? 0
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+            completionHandler()
+        }
     }
 }
 
