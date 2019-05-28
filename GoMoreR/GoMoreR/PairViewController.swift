@@ -135,15 +135,17 @@ extension PairViewController: GMBTManagerDelegate {
     }
     
     func hrConnected(btsdkHr: GMBTHr) {
-        close()
+        self.showAlert(title: "已連上藍芽裝置", message: btsdkHr.name ?? "") { index in
+            self.close()
+        }
     }
     
     func cadenceConnected(btsdkCadence: GMBTCadence) {
-        close()
+
     }
     
     func powerConnected(btsdkPower: GMBTPower) {
-        close()
+
     }
     
     func sensorInfo() {
