@@ -57,6 +57,8 @@ extension GMSManager {
                         if status == "0" {
                             let workoutId = result["user_workout_id"] as? String ?? ""
                             completionHandler(.success(workoutId))
+                        } else {
+                            completionHandler(.failure(.statusError(code: Int(status) ?? -1)))
                         }
                      case .failure(_):
                         completionHandler(.failure(.noData))

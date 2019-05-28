@@ -142,14 +142,11 @@ extension WorkoutViewController: UITableViewDelegate {
 }
 
 extension WorkoutViewController: GMBTManagerDelegate {
-    
+    func disconnect(type: GMBTSensorType) { }
     func managerPowerOff() { }
     func hrConnected(btsdkHr: GMBTHr) { }
     func cadenceConnected(btsdkCadence: GMBTCadence) { }
     func powerConnected(btsdkPower: GMBTPower) { }
-    func hrDisconnect() { }
-    func cadenceDisconnect() { }
-    func powerDisconnect() { }
     func sensorInfo() { }
     
     func sensorHr(hr: Int) {

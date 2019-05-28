@@ -1,6 +1,6 @@
 {
   "name": "GMServerSDK",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "summary": "GMServerSDK",
   "swift_version": "5.0",
   "source_files": [
@@ -18,7 +18,7 @@
   },
   "source": {
     "git": "https://github.com/bOMDIC/Kit_iOS_ServerAPI.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "exclude_files": "Classes/Exclude",
   "dependencies": {

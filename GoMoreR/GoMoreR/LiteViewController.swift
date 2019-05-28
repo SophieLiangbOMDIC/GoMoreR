@@ -27,30 +27,31 @@ class LiteViewController: UIViewController {
     
     @IBAction func tapStartButton(_ sender: Any) {
         
-        BTManager.shared.scan(type: [.hr, .cadence, .power], poweredOff: {
-            
-        }, poweredOn: {
-            self.showBlur()
-        
-            if let vc = self.storyboard?.instantiateViewController(withClass: PairViewController.self) {
-                self.addChild(vc)
-                self.view.addSubview(vc.view)
-                vc.tableView.frame = CGRect(x: 0,
-                                            y: self.view.frame.height,
-                                            width: vc.tableView.frame.width,
-                                            height: vc.tableView.frame.height)
+        BTManager.shared.scan(type: [.hr, .cadence, .power]) { (isPowerOn) in
+            if isPowerOn {
+                self.showBlur()
                 
-                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
+                if let vc = self.storyboard?.instantiateViewController(withClass: PairViewController.self) {
+                    self.addChild(vc)
+                    self.view.addSubview(vc.view)
                     vc.tableView.frame = CGRect(x: 0,
-                                                y: self.view.frame.minY,
+                                                y: self.view.frame.height,
                                                 width: vc.tableView.frame.width,
                                                 height: vc.tableView.frame.height)
-                }, completion: { finished in
-                })
+                    
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
+                        vc.tableView.frame = CGRect(x: 0,
+                                                    y: self.view.frame.minY,
+                                                    width: vc.tableView.frame.width,
+                                                    height: vc.tableView.frame.height)
+                    }, completion: { finished in
+                    })
+                }
+            } else {
+                self.showAlert(title: "請開啟藍芽", message: nil)
             }
-        }, poweredOther: {
-            
-        })
+        }
+        
     }
     
     var data: [GMSResponseWorkout] = []
@@ -61,17 +62,13 @@ class LiteViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         
-        let realm = try! Realm()
-        let workoutDatas = realm.objects(RMWorkoutData.self)
-        print(workoutDatas)
-        
         ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
             switch resultType {
             case .success(let workout):
                 ServerManager.sdk.getUser { (resultType) in
                     switch resultType {
                     case .success(let data):
-                        let s = GMKitManager.shared.initUser(age: (data.birthday ?? Date()).age(),
+                        let _ = GMKitManager.shared.initUser(age: (data.birthday ?? Date()).age(),
                                                              gender: data.gender == "male" ? 1: 0,
                                                              heightCm: data.heightCm ?? 0,
                                                              weightKg: data.weightKg ?? 0,
@@ -88,7 +85,6 @@ class LiteViewController: UIViewController {
                                                              elapsedSecond: 0,
                                                              checkSum: workout.workoutInitDetail.filter { $0.typeId == .run }.first?.checksum ?? "",
                                                              sportType: 31)
-                        print(s)
                         let percentageArr = GMKitManager.shared.getPercentageAfterRecovery(
                             aerobicPtc: Float(workout.prevAerobicPtc ?? 100.0),
                             anaerobicPtc: Float(workout.prevAnaerobicPtc ?? 100.0),
@@ -108,7 +104,6 @@ class LiteViewController: UIViewController {
         
         ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 6, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
             switch resultType {
-                
             case .success( _, _, let data):
                 self.data = data
                 self.tableView.reloadData()

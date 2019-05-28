@@ -38,7 +38,7 @@ class GMBTSaveUUIDs: NSObject {
         }
     }
     
-    func deleteUUIDArray(uuid: String) {
+    func deleteUUID(uuid: String) {
         uuidArray.removeAll(where: { $0 == uuid })
         
         let userDefaults = UserDefaults.standard

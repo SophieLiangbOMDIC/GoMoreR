@@ -68,17 +68,7 @@ public class GMBTSensor: NSObject {
     private var cadence = -1
     private var crankArray: [Int] = []
     private var secondTimeCrankArray: [Double] = []
-    
-    //連線成功
-    class func success(sensor: GMBTSensor) {
-        if sensor.reconnectTimer != nil {
-            sensor.reconnectTimer?.invalidate()
-            sensor.reconnectTimer = nil
-        }
         
-        sensor.state = GMBTSensorState.connected
-    }
-    
     func calCadence(nowCrank: Int, nowSecondTimeCrank:Double) -> Int {
         var tCadence = 0
 

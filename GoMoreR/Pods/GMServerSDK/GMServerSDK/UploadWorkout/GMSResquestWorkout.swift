@@ -18,8 +18,8 @@ public class GMSRequestWorkout {
     public var commentDescription: String?
     public var kcal: Int
     public var kcalMax: Int
-    public var distanceKm: Double
-    public var distanceKmMax: Double
+    public var distanceKm: Float
+    public var distanceKmMax: Float
     public var questionBreath: String
     public var questionMuscle: String
     public var questionRpe: String
@@ -28,16 +28,16 @@ public class GMSRequestWorkout {
     public var missionStatus: Int
     public var missionError: String?
     public var teTarget: String?
-    public var teStamina: Double
-    public var teAer: Double
-    public var teAnaer: Double
+    public var teStamina: Float
+    public var teAer: Float
+    public var teAnaer: Float
     public var sdkVersion: String?
     public var userSensor: String?
     public var weatherJson: String?
     public var dataJson: String?
     public var debugJson: String?
     
-    public init(typeId: GMSTypeId, timeStart: Date, timeSeconds: Int, timeSecondsRecovery: Int, commentTitle: String? = nil, commentDescription: String? = nil, kcal: Int, kcalMax: Int, distanceKm: Double, distanceKmMax: Double, questionBreath: GMSBreath, questionMuscle: GMSMuscle, questionRpe: GMSRpe, appVersion: String, missionName: GMSMissionName, missionStatus: GMSMissionStatus, missionError: String? = nil, teTarget: String? = nil, teStamina: Double, teAer: Double, teAnaer: Double, sdkVersion: String? = nil, userSensor: String? = nil, weatherJson: String? = nil, dataJson: String? = nil, debugJson: String? = nil) {
+    public init(typeId: GMSTypeId, timeStart: Date, timeSeconds: Int, timeSecondsRecovery: Int, commentTitle: String? = nil, commentDescription: String? = nil, kcal: Int, kcalMax: Int, distanceKm: Float, distanceKmMax: Float, questionBreath: GMSBreath, questionMuscle: GMSMuscle, questionRpe: GMSRpe, appVersion: String, missionName: GMSMissionName, missionStatus: GMSMissionStatus, missionError: String? = nil, teTarget: String? = nil, teStamina: Float, teAer: Float, teAnaer: Float, sdkVersion: String? = nil, userSensor: String? = nil, weatherJson: String? = nil, dataJson: String? = nil, debugJson: String? = nil) {
         self.typeId = typeId
         self.timeStart = timeStart
         self.timeSecondsRecovery = timeSecondsRecovery

@@ -32,9 +32,7 @@ public protocol GMBTManagerDelegate {
     func cadenceConnected(btsdkCadence: GMBTCadence)
     func powerConnected(btsdkPower: GMBTPower)
     
-    func hrDisconnect()
-    func cadenceDisconnect()
-    func powerDisconnect()
+    func disconnect(type: GMBTSensorType)
     
     func sensorInfo()
     func sensorHr(hr: Int)
@@ -80,16 +78,13 @@ public class GMBTManager: NSObject {
     var serviceArray: [CBUUID] = []
     var clearTimer: Timer?
     
-    var isPoweredOff = false
     var isPoweredOn = false
     
     var saveUUIDs: GMBTSaveUUIDs?
     
     //目前藍芽狀況
     public func scan(type: [GMBTSensorType],
-                     poweredOff: @escaping () -> Void,
-                     poweredOn: @escaping () -> Void,
-                     poweredOther: @escaping () -> Void)
+                     poweredHandle: @escaping (Bool) -> Void)
     {
         if centralManager == nil {
             centralManager = CBCentralManager(delegate: self, queue: nil)
@@ -127,53 +122,34 @@ public class GMBTManager: NSObject {
             }
         }
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
-            timer.invalidate()
-
-            if self.isPoweredOff {
-                poweredOff()
-            }
-            else if self.isPoweredOn {
-                poweredOn()
-            }
-            else {
-                poweredOther()
-            }
-        })
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1) {
+            poweredHandle(self.isPoweredOn)
+        }
+        
     }
     
     //連線
     public func connect(sensor: GMBTSensor, type: GMBTSensorType) {
-        var isConnectSensor = false
-        switch type {
-        case .hr:
-            isConnectSensor = isConnect(sensorArray: self.hrArray)
-            
-        case .cadence:
-            isConnectSensor = isConnect(sensorArray: self.cadenceArray)
-            
-        case .power:
-            isConnectSensor = isConnect(sensorArray: self.powerArray)
-        }
-        
-        if !(self.isPairOne && isConnectSensor) {
-            if sensor.state == .disconnect { sensor.state = .connecting }
-            centralManager?.connect(sensor.peripheral!, options: nil)
+        if !(self.isPairOne && (sensor.state == .connected || sensor.state == .connecting)) {
+            if let peripheral = sensor.peripheral {
+                sensor.state = .connecting
+                centralManager?.connect(peripheral, options: nil)
+            }
         }
     }
     
     //主動斷線
     public func disconnect(sensor: GMBTSensor) {
-        if sensor.state == GMBTSensorState.connected, let peripheral = sensor.peripheral {
+        if sensor.state == .connected, let peripheral = sensor.peripheral {
             centralManager?.cancelPeripheralConnection(peripheral)
         }
-        else if sensor.state == GMBTSensorState.reconnect {
-            sensor.state = GMBTSensorState.disconnect
+        else if sensor.state == .reconnect {
+            sensor.state = .disconnect
             sensor.reconnectTimer?.invalidate()
             sensor.reconnectTimer = nil
         }
         
-        saveUUIDs?.deleteUUIDArray(uuid: sensor.uuid ?? "")
+        saveUUIDs?.deleteUUID(uuid: sensor.uuid ?? "")
     }
     
     //取得電量
@@ -186,18 +162,14 @@ public class GMBTManager: NSObject {
     func scanSetting() {
         let array = self.centralManager?.retrieveConnectedPeripherals(withServices: [CBUUID(string: UUID_SCAN_HR)]) ?? []
         for item in array {
-            //print(item.name, item.identifier.description)
-            
-            if let name = item.name {
-                if let sensorName = filterName(name: name, isScanGoMore: self.isScanGoMore) {
-                    saveSensor(type: .hr, name: sensorName, peripheral: item)
-                }
+            if let name = item.name, let sensorName = filterName(name: name, isScanGoMore: self.isScanGoMore) {
+                saveSensor(type: .hr, name: sensorName, peripheral: item)
             }
         }
     }
     
-    func filterFrom(sensorArray: [GMBTSensor] , uuid: String) -> GMBTSensor? {
-        return sensorArray.filter { $0.uuid == uuid }.first
+    func filterSensor(from array: [GMBTSensor] , uuid: String) -> GMBTSensor? {
+        return array.filter { $0.uuid == uuid }.first
     }
     
     //全部設成斷線
@@ -205,18 +177,6 @@ public class GMBTManager: NSObject {
         for btsensor in sensorArray {
             btsensor.state = .disconnect
         }
-    }
-    
-    //是否已經連線
-    func isConnect(sensorArray: [GMBTSensor]) -> Bool {
-        var isConnected = false
-        for btsensor in sensorArray {
-            if btsensor.state == .connected || btsensor.state == .connecting {
-                isConnected = true
-                break
-            }
-        }
-        return isConnected
     }
     
     func filterName(name: String, isScanGoMore: Bool) -> String? {
@@ -239,7 +199,7 @@ public class GMBTManager: NSObject {
         return sensorName
     }
     
-    func saveSensor(type: GMBTSensorType, name: String, peripheral: CBPeripheral) {
+    private func saveSensor(type: GMBTSensorType, name: String, peripheral: CBPeripheral) {
         switch type {
         case .hr:
             if !hrArray.contains(where: { $0.name == name }) {
@@ -261,21 +221,31 @@ public class GMBTManager: NSObject {
         }
     }
     
-    func getSensor(uuid: String) -> GMBTSensor? {
+    private func getSensor(uuid: String) -> GMBTSensor? {
         var sensor: GMBTSensor?
         
-        if let btsdkHr = filterFrom(sensorArray: hrArray, uuid: uuid) {
+        if let btsdkHr = filterSensor(from: hrArray, uuid: uuid) {
             sensor = btsdkHr
         }
-        else if let btsdkCadence = filterFrom(sensorArray: cadenceArray, uuid: uuid) {
+        else if let btsdkCadence = filterSensor(from: cadenceArray, uuid: uuid) {
             sensor = btsdkCadence
         }
-        else if let btsdkPower = filterFrom(sensorArray: powerArray, uuid: uuid) {
+        else if let btsdkPower = filterSensor(from: powerArray, uuid: uuid) {
             sensor = btsdkPower
         }
         
         return sensor
     }
+    
+    //連線成功
+    private func success(sensor: GMBTSensor) {
+        if sensor.reconnectTimer != nil {
+            sensor.reconnectTimer?.invalidate()
+            sensor.reconnectTimer = nil
+        }
+        sensor.state = GMBTSensorState.connected
+    }
+
 }
 
 extension GMBTManager: CBCentralManagerDelegate {
@@ -284,7 +254,7 @@ extension GMBTManager: CBCentralManagerDelegate {
         switch central.state {
         case .poweredOff:
             print("poweredOff")
-            isPoweredOff = true
+            isPoweredOn = false
             
             //停止掃描
             if let manager = centralManager, manager.isScanning {
@@ -322,7 +292,7 @@ extension GMBTManager: CBCentralManagerDelegate {
         if let sensorName = advertisementData["kCBAdvDataLocalName"] as? String,
            let uuid = advertisementData["kCBAdvDataServiceUUIDs"] as? [Any] {
             //print(sensorName, RSSI)
-            
+        
             //過濾Sensor Name
             let info = uuid.description.lowercased()
             if info.contains("heart") {
@@ -344,13 +314,13 @@ extension GMBTManager: CBCentralManagerDelegate {
             //如果已經連線過，主動連線
             let uuid = peripheral.identifier.uuidString
             if let saveUUIDs = saveUUIDs, saveUUIDs.findUUIDFromUUIDArray(uuid: uuid) {
-                if let btsdkHr = filterFrom(sensorArray: hrArray, uuid: uuid) {
+                if let btsdkHr = filterSensor(from: hrArray, uuid: uuid) {
                     connect(sensor: btsdkHr, type: .hr)
                 }
-                else if let btsdkCadence = filterFrom(sensorArray: cadenceArray, uuid: uuid) {
+                else if let btsdkCadence = filterSensor(from: cadenceArray, uuid: uuid) {
                     connect(sensor: btsdkCadence, type: .cadence)
                 }
-                else if let btsdkPower = filterFrom(sensorArray: powerArray, uuid: uuid) {
+                else if let btsdkPower = filterSensor(from: powerArray, uuid: uuid) {
                     connect(sensor: btsdkPower, type: .power)
                 }
             }
@@ -378,19 +348,17 @@ extension GMBTManager: CBCentralManagerDelegate {
         print("didDisconnectPeripheral")
         
         let uuid = peripheral.identifier.uuidString
-        if let btsdkHr = filterFrom(sensorArray: hrArray, uuid: uuid) {
+        if let btsdkHr = filterSensor(from: hrArray, uuid: uuid) {
             doReconnectTimer(sensor: btsdkHr, type: .hr)
-            self.delegate?.hrDisconnect()
-        }
-        
-        if let btsdkCadence = filterFrom(sensorArray: cadenceArray, uuid: uuid) {
+            self.delegate?.disconnect(type: .hr)
+            
+        } else if let btsdkCadence = filterSensor(from: cadenceArray, uuid: uuid) {
             doReconnectTimer(sensor: btsdkCadence, type: .cadence)
-            self.delegate?.cadenceDisconnect()
-        }
-        
-        if let btsdkPower = filterFrom(sensorArray: powerArray, uuid: uuid) {
+            self.delegate?.disconnect(type: .cadence)
+            
+        } else if let btsdkPower = filterSensor(from: powerArray, uuid: uuid) {
             doReconnectTimer(sensor: btsdkPower, type: .power)
-            self.delegate?.powerDisconnect()
+            self.delegate?.disconnect(type: .power)
         }
     }
     
@@ -431,20 +399,20 @@ extension GMBTManager: CBPeripheralDelegate {
         //成功連線
         var sensor: GMBTSensor?
         let uuid = peripheral.identifier.uuidString
-        if let btsdkHr = filterFrom(sensorArray: hrArray, uuid: uuid) as? GMBTHr {
+        if let btsdkHr = filterSensor(from: hrArray, uuid: uuid) as? GMBTHr {
             self.delegate?.hrConnected(btsdkHr: btsdkHr)
             sensor = btsdkHr
         }
-        else if let btsdkCadence = filterFrom(sensorArray: cadenceArray, uuid: uuid) as? GMBTCadence {                self.delegate?.cadenceConnected(btsdkCadence: btsdkCadence)
+        else if let btsdkCadence = filterSensor(from: cadenceArray, uuid: uuid) as? GMBTCadence {                self.delegate?.cadenceConnected(btsdkCadence: btsdkCadence)
             sensor = btsdkCadence
         }
-        else if let btsdkPower = filterFrom(sensorArray: powerArray, uuid: uuid) as? GMBTPower {
+        else if let btsdkPower = filterSensor(from: powerArray, uuid: uuid) as? GMBTPower {
             self.delegate?.powerConnected(btsdkPower: btsdkPower)
             sensor = btsdkPower
         }
         
         if let sensor = sensor {
-            GMBTSensor.success(sensor: sensor)
+            success(sensor: sensor)
             saveUUIDs?.saveToUUIDArray(uuid: sensor.uuid ?? "")
         }
     }
@@ -480,7 +448,7 @@ extension GMBTManager: CBPeripheralDelegate {
                 peripheral.setNotifyValue(true, for: characteristic)
                 
             case "6E400002-B5A3-F393-E0A9-E50E24DCCA9E":
-                if let hrUrun = filterFrom(sensorArray: hrArray, uuid: uuid) as? GMBTHrUrun {
+                if let hrUrun = filterSensor(from: hrArray, uuid: uuid) as? GMBTHrUrun {
                     hrUrun.urunCharacteristic = characteristic
                 }
                 
@@ -495,97 +463,82 @@ extension GMBTManager: CBPeripheralDelegate {
         //print("data: ", characteristic.value)
         //print("didUpdateValueFor", characteristic.uuid.uuidString)
         
-        if let data = characteristic.value {
+        guard let data = characteristic.value else { return }
             
-            var values = [UInt8](repeating:0, count:data.count)
-            data.copyBytes(to: &values, count: data.count)
+        var values = [UInt8](repeating:0, count:data.count)
+        data.copyBytes(to: &values, count: data.count)
+        
+        let uuid = peripheral.identifier.uuidString
+        
+        switch characteristic.uuid.uuidString {
             
-            let uuid = peripheral.identifier.uuidString
-            
-            switch characteristic.uuid.uuidString {
-                
-            case UUID_MODEL:
-                if let model = String(data: data, encoding: .utf8) {
-                    print("model", model)
-                    
-                    if let sensor = getSensor(uuid: uuid) {
-                        sensor.model = model
-                        self.delegate?.sensorInfo()
-                    }
-                }
-                
-            case UUID_SERIAL:
-                if let serial:String = String(data: data, encoding: .utf8) {
-                    print("serial", serial)
-                    
-                    if let sensor = getSensor(uuid: uuid) {
-                        sensor.serial = serial
-                        self.delegate?.sensorInfo()
-                    }
-                }
-                
-            case UUID_FIRMWARE:
-                if let firmware:String = String(data: data, encoding: .utf8) {
-                    print("firmware", firmware)
-                    
-                    if let sensor = getSensor(uuid: uuid) {
-                        sensor.firmware = firmware
-                        self.delegate?.sensorInfo()
-                    }
-                }
-                
-            case UUID_BATTERY:
-                let battery = Int(values[0])
-                print("battery", battery)
-
-                if let sensor = getSensor(uuid: uuid) {
-                    sensor.battery = battery
-                    self.delegate?.sensorInfo()
-                    
-                    //咕咚
-                    if let name = sensor.name, (name == "COD_WATCH" || name == "COD_BAND") && values.count >= 9, let codoonHr = sensor as? GMBTHr {
-                        codoonHr.hr = Int(values[8])
-                        self.delegate?.sensorHr(hr: codoonHr.hr)
-                    }
-                }
-                
-            case UUID_HR:
-                let hr = Int(values[1])
-            
-                if let btsdkHr = filterFrom(sensorArray: hrArray, uuid: uuid) as? GMBTHr {
-                    btsdkHr.hr = hr
-                    self.delegate?.sensorHr(hr: btsdkHr.hr)
-                }
-                
-            case "6E400003-B5A3-F393-E0A9-E50E24DCCA9E":
-                //let string:String = String(data: data!, encoding: .utf8)!
-                //print("E50E24DCCA9E", string)
-                //print(values)
-
-                let hexString = NSMutableString()
-                for byte in values {
-                    hexString.appendFormat("%02x", UInt(byte))
-                }
-            
-                if let hrUrun = filterFrom(sensorArray: hrArray, uuid: uuid) as? GMBTHrUrun {
-                    hrUrun.urunData(hexString: hexString as String)
-                }
-                
-            case UUID_CADENCE:
-                if let btsdkCadence = filterFrom(sensorArray: cadenceArray, uuid: uuid) as? GMBTCadence {
-                    btsdkCadence.values = values
-                    self.delegate?.sensorCadence(cadence: btsdkCadence.cadence)
-                }
-                
-            case UUID_POWER:
-                if let btsdkPower = filterFrom(sensorArray: powerArray, uuid: uuid) as? GMBTPower {
-                    btsdkPower.values = values
-                    self.delegate?.sensorPower(power: btsdkPower.power)
-                }
-                
-            default:
-                break
+        case UUID_MODEL:
+            if let model = String(data: data, encoding: .utf8), let sensor = getSensor(uuid: uuid) {
+                print("model", model)
+                sensor.model = model
+                self.delegate?.sensorInfo()
             }
+            
+        case UUID_SERIAL:
+            if let serial:String = String(data: data, encoding: .utf8), let sensor = getSensor(uuid: uuid) {
+                print("serial", serial)
+                sensor.serial = serial
+                self.delegate?.sensorInfo()
+            }
+            
+        case UUID_FIRMWARE:
+            if let firmware:String = String(data: data, encoding: .utf8), let sensor = getSensor(uuid: uuid) {
+                print("firmware", firmware)
+                sensor.firmware = firmware
+                self.delegate?.sensorInfo()
+            }
+            
+        case UUID_BATTERY:
+            if let sensor = getSensor(uuid: uuid) {
+                print("battery", Int(values[0]))
+                sensor.battery = Int(values[0])
+                self.delegate?.sensorInfo()
+                
+                //咕咚
+                if let name = sensor.name,
+                    (name == "COD_WATCH" || name == "COD_BAND") && values.count >= 9,
+                    let codoonHr = sensor as? GMBTHr {
+                    codoonHr.hr = Int(values[8])
+                    self.delegate?.sensorHr(hr: codoonHr.hr)
+                }
+            }
+            
+        case UUID_HR:
+            if let btsdkHr = filterSensor(from: hrArray, uuid: uuid) as? GMBTHr {
+                btsdkHr.hr = Int(values[1])
+                self.delegate?.sensorHr(hr: btsdkHr.hr)
+            }
+            
+        case "6E400003-B5A3-F393-E0A9-E50E24DCCA9E":
+            let hexString = NSMutableString()
+            for byte in values {
+                hexString.appendFormat("%02x", UInt(byte))
+            }
+        
+            if let hrUrun = filterSensor(from: hrArray, uuid: uuid) as? GMBTHrUrun {
+                hrUrun.urunData(hexString: hexString as String)
+            }
+            
+        case UUID_CADENCE:
+            if let btsdkCadence = filterSensor(from: cadenceArray, uuid: uuid) as? GMBTCadence {
+                btsdkCadence.values = values
+                self.delegate?.sensorCadence(cadence: btsdkCadence.cadence)
+            }
+            
+        case UUID_POWER:
+            if let btsdkPower = filterSensor(from: powerArray, uuid: uuid) as? GMBTPower {
+                btsdkPower.values = values
+                self.delegate?.sensorPower(power: btsdkPower.power)
+            }
+            
+        default:
+            break
+        
         }
     }
 }

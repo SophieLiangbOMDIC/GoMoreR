@@ -125,6 +125,11 @@ extension PairViewController: UITableViewDelegate {
 
 extension PairViewController: GMBTManagerDelegate {
     
+    func disconnect(type: GMBTSensorType) {
+        
+    }
+    
+    
     func managerPowerOff() {
         
     }
@@ -139,18 +144,6 @@ extension PairViewController: GMBTManagerDelegate {
     
     func powerConnected(btsdkPower: GMBTPower) {
         close()
-    }
-    
-    func hrDisconnect() {
-        
-    }
-    
-    func cadenceDisconnect() {
-        
-    }
-    
-    func powerDisconnect() {
-        
     }
     
     func sensorInfo() {
