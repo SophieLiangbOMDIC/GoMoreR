@@ -37,12 +37,6 @@ class WorkoutViewModel {
     }
     
     var rows: [(type: CellType, data: String)]
-    var mockData: (distance: Double, speed: Double, heartRate: Int, zone: Int) = {
-        return (distance: Double.random(in: 1...18),
-                speed: Double.random(in: 3...15),
-                heartRate: Int.random(in: 60...200),
-                zone: Int.random(in: 1...5))
-    }()
     var longitude: Double = -1
     var latitude: Double = -1
     var altitude: Double = -1
