@@ -12,13 +12,29 @@ import GMBluetoothSDK
 import CoreLocation
 import RealmSwift
 import GMServerSDK
+import CoreMotion
 
 class WorkoutViewController: UIViewController {
 
-    @IBAction func tapFinishButton(_ sender: UIButton) {
+    @IBAction func tapBackButton(_ sender: Any) {
+        motionManager.stopAccelerometerUpdates()
         self.stopTimer()
+        GMKitManager.kit.stopSession()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func tapFinishButton(_ sender: UIButton) {
+        sender.isEnabled = false
+        self.stopTimer()
+        motionManager.stopAccelerometerUpdates()
         self.upload {
             ServerManager.sdk.calculateWorkout(userWorkoutId: self.vm.workoutId, completionHandler: { (resultType) in
+                
+                GMKitManager.kit.stopSession()
+                
+                DispatchQueue.main.async {
+                    sender.isEnabled = true
+                }
                 switch resultType {
                 case .success(let status):
                     print(status)
@@ -41,7 +57,7 @@ class WorkoutViewController: UIViewController {
     var time: Int = 0
     var stamina: Float = 1
     let locationManager = CLLocationManager()
-    let workoutFinal = RMWorkoutFinal()
+    let motionManager = CMMotionManager()
     let realm = try! Realm()
     
     override func viewDidLoad() {
@@ -66,13 +82,9 @@ class WorkoutViewController: UIViewController {
         wave.waveCurvature = 3
         waveView.addSubview(wave)
         
-        // MARK: write WorkoutFinal into realm
-        workoutFinal.timeStart = Date()
-        let workoutDatas = self.realm.objects(RMWorkoutData.self)
-
+        let workoutDatas = realm.objects(RMWorkoutData.self)
         try! realm.write {
             realm.delete(workoutDatas)
-            realm.add(workoutFinal)
         }
         
         timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
@@ -81,11 +93,11 @@ class WorkoutViewController: UIViewController {
             guard let self = self else { return }
             
             let _ = GMKitManager.kit.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
-                                                 timerSec: self.time,
-                                                 hrRaw: self.vm.hr,
-                                                 speed: -1,
-                                                 cyclingCadence: -1,
-                                                 cyclingPower: -1)
+                                              timerSec: self.time,
+                                              hrRaw: self.vm.hr,
+                                              speed: self.vm.speed == 0 ? -1 : Float(self.vm.speed),
+                                              cyclingCadence: -1,
+                                              cyclingPower: -1)
             
             // MARK: update time
             self.time += 1
@@ -94,10 +106,10 @@ class WorkoutViewController: UIViewController {
 
             // MARK: update distance
             self.vm.distance = GMKitManager.kit.updateRoute(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
-                                                               timerSec: self.time,
-                                                               longitude: self.vm.longitude,
-                                                               latitude: self.vm.latitude,
-                                                               altitude: Float(self.vm.altitude))
+                                                            timerSec: self.time,
+                                                            longitude: self.vm.location.coordinate.longitude,
+                                                            latitude: self.vm.location.coordinate.latitude,
+                                                            altitude: Float(self.vm.location.altitude))
             print(self.time)
             
             // MARK: update zone
@@ -125,15 +137,19 @@ class WorkoutViewController: UIViewController {
                 workoutData.hr = self.vm.hr
                 workoutData.hrZone = self.vm.zone
                 workoutData.kcal = GMKitManager.kit.kcal()
-                workoutData.latitude = self.vm.latitude
-                workoutData.longitude = self.vm.longitude
-                workoutData.altitude = self.vm.altitude
+                workoutData.latitude = self.vm.location.coordinate.latitude
+                workoutData.longitude = self.vm.location.coordinate.longitude
+                workoutData.altitude = self.vm.location.altitude
+                workoutData.speed = self.vm.speed
+                workoutData.distanceKm = self.vm.distance
                 try! self.realm.write {
                     self.realm.add(workoutData)
                 }
             }
         }
         timer.resume()
+        
+        startAcc()
     }
     
     func stopTimer() {
@@ -145,7 +161,7 @@ class WorkoutViewController: UIViewController {
     func upload(completionHandler: @escaping () -> Void) {
         var dataArray: [[String: Any]] = []
         
-        let workoutDataArr = realm.objects(RMWorkoutData.self)
+        let workoutDataArr = realm.objects(RMWorkoutData.self).sorted(byKeyPath: "seconds")
         for workoutData in workoutDataArr {
             dataArray.append(workoutData.toDict())
         }
@@ -156,7 +172,7 @@ class WorkoutViewController: UIViewController {
                                             timeStart: Date(),
                                             timeSeconds: self.time,
                                             timeSecondsRecovery: 0,
-                                            kcal: Int(GMKitManager.kit.kcal()) < 0 ? 0 : Int(GMKitManager.kit.kcal()),
+                                            kcal: GMKitManager.kit.kcal() < 0 ? 0 : Int(GMKitManager.kit.kcal()),
                                             kcalMax: 0,
                                             distanceKm: self.vm.distance,
                                             distanceKmMax: self.vm.distance,
@@ -181,9 +197,43 @@ class WorkoutViewController: UIViewController {
                 
             case .failure(let error):
                 print(error)
-                
             }
             completionHandler()
+        }
+    }
+    
+    func startAcc() {
+        motionManager.accelerometerUpdateInterval = 0.1
+        motionManager.startAccelerometerUpdates(to: OperationQueue.main) { [weak self] (data, error) in
+            guard let self = self else { return }
+            
+            let x = -(data?.acceleration.x ?? 0) * 10
+            let y = -(data?.acceleration.y ?? 0) * 10
+            let z = -(data?.acceleration.z ?? 0) * 10
+            
+            // MARK: update distance and speed
+            let array = GMKitManager.kit.updateRouteFusion(longitude: Float(self.vm.location.coordinate.longitude),
+                                                           latitude: Float(self.vm.location.coordinate.latitude),
+                                                           altitude: Float(self.vm.location.altitude),
+                                                           accuracyHorizon: Float(self.vm.location.horizontalAccuracy),
+                                                           accuracyVertical: Float(self.vm.location.verticalAccuracy),
+                                                           accX: Float(x),
+                                                           accY: Float(y),
+                                                           accZ: Float(z))
+            
+            guard array.count >= 2 else { return }
+            if let distanceStr = array[0] as? String,
+                let distance = distanceStr.double(),
+                distance >= 0 {
+                self.vm.distance = Float(distance)
+            }
+            
+            if let speedStr = array[1] as? String,
+                let speed = speedStr.double(),
+                speed >= 0 {
+                self.vm.speed = speed
+            }
+            
         }
     }
 }
@@ -229,8 +279,6 @@ extension WorkoutViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let loc = locations.last else { return }
-        vm.latitude = loc.coordinate.latitude
-        vm.longitude = loc.coordinate.longitude
-        vm.altitude = loc.altitude
+        vm.location = loc
     }
 }

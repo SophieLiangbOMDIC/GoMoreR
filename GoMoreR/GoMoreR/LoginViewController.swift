@@ -43,10 +43,8 @@ class LoginViewController: UIViewController {
                                 UserDefaults.standard.set(data.attribute, forKey: UserDefaultsKey.attribute.rawValue)
                                 UserDefaults.standard.set(data.secretKey, forKey: UserDefaultsKey.secretKey.rawValue)
                                 UserDefaults.standard.synchronize()
-                                let initStatus = GMKitStaminaS().sdkInit(pKey: data.secretKey ?? "", attribute: data.attribute ?? "", deviceId: "AAAAAAAA", currentDateTime: Int(Date().timeIntervalSince1970))
-                                if initStatus == 0 {
-                                    self.present(controller, animated: true, completion: nil)
-                                }
+                                
+                                self.present(controller, animated: true, completion: nil)
                                 
                             case .failure(let error):
                                 print("getSdkAuth fail \(error)")

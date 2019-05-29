@@ -628,6 +628,17 @@
                                     <action selector="tapStartButton:" destination="cVE-6g-glZ" eventType="touchUpInside" id="5nJ-HV-TdE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJW-Cb-T4K">
+                                <rect key="frame" x="8" y="52" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="moT-yV-vCT"/>
+                                    <constraint firstAttribute="height" constant="40" id="qqB-OX-wdc"/>
+                                </constraints>
+                                <state key="normal" image="icArrow"/>
+                                <connections>
+                                    <action selector="tapBackButton:" destination="Iz1-Dq-Dh0" eventType="touchUpInside" id="ZjI-Fn-zvo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -639,9 +650,11 @@
                             <constraint firstItem="Yha-pz-41R" firstAttribute="centerX" secondItem="J9I-o6-EwQ" secondAttribute="centerX" id="XK6-UN-L7K"/>
                             <constraint firstItem="Yha-pz-41R" firstAttribute="top" secondItem="msR-fa-MlT" secondAttribute="top" constant="25" id="Zcd-Oa-OWN"/>
                             <constraint firstItem="MNs-Te-N7O" firstAttribute="top" secondItem="Ski-pQ-rTc" secondAttribute="bottom" constant="20" id="cSj-OZ-JiE"/>
+                            <constraint firstItem="XJW-Cb-T4K" firstAttribute="leading" secondItem="msR-fa-MlT" secondAttribute="leading" constant="8" id="fB1-Fr-8u1"/>
                             <constraint firstItem="msR-fa-MlT" firstAttribute="bottom" secondItem="MNs-Te-N7O" secondAttribute="bottom" constant="60" id="izt-sQ-JCa"/>
                             <constraint firstAttribute="bottom" secondItem="oFz-TG-0GC" secondAttribute="bottom" id="jIR-IB-dr5"/>
                             <constraint firstItem="MNs-Te-N7O" firstAttribute="centerX" secondItem="J9I-o6-EwQ" secondAttribute="centerX" id="ld1-DT-xoC"/>
+                            <constraint firstItem="XJW-Cb-T4K" firstAttribute="top" secondItem="msR-fa-MlT" secondAttribute="top" constant="8" id="nUb-JY-XBp"/>
                             <constraint firstItem="oFz-TG-0GC" firstAttribute="trailing" secondItem="msR-fa-MlT" secondAttribute="trailing" id="nfH-7B-9Gs"/>
                             <constraint firstItem="8cq-L9-3EC" firstAttribute="top" secondItem="Yha-pz-41R" secondAttribute="bottom" constant="2" id="nva-Hp-UeS"/>
                             <constraint firstItem="8cq-L9-3EC" firstAttribute="centerX" secondItem="J9I-o6-EwQ" secondAttribute="centerX" id="tyR-Bb-ksE"/>
@@ -771,6 +784,7 @@
     <resources>
         <image name="Avatar" width="83" height="83"/>
         <image name="bluetooth" width="512" height="512"/>
+        <image name="icArrow" width="512" height="512"/>
         <image name="icLogout" width="28" height="28"/>
         <image name="icSetting" width="28" height="28"/>
         <image name="menu" width="512" height="512"/>

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import GMFoundation
+import CoreLocation
 
 class WorkoutViewModel {
     
@@ -37,14 +38,12 @@ class WorkoutViewModel {
     }
     
     var rows: [(type: CellType, data: String)]
-    var longitude: Double = -1
-    var latitude: Double = -1
-    var altitude: Double = -1
     var distance: Float = 0
     var speed: Double = 0
     var hr: Int = 0
     var zone: Int = 1
     var workoutId: Int = 0
+    var location: CLLocation = CLLocation(latitude: 0, longitude: 0)
     
     func updateData() {
         self.rows[1] = (type: .distance, data: String(format: "%.2f", self.distance))

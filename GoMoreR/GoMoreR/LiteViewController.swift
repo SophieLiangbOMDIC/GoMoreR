@@ -102,7 +102,7 @@ class LiteViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 6, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
+        ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 10, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
             switch resultType {
             case .success( _, _, let data):
                 self.data = data
@@ -115,9 +115,8 @@ class LiteViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is WorkoutViewController {
-            let lastWorkout = realm.objects(RMWorkoutData.self).last ?? RMWorkoutData(value: "")
+            guard let lastWorkout = realm.objects(RMWorkoutData.self).last else { return }
             let second = (Date().timeIntervalSince1970 - lastWorkout.timeDate.timeIntervalSince1970)
-            
             let _ = GMKitManager.shared.initUser(userData: self.userData,
                                                  workoutData: self.workoutData,
                                                  second: second)

@@ -17,6 +17,13 @@ class GMKitManager {
     static let kit = GMKitStaminaS()
     
     public func initUser(userData: GMSResponseUser, workoutData: GMSResponseWorkoutInit, second: Double = 0) -> Int {
+        let secretKey = UserDefaults.standard.string(forKey: UserDefaultsKey.secretKey.rawValue)
+        let attribute = UserDefaults.standard.string(forKey: UserDefaultsKey.attribute.rawValue)
+        _ = GMKitStaminaS().sdkInit(pKey: secretKey ?? "",
+                                    attribute: attribute ?? "",
+                                    deviceId: "AAAAAAAA",
+                                    currentDateTime: Int(Date().timeIntervalSince1970))
+        
         return GMKitManager.kit.initUser(age: (userData.birthday ?? Date()).age(),
                                         gender: userData.gender == "male" ? 1: 0,
                                         heightCm: userData.heightCm ?? 0,
