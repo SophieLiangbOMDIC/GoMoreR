@@ -11,6 +11,7 @@ import RealmSwift
 
 @objcMembers class RMWorkoutFinal: Object {
     
+    dynamic public var workoutId: Int = 0
     dynamic public var distanceKm: Float = 0.0
     dynamic public var distanceKmMax: Float = 0.0
     dynamic public var hr: Int = 0
@@ -25,6 +26,12 @@ import RealmSwift
     dynamic public var timeEnd: Date = Date()
     dynamic public var timeSeconds: Int = 0
     dynamic public var id: String = UUID().uuidString
+    dynamic public var teStamina: Float = 0
+    dynamic public var teAer: Float = 0
+    dynamic public var teAnaer: Float = 0
+    dynamic public var sdkVersion: String = ""
+    public let workoutDatas = List<RMWorkoutData>()
+    dynamic public var uploadStatus: UploadStatus = .uploadFail
     
     override static func primaryKey() -> String? {
         return "id"

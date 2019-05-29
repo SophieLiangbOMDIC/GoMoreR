@@ -28,26 +28,14 @@ class WorkoutViewController: UIViewController {
         self.stopTimer()
         motionManager.stopAccelerometerUpdates()
         self.upload {
-            ServerManager.sdk.calculateWorkout(userWorkoutId: self.vm.workoutId, completionHandler: { (resultType) in
-                
-                GMKitManager.kit.stopSession()
-                
-                DispatchQueue.main.async {
-                    sender.isEnabled = true
-                }
-                switch resultType {
-                case .success(let status):
-                    print(status)
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                    
-                case .failure(let error):
-                    print(error)
-                }
-            })
+            GMKitManager.kit.stopSession()
+            DispatchQueue.main.async {
+                sender.isEnabled = true
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
+    
     @IBOutlet weak var staminaLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var waveView: UIView!
@@ -58,7 +46,7 @@ class WorkoutViewController: UIViewController {
     var stamina: Float = 1
     let locationManager = CLLocationManager()
     let motionManager = CMMotionManager()
-    let realm = try! Realm()
+    let workoutFinal = RMWorkoutFinal()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +70,12 @@ class WorkoutViewController: UIViewController {
         wave.waveCurvature = 3
         waveView.addSubview(wave)
         
-        let workoutDatas = realm.objects(RMWorkoutData.self)
-        try! realm.write {
-            realm.delete(workoutDatas)
+        // MARK: save to realm
+        workoutFinal.timeStart = Date()
+        let workoutDatas = RealmManager.realm.objects(RMWorkoutData.self)
+        try! RealmManager.realm.write {
+            RealmManager.realm.add(workoutFinal)
+            RealmManager.realm.delete(workoutDatas)
         }
         
         timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
@@ -142,8 +133,8 @@ class WorkoutViewController: UIViewController {
                 workoutData.altitude = self.vm.location.altitude
                 workoutData.speed = self.vm.speed
                 workoutData.distanceKm = self.vm.distance
-                try! self.realm.write {
-                    self.realm.add(workoutData)
+                try! RealmManager.realm.write {
+                    self.workoutFinal.workoutDatas.append(workoutData)
                 }
             }
         }
@@ -159,46 +150,40 @@ class WorkoutViewController: UIViewController {
     }
     
     func upload(completionHandler: @escaping () -> Void) {
-        var dataArray: [[String: Any]] = []
         
-        let workoutDataArr = realm.objects(RMWorkoutData.self).sorted(byKeyPath: "seconds")
-        for workoutData in workoutDataArr {
-            dataArray.append(workoutData.toDict())
+        try! RealmManager.realm.write {
+            self.workoutFinal.timeEnd = Date()
+            self.workoutFinal.timeSeconds = self.time
+            self.workoutFinal.distanceKm = self.vm.distance
+            self.workoutFinal.speed = self.vm.speed
+            self.workoutFinal.stamina = Int(self.stamina)
+            self.workoutFinal.hr = self.vm.hr
+            self.workoutFinal.kcal = Float(GMKitManager.kit.kcal() < 0 ? 0 : Int(GMKitManager.kit.kcal()))
+            self.workoutFinal.teStamina = GMKitManager.kit.teStamina()
+            self.workoutFinal.teAer = GMKitManager.kit.teAerobic()
+            self.workoutFinal.teAnaer = GMKitManager.kit.teAnaerobic()
+            self.workoutFinal.sdkVersion = GMKitManager.kit.version()
         }
-        let dataJson = (try? JSONSerialization.data(withJSONObject: dataArray, options: .prettyPrinted)) ?? Data()
-        let dataJsonString = String(data: dataJson, encoding: .utf8) ?? ""
-        
-        let requestData = GMSRequestWorkout(typeId: .run,
-                                            timeStart: Date(),
-                                            timeSeconds: self.time,
-                                            timeSecondsRecovery: 0,
-                                            kcal: GMKitManager.kit.kcal() < 0 ? 0 : Int(GMKitManager.kit.kcal()),
-                                            kcalMax: 0,
-                                            distanceKm: self.vm.distance,
-                                            distanceKmMax: self.vm.distance,
-                                            questionBreath: GMSBreath.easy,
-                                            questionMuscle: GMSMuscle.fine,
-                                            questionRpe: GMSRpe.easy,
-                                            appVersion: "0.1.0",
-                                            missionName: GMSMissionName.calBasic,
-                                            missionStatus: GMSMissionStatus.success,
-                                            teStamina: GMKitManager.kit.teStamina(),
-                                            teAer: GMKitManager.kit.teAerobic(),
-                                            teAnaer: GMKitManager.kit.teAnaerobic(),
-                                            sdkVersion: GMKitManager.kit.version(),
-                                            weatherJson: "",
-                                            dataJson: dataJsonString,
-                                            debugJson: "")
-        ServerManager.sdk.uploadWorkout(requestData: requestData) { (resultType) in
+
+        UploadManager.shared.upload(workoutFinal: self.workoutFinal) { (resultType) in
             switch resultType {
             case .success(let workoutId):
                 print(workoutId)
-                self.vm.workoutId = workoutId.int ?? 0
+                try! RealmManager.realm.write {
+                    self.workoutFinal.workoutId = workoutId.int ?? 0
+                }
+                UploadManager.shared.calculate(workoutFinal: self.workoutFinal) {
+                    completionHandler()
+                }
                 
             case .failure(let error):
                 print(error)
+                try! RealmManager.realm.write {
+                    self.workoutFinal.uploadStatus = .uploadFail
+                }
+                completionHandler()
+
             }
-            completionHandler()
         }
     }
     

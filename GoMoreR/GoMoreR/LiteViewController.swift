@@ -65,7 +65,6 @@ class LiteViewController: UIViewController {
     var blurView: UIView!
     var workoutData: GMSResponseWorkoutInit!
     var userData: GMSResponseUser!
-    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +73,9 @@ class LiteViewController: UIViewController {
         
         blurView = UIView(frame: view.frame)
         blurView = blurView?.blur()
+        
+        let finalData = RealmManager.realm.objects(RMWorkoutFinal.self)
+        print(finalData)
         
         ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
             switch resultType {
@@ -99,6 +101,8 @@ class LiteViewController: UIViewController {
                 print(error)
             }
         }
+        UploadManager.shared.checkAndUpload()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,12 +115,13 @@ class LiteViewController: UIViewController {
                 print(error)
             }
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is WorkoutViewController {
-            guard let lastWorkout = realm.objects(RMWorkoutData.self).last else { return }
-            let second = (Date().timeIntervalSince1970 - lastWorkout.timeDate.timeIntervalSince1970)
+            guard let lastWorkout = RealmManager.realm.objects(RMWorkoutFinal.self).last else { return }
+            let second = (Date().timeIntervalSince1970 - lastWorkout.timeEnd.timeIntervalSince1970)
             let _ = GMKitManager.shared.initUser(userData: self.userData,
                                                  workoutData: self.workoutData,
                                                  second: second)
