@@ -71,7 +71,7 @@ public class GMSManager: NSObject {
                 completionHandler(.success(result))
             
             } else {
-                completionHandler(.failure(.statusError(code: Int(status) ?? -1)))
+                completionHandler(.failure(.statusError(code: status)))
             }
         }
     }

@@ -45,7 +45,7 @@ extension GMSManager {
                             let fileAvatar = result["file_avatar"] as? String ?? ""
                             completionHandler(.success(["fileAvatar": fileAvatar]))
                         } else {
-                            completionHandler(.failure(.statusError(code: Int(status) ?? -1)))
+                            completionHandler(.failure(.statusError(code: status)))
                         }
                     case .failure( _):
                         completionHandler(.failure(.noData))

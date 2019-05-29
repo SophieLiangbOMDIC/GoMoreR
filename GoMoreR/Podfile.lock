@@ -41,7 +41,7 @@ CHECKOUT OPTIONS:
     :commit: ffe2037ca30f2221911dc3573e49bd7acb82609b
     :git: https://github.com/bOMDIC/Kit_iOS_Foundation.git
   GMServerSDK:
-    :commit: 6757bb6d9853e55c509a07719db6c3f65cf90fb7
+    :commit: 6a2c03a5ce2be5546d0c2b57c1b73994c6cd5023
     :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
 
 SPEC CHECKSUMS:

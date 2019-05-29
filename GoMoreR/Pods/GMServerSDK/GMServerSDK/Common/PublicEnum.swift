@@ -65,13 +65,13 @@ public enum GMSFailError: Error {
     case noInternet
     case urlFailed
     case jsonTypeError
-    case statusError(code: Int)
+    case statusError(code: String)
     case noData
     
-    var errorCode: Int {
+    var errorCode: String {
         switch self {
         case .noInternet, .urlFailed, .jsonTypeError, .noData:
-            return -1
+            return ""
         case .statusError(let code):
             return code
         }
