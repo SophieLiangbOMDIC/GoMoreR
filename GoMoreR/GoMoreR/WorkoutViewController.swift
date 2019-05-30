@@ -95,12 +95,6 @@ class WorkoutViewController: UIViewController {
             let data = self.time.hhmmss()
             self.vm.rows[0] = (type: .time, data: data)
 
-            // MARK: update distance
-            self.vm.distance = GMKitManager.kit.updateRoute(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
-                                                            timerSec: self.time,
-                                                            longitude: self.vm.location.coordinate.longitude,
-                                                            latitude: self.vm.location.coordinate.latitude,
-                                                            altitude: Float(self.vm.location.altitude))
             print(self.time)
             
             // MARK: update zone
@@ -196,7 +190,6 @@ class WorkoutViewController: UIViewController {
             let y = -(data?.acceleration.y ?? 0) * 10
             let z = -(data?.acceleration.z ?? 0) * 10
             
-            // MARK: update distance and speed
             let array = GMKitManager.kit.updateRouteFusion(longitude: Float(self.vm.location.coordinate.longitude),
                                                            latitude: Float(self.vm.location.coordinate.latitude),
                                                            altitude: Float(self.vm.location.altitude),
@@ -207,12 +200,14 @@ class WorkoutViewController: UIViewController {
                                                            accZ: Float(z))
             
             guard array.count >= 2 else { return }
+            // MARK: update distance
             if let distanceStr = array[0] as? String,
                 let distance = distanceStr.double(),
                 distance >= 0 {
                 self.vm.distance = Float(distance)
             }
             
+            // MARK: update speed
             if let speedStr = array[1] as? String,
                 let speed = speedStr.double(),
                 speed >= 0 {
