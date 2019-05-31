@@ -62,7 +62,6 @@ class WorkoutViewController: UIViewController {
     var timer: DispatchSourceTimer!
     var time: Int = 0
     var stamina: Float = 1
-    let locationManager = CLLocationManager()
     let motionManager = CMMotionManager()
     let workoutFinal = RMWorkoutFinal()
     
@@ -70,12 +69,6 @@ class WorkoutViewController: UIViewController {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
-        
-        // MARK: set location manager
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
         
         // MARK: set waveView
         let height = waveView.frame.height * CGFloat(stamina)
@@ -123,6 +116,7 @@ class WorkoutViewController: UIViewController {
             self.stamina = GMKitManager.kit.stamina()
             
             self.vm.updateData()
+            
             DispatchQueue.main.async {
                 self.staminaLabel.text = String(format: "%02d", Int(self.stamina)) + "%"
                 if let wave = self.waveView.subviews[0] as? WaveView {
@@ -262,12 +256,4 @@ extension WorkoutViewController: UITableViewDelegate {
         return self.tableView.frame.height / 4
     }
     
-}
-
-extension WorkoutViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let loc = locations.last else { return }
-        vm.location = loc
-    }
 }

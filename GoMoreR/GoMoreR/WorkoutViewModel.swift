@@ -11,7 +11,7 @@ import UIKit
 import GMFoundation
 import CoreLocation
 
-class WorkoutViewModel {
+class WorkoutViewModel: NSObject {
     
     enum CellType {
         case time
@@ -30,11 +30,18 @@ class WorkoutViewModel {
         }
     }
     
-    init() {
+    override init() {
         self.rows = [(type: .time, data: "00:00:00"),
                      (type: .distance, data: String(format: "%.2f", self.distance)),
                      (type: .speed, data: String(format: "%.2f", self.speed)),
                      (type: .heartRate, data: self.hr.string + "&" + self.zone.string)]
+        super.init()
+        
+        // MARK: set location manager
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     var rows: [(type: CellType, data: String)]
@@ -44,11 +51,21 @@ class WorkoutViewModel {
     var zone: Int = 1
     var workoutId: Int = 0
     var location: CLLocation = CLLocation(latitude: 0, longitude: 0)
+    let locationManager = CLLocationManager()
     
     func updateData() {
         self.rows[1] = (type: .distance, data: String(format: "%.2f", self.distance))
         self.rows[2] = (type: .speed, data: String(format: "%.2f", self.speed))
         self.rows[3] = (type: .heartRate, data: self.hr.string + "&" + self.zone.string)
+    }
+    
+}
+
+extension WorkoutViewModel: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let loc = locations.last else { return }
+        self.location = loc
     }
     
 }
