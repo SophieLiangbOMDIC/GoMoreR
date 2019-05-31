@@ -91,7 +91,7 @@ public class GMSResponseWorkout {
     public var trimp: Int?
     public var ftpPower: Int?
     
-    init(from dict: [String: Any]) {
+    public init(from dict: [String: Any]) {
         
         self.userWorkoutId = (dict["user_workout_id"] as? String)?.GMSInt
         self.typeId = GMSTypeId(rawValue: dict["type_id"] as? String ?? "")

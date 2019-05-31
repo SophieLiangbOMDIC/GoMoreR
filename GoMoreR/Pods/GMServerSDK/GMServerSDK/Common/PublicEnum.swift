@@ -10,7 +10,7 @@ import Foundation
 
 public typealias GMSHandler<T> = (Result<T, GMSFailError>) -> Void
 
-public enum GMSPlatform {
+public enum GMSPlatform: String {
     case develop
     case qa
     case staging
