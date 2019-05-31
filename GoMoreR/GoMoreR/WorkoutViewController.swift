@@ -8,9 +8,6 @@
 //
 
 import UIKit
-import GMBluetoothSDK
-import RealmSwift
-import GMServerSDK
 
 class WorkoutViewController: UIViewController {
 
