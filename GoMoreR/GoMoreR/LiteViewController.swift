@@ -19,6 +19,7 @@ class LiteViewController: UIViewController {
     @IBOutlet weak var staminaLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: logout
     @IBAction func tapLogoutButton(_ sender: UIButton) {
         self.showAlert(title: "登出後會清除所有資料，確定登出？", message: nil, buttonTitles: ["取消", "確定"], highlightedButtonIndex: 0) { (index) in
             guard index != 0 else { return }
@@ -29,10 +30,12 @@ class LiteViewController: UIViewController {
         }
     }
     
+    // MARK: pair bluetooth
     @IBAction func tapBTButton(_ sender: UIButton) {
         tapStartButton(UIButton())
     }
     
+    // MARK: start workout
     @IBAction func tapStartButton(_ sender: UIButton) {
         BTManager.shared.bt.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
             guard let self = self else { return }
@@ -88,6 +91,7 @@ class LiteViewController: UIViewController {
         let finalData = RealmManager.realm.objects(RMWorkoutFinal.self)
         print(finalData)
         
+        // MARK: init sdk and user to get stamina
         ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
             switch resultType {
             case .success(let workout):
@@ -103,6 +107,7 @@ class LiteViewController: UIViewController {
                             elapsedSecond: 0)
                         let stamina = percentageArr[0] as? String ?? "100.0"
                         self.staminaLabel.text = String(stamina.split(separator: ".").first ?? "100") + "%"
+                        self.userNameLabel.text = data.userName ?? "bOMDIC"
                         
                     case .failure(let error):
                         print(error)
@@ -112,6 +117,8 @@ class LiteViewController: UIViewController {
                 print(error)
             }
         }
+        
+        // MARK: check DB data status
         UploadManager.shared.checkAndUpload()
 
     }
