@@ -28,7 +28,7 @@ class LiteViewController: UIViewController {
         }
     }
     
-    @IBAction func tapSettingButton(_ sender: UIButton) {
+    @IBAction func tapBTButton(_ sender: UIButton) {
     }
     
     @IBAction func tapStartButton(_ sender: Any) {

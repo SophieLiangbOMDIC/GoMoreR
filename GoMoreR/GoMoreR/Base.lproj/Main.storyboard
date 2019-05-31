@@ -244,9 +244,9 @@
                                     <constraint firstAttribute="height" constant="60" id="Vds-4n-3EX"/>
                                     <constraint firstAttribute="width" constant="60" id="zb2-G7-3fX"/>
                                 </constraints>
-                                <state key="normal" image="icSetting"/>
+                                <state key="normal" image="icBT"/>
                                 <connections>
-                                    <action selector="tapSettingButton:" destination="cVE-6g-glZ" eventType="touchUpInside" id="rk7-aN-Ldp"/>
+                                    <action selector="tapBTButton:" destination="cVE-6g-glZ" eventType="touchUpInside" id="KqX-WD-zse"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQU-Ef-pVv">
@@ -805,8 +805,8 @@
         <image name="Avatar" width="83" height="83"/>
         <image name="bluetooth" width="512" height="512"/>
         <image name="icArrow" width="512" height="512"/>
+        <image name="icBT" width="32" height="32"/>
         <image name="icLogout" width="28" height="28"/>
-        <image name="icSetting" width="28" height="28"/>
         <image name="menu" width="512" height="512"/>
         <image name="user" width="512" height="512"/>
     </resources>
