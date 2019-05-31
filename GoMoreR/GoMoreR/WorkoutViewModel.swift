@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import GMFoundation
 import CoreLocation
+import CoreMotion
 
 class WorkoutViewModel: NSObject {
     
@@ -42,9 +43,22 @@ class WorkoutViewModel: NSObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        // MARK: set notification observe
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHr), name: .hrUpdate, object: nil)
+        
+        // MARK: save to realm
+        workoutFinal.timeStart = Date()
+        let workoutDatas = RealmManager.realm.objects(RMWorkoutData.self)
+        try! RealmManager.realm.write {
+            RealmManager.realm.add(workoutFinal)
+            RealmManager.realm.delete(workoutDatas)
+        }
+
     }
     
     var rows: [(type: CellType, data: String)]
+    var stamina: Float = 1
     var distance: Float = 0
     var speed: Double = 0
     var hr: Int = 0
@@ -52,6 +66,9 @@ class WorkoutViewModel: NSObject {
     var workoutId: Int = 0
     var location: CLLocation = CLLocation(latitude: 0, longitude: 0)
     let locationManager = CLLocationManager()
+    let motionManager = CMMotionManager()
+    let workoutFinal = RMWorkoutFinal()
+    var time: Int = 0
     
     func updateData() {
         self.rows[1] = (type: .distance, data: String(format: "%.2f", self.distance))
@@ -59,6 +76,86 @@ class WorkoutViewModel: NSObject {
         self.rows[3] = (type: .heartRate, data: self.hr.string + "&" + self.zone.string)
     }
     
+    func startAcc() {
+        motionManager.accelerometerUpdateInterval = 0.1
+        motionManager.startAccelerometerUpdates(to: OperationQueue.main) { [weak self] (data, error) in
+            guard let self = self else { return }
+            
+            let x = -(data?.acceleration.x ?? 0) * 10
+            let y = -(data?.acceleration.y ?? 0) * 10
+            let z = -(data?.acceleration.z ?? 0) * 10
+            
+            let array = GMKitManager.kit.updateRouteFusion(longitude: Float(self.location.coordinate.longitude),
+                                                           latitude: Float(self.location.coordinate.latitude),
+                                                           altitude: Float(self.location.altitude),
+                                                           accuracyHorizon: Float(self.location.horizontalAccuracy),
+                                                           accuracyVertical: Float(self.location.verticalAccuracy),
+                                                           accX: Float(x),
+                                                           accY: Float(y),
+                                                           accZ: Float(z))
+            
+            guard array.count >= 2 else { return }
+            // MARK: update distance
+            if let distanceStr = array[0] as? String,
+                let distance = distanceStr.double(),
+                distance >= 0 {
+                self.distance = Float(distance)
+            }
+            
+            // MARK: update speed
+            if let speedStr = array[1] as? String,
+                let speed = speedStr.double(),
+                speed >= 0 {
+                self.speed = speed
+            }
+        }
+    }
+    
+    @objc func updateHr(_ notification: Notification) {
+        let userInfo = notification.userInfo ?? [:]
+        self.hr = (userInfo["hr"] as? Int) ?? 0
+    }
+    
+    func removeObserver() {
+        NotificationCenter.default.removeObserver(self, name: .hrUpdate, object: nil)
+    }
+    
+    func upload(completionHandler: @escaping () -> Void) {
+        
+        try! RealmManager.realm.write {
+            self.workoutFinal.timeEnd = Date()
+            self.workoutFinal.timeSeconds = self.time
+            self.workoutFinal.distanceKm = self.distance
+            self.workoutFinal.speed = self.speed
+            self.workoutFinal.stamina = Int(self.stamina)
+            self.workoutFinal.hr = self.hr
+            self.workoutFinal.kcal = Float(GMKitManager.kit.kcal() < 0 ? 0 : Int(GMKitManager.kit.kcal()))
+            self.workoutFinal.teStamina = GMKitManager.kit.teStamina()
+            self.workoutFinal.teAer = GMKitManager.kit.teAerobic()
+            self.workoutFinal.teAnaer = GMKitManager.kit.teAnaerobic()
+            self.workoutFinal.sdkVersion = GMKitManager.kit.version()
+        }
+        
+        UploadManager.shared.upload(workoutFinal: self.workoutFinal) { (resultType) in
+            switch resultType {
+            case .success(let workoutId):
+                print(workoutId)
+                try! RealmManager.realm.write {
+                    self.workoutFinal.workoutId = workoutId.int ?? 0
+                }
+                UploadManager.shared.calculate(workoutFinal: self.workoutFinal) {
+                    completionHandler()
+                }
+                
+            case .failure(let error):
+                print(error)
+                try! RealmManager.realm.write {
+                    self.workoutFinal.uploadStatus = .uploadFail
+                }
+                completionHandler()
+            }
+        }
+    }
 }
 
 extension WorkoutViewModel: CLLocationManagerDelegate {

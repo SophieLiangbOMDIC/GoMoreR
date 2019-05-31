@@ -9,21 +9,19 @@
 
 import UIKit
 import GMBluetoothSDK
-import CoreLocation
 import RealmSwift
 import GMServerSDK
-import CoreMotion
 
 class WorkoutViewController: UIViewController {
 
     @IBAction func tapBackButton(_ sender: Any) {
         self.showAlert(title: "將不記錄此筆資料，\n並離開此頁", message: nil, buttonTitles: ["取消", "確定"], highlightedButtonIndex: 0) { (index) in
             guard index != 0 else { return }
-            self.motionManager.stopAccelerometerUpdates()
-            self.stopTimer()
+            self.vm.motionManager.stopAccelerometerUpdates()
+            self.stop()
             GMKitManager.kit.stopSession()
             try! RealmManager.realm.write {
-                RealmManager.realm.delete(self.workoutFinal)
+                RealmManager.realm.delete(self.vm.workoutFinal)
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -41,9 +39,9 @@ class WorkoutViewController: UIViewController {
                 return
             }
             
-            self.motionManager.stopAccelerometerUpdates()
-            self.stopTimer()
-            self.upload {
+            self.vm.motionManager.stopAccelerometerUpdates()
+            self.stop()
+            self.vm.upload {
                 GMKitManager.kit.stopSession()
                 DispatchQueue.main.async {
                     sender.isEnabled = true
@@ -60,10 +58,6 @@ class WorkoutViewController: UIViewController {
     
     let vm = WorkoutViewModel()
     var timer: DispatchSourceTimer!
-    var time: Int = 0
-    var stamina: Float = 1
-    let motionManager = CMMotionManager()
-    let workoutFinal = RMWorkoutFinal()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +65,7 @@ class WorkoutViewController: UIViewController {
         tableView.isScrollEnabled = false
         
         // MARK: set waveView
-        let height = waveView.frame.height * CGFloat(stamina)
+        let height = waveView.frame.height * CGFloat(self.vm.stamina)
         let wave = WaveView(frame: CGRect(x: 0,
                                           y: waveView.frame.height - height,
                                           width: waveView.frame.width,
@@ -79,48 +73,37 @@ class WorkoutViewController: UIViewController {
         wave.waveCurvature = 3
         waveView.addSubview(wave)
         
-        // MARK: set notification observe
-        NotificationCenter.default.addObserver(self, selector: #selector(updateHr), name: .hrUpdate, object: nil)
-        
-        // MARK: save to realm
-        workoutFinal.timeStart = Date()
-        let workoutDatas = RealmManager.realm.objects(RMWorkoutData.self)
-        try! RealmManager.realm.write {
-            RealmManager.realm.add(workoutFinal)
-            RealmManager.realm.delete(workoutDatas)
-        }
-        
         timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
         timer.schedule(deadline: .now(), repeating: .seconds(1))
         timer.setEventHandler { [weak self] in
             guard let self = self else { return }
             
             let _ = GMKitManager.kit.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
-                                              timerSec: self.time,
+                                              timerSec: self.vm.time,
                                               hrRaw: self.vm.hr,
                                               speed: self.vm.speed == 0 ? -1 : Float(self.vm.speed),
                                               cyclingCadence: -1,
                                               cyclingPower: -1)
             
             // MARK: update time
-            self.time += 1
-            let data = self.time.hhmmss()
+            self.vm.time += 1
+            let data = self.vm.time.hhmmss()
             self.vm.rows[0] = (type: .time, data: data)
 
-            print(self.time)
+            print(self.vm.time)
             
             // MARK: update zone
             self.vm.zone = GMKitManager.kit.hrZone(hrRaw: self.vm.hr)
 
             // MARK: update stamina
-            self.stamina = GMKitManager.kit.stamina()
+            self.vm.stamina = GMKitManager.kit.stamina()
             
             self.vm.updateData()
             
             DispatchQueue.main.async {
-                self.staminaLabel.text = String(format: "%02d", Int(self.stamina)) + "%"
+                self.staminaLabel.text = String(format: "%02d", Int(self.vm.stamina)) + "%"
                 if let wave = self.waveView.subviews[0] as? WaveView {
-                    let height = self.waveView.frame.height * CGFloat(self.stamina / 100)
+                    let height = self.waveView.frame.height * CGFloat(self.vm.stamina / 100)
                     wave.frame = CGRect(x: 0,
                                         y: self.waveView.frame.height - height,
                                         width: self.waveView.frame.width,
@@ -132,7 +115,7 @@ class WorkoutViewController: UIViewController {
                 guard self.vm.hr > 0 else { return }
                 let workoutData = RMWorkoutData()
                 workoutData.timeDate = Date()
-                workoutData.seconds = self.time
+                workoutData.seconds = self.vm.time
                 workoutData.hr = self.vm.hr
                 workoutData.hrZone = self.vm.zone
                 workoutData.kcal = GMKitManager.kit.kcal()
@@ -142,98 +125,20 @@ class WorkoutViewController: UIViewController {
                 workoutData.speed = self.vm.speed
                 workoutData.distanceKm = self.vm.distance
                 try! RealmManager.realm.write {
-                    self.workoutFinal.workoutDatas.append(workoutData)
+                    self.vm.workoutFinal.workoutDatas.append(workoutData)
                 }
             }
         }
         timer.resume()
         
-        startAcc()
+        self.vm.startAcc()
     }
     
-    @objc func updateHr(_ notification: Notification) {
-        let userInfo = notification.userInfo ?? [:]
-        self.vm.hr = (userInfo["hr"] as? Int) ?? 0
-    }
-    
-    func stopTimer() {
+    func stop() {
         guard self.timer != nil else { return }
         timer.cancel()
         timer = nil
-    }
-    
-    func upload(completionHandler: @escaping () -> Void) {
-        
-        try! RealmManager.realm.write {
-            self.workoutFinal.timeEnd = Date()
-            self.workoutFinal.timeSeconds = self.time
-            self.workoutFinal.distanceKm = self.vm.distance
-            self.workoutFinal.speed = self.vm.speed
-            self.workoutFinal.stamina = Int(self.stamina)
-            self.workoutFinal.hr = self.vm.hr
-            self.workoutFinal.kcal = Float(GMKitManager.kit.kcal() < 0 ? 0 : Int(GMKitManager.kit.kcal()))
-            self.workoutFinal.teStamina = GMKitManager.kit.teStamina()
-            self.workoutFinal.teAer = GMKitManager.kit.teAerobic()
-            self.workoutFinal.teAnaer = GMKitManager.kit.teAnaerobic()
-            self.workoutFinal.sdkVersion = GMKitManager.kit.version()
-        }
-
-        UploadManager.shared.upload(workoutFinal: self.workoutFinal) { (resultType) in
-            switch resultType {
-            case .success(let workoutId):
-                print(workoutId)
-                try! RealmManager.realm.write {
-                    self.workoutFinal.workoutId = workoutId.int ?? 0
-                }
-                UploadManager.shared.calculate(workoutFinal: self.workoutFinal) {
-                    completionHandler()
-                }
-                
-            case .failure(let error):
-                print(error)
-                try! RealmManager.realm.write {
-                    self.workoutFinal.uploadStatus = .uploadFail
-                }
-                completionHandler()
-
-            }
-        }
-    }
-    
-    func startAcc() {
-        motionManager.accelerometerUpdateInterval = 0.1
-        motionManager.startAccelerometerUpdates(to: OperationQueue.main) { [weak self] (data, error) in
-            guard let self = self else { return }
-            
-            let x = -(data?.acceleration.x ?? 0) * 10
-            let y = -(data?.acceleration.y ?? 0) * 10
-            let z = -(data?.acceleration.z ?? 0) * 10
-            
-            let array = GMKitManager.kit.updateRouteFusion(longitude: Float(self.vm.location.coordinate.longitude),
-                                                           latitude: Float(self.vm.location.coordinate.latitude),
-                                                           altitude: Float(self.vm.location.altitude),
-                                                           accuracyHorizon: Float(self.vm.location.horizontalAccuracy),
-                                                           accuracyVertical: Float(self.vm.location.verticalAccuracy),
-                                                           accX: Float(x),
-                                                           accY: Float(y),
-                                                           accZ: Float(z))
-            
-            guard array.count >= 2 else { return }
-            // MARK: update distance
-            if let distanceStr = array[0] as? String,
-                let distance = distanceStr.double(),
-                distance >= 0 {
-                self.vm.distance = Float(distance)
-            }
-            
-            // MARK: update speed
-            if let speedStr = array[1] as? String,
-                let speed = speedStr.double(),
-                speed >= 0 {
-                self.vm.speed = speed
-            }
-            
-        }
+        self.vm.removeObserver()
     }
 }
 
