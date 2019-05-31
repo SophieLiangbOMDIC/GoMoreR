@@ -22,3 +22,7 @@ enum UserDefaultsKey: String {
     case calculateFail = 1
     case uploaded = 2
 }
+
+extension Notification.Name {
+    static let hrUpdate = Notification.Name("hrUpdate")
+}

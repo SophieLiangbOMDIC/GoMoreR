@@ -35,33 +35,57 @@ class PairViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         
-        BTManager.shared.delegate = self
-        
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
             self.tableView.reloadData()
         }
         
-        if BTManager.shared.hrArray.contains(where: { $0.state == .connected }) {
+        if BTManager.shared.bt.hrArray.contains(where: { $0.state == .connected }) {
             self.close()
         }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHr), name: .hrUpdate, object: nil)
     }
     
     func getSensorArr(index: Int) -> [GMBTSensor] {
         let type = GMBTSensorType(rawValue: index) ?? .hr
         switch type {
         case .hr:
-            return BTManager.shared.hrArray
+            return BTManager.shared.bt.hrArray
         case .cadence:
-            return BTManager.shared.cadenceArray
+            return BTManager.shared.bt.cadenceArray
         case .power:
-            return BTManager.shared.powerArray
+            return BTManager.shared.bt.powerArray
         }
     }
     
     func close() {
         self.tapCancelButton(UIButton())
-        let parent = self.parent as! LiteViewController
-        parent.performSegue(withIdentifier: "LiteToWorkout", sender: nil)
+        let parent = self.parent as? LiteViewController
+        DispatchQueue.main.async {
+            parent?.performSegue(withIdentifier: "LiteToWorkout", sender: nil)
+        }
+        NotificationCenter.default.removeObserver(self, name: .hrUpdate, object: nil)
+    }
+    
+    @objc func updateHr(_ notification: Notification) {
+        let userInfo = notification.userInfo ?? [:]
+        let hr = userInfo["hr"] as? Int ?? 0
+        if hr > 0 {
+            DispatchQueue.main.async {
+                self.showAlert(title: "已連上藍芽裝置", message: "") { index in
+                    self.close()
+                }
+            }
+            
+        } else {
+            DispatchQueue.main.async {
+                self.showAlert(title: "無法取得心率", message: "")
+            }
+        }
     }
 }
 
@@ -84,10 +108,10 @@ extension PairViewController: UITableViewDataSource {
         cell.tapConnectButton = {
             let type = GMBTSensorType(rawValue: indexPath.section) ?? .hr
             if sensor.state == .disconnect {
-                BTManager.shared.connect(sensor: sensor, type: type)
+                BTManager.shared.bt.connect(sensor: sensor, type: type)
                 cell.connectButton.setTitle("連線中", for: .normal)
             } else {
-                BTManager.shared.disconnect(sensor: sensor)
+                BTManager.shared.bt.disconnect(sensor: sensor)
                 cell.connectButton.setTitle("斷線中", for: .normal)
             }
         }
@@ -120,53 +144,6 @@ extension PairViewController: UITableViewDelegate {
         case 2: return "頻踏器"
         default: return nil
         }
-    }
-    
-}
-
-extension PairViewController: GMBTManagerDelegate {
-    
-    func disconnect(type: GMBTSensorType) {
-        
-    }
-    
-    
-    func managerPowerOff() {
-        
-    }
-    
-    func hrConnected(btsdkHr: GMBTHr) {
-        
-    }
-    
-    func cadenceConnected(btsdkCadence: GMBTCadence) {
-
-    }
-    
-    func powerConnected(btsdkPower: GMBTPower) {
-
-    }
-    
-    func sensorInfo() {
-        
-    }
-    
-    func sensorHr(hr: Int) {
-        if hr > 0 {
-            self.showAlert(title: "已連上藍芽裝置", message: "") { index in
-                self.close()
-            }
-        } else {
-            self.showAlert(title: "無法取得心率", message: "")
-        }
-    }
-    
-    func sensorCadence(cadence: Int) {
-        
-    }
-    
-    func sensorPower(power: Int) {
-        
     }
     
 }

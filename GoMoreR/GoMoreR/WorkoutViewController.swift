@@ -53,8 +53,6 @@ class WorkoutViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         
-        BTManager.shared.delegate = self
-        
         // MARK: set location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -69,6 +67,9 @@ class WorkoutViewController: UIViewController {
                                           height: height))
         wave.waveCurvature = 3
         waveView.addSubview(wave)
+        
+        // MARK: set notification observe
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHr), name: .hrUpdate, object: nil)
         
         // MARK: save to realm
         workoutFinal.timeStart = Date()
@@ -135,6 +136,11 @@ class WorkoutViewController: UIViewController {
         timer.resume()
         
         startAcc()
+    }
+    
+    @objc func updateHr(_ notification: Notification) {
+        let userInfo = notification.userInfo ?? [:]
+        self.vm.hr = (userInfo["hr"] as? Int) ?? 0
     }
     
     func stopTimer() {
@@ -237,22 +243,6 @@ extension WorkoutViewController: UITableViewDelegate {
         return self.tableView.frame.height / 4
     }
     
-}
-
-extension WorkoutViewController: GMBTManagerDelegate {
-    func disconnect(type: GMBTSensorType) { }
-    func managerPowerOff() { }
-    func hrConnected(btsdkHr: GMBTHr) { }
-    func cadenceConnected(btsdkCadence: GMBTCadence) { }
-    func powerConnected(btsdkPower: GMBTPower) { }
-    func sensorInfo() { }
-    
-    func sensorHr(hr: Int) {
-        self.vm.hr = hr
-    }
-    
-    func sensorCadence(cadence: Int) { }
-    func sensorPower(power: Int) { }
 }
 
 extension WorkoutViewController: CLLocationManagerDelegate {

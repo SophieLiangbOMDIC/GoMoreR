@@ -32,7 +32,7 @@ class LiteViewController: UIViewController {
     }
     
     @IBAction func tapStartButton(_ sender: Any) {
-        BTManager.shared.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
+        BTManager.shared.bt.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
             guard let self = self else { return }
             if isPowerOn {
                 DispatchQueue.main.async {
@@ -177,7 +177,7 @@ extension LiteViewController: UITableViewDataSource {
         cell.setLabel(distance: thisData.distanceKm ?? 0.0,
                       time: thisData.timeSeconds ?? 0,
                       date: thisData.timeStart ?? Date(),
-                      stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00),
+                      stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00)/*CGFloat.random(in: 0...1)*/,
                       workoutId: thisData.userWorkoutId?.string ?? "")
 
         return cell
