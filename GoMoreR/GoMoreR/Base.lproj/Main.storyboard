@@ -456,9 +456,9 @@
                     <connections>
                         <outlet property="avatarView" destination="uSS-wG-jU8" id="dk9-zk-wgq"/>
                         <outlet property="staminaLabel" destination="p29-JZ-S04" id="F4h-Ri-WmY"/>
+                        <outlet property="startButton" destination="sdx-ft-3CY" id="GM0-ex-rpy"/>
                         <outlet property="tableView" destination="PZy-OX-QS8" id="NjM-u4-LFY"/>
                         <outlet property="userNameLabel" destination="2DY-Xf-wQ1" id="bDe-6X-cWb"/>
-                        <segue destination="Iz1-Dq-Dh0" kind="presentation" identifier="LiteToWorkout" id="Mxd-M6-fXT"/>
                         <segue destination="Mmu-yV-nLK" kind="presentation" identifier="LiteToPair" id="pyK-45-Nkq"/>
                     </connections>
                 </viewController>
@@ -689,7 +689,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxv-sa-mwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1728" y="129"/>
+            <point key="canvasLocation" x="2662" y="889"/>
         </scene>
         <!--Pair View Controller-->
         <scene sceneID="27h-y5-4tK">
@@ -794,6 +794,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="1Kh-pc-0RT" id="w4T-pg-cwa"/>
+                        <segue destination="Iz1-Dq-Dh0" kind="presentation" identifier="PairToWorkout" id="5eH-ki-I3R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7U-IB-LZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>

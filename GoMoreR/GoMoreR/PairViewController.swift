@@ -17,10 +17,13 @@ class PairViewController: UIViewController {
         UIView.animate(withDuration: 0.15, animations: {
             self.tableView.frame = CGRect(x: 0, y: self.tableView.frame.minY - 50, width: self.tableView.frame.width, height: self.tableView.frame.height)
         }, completion: { [weak self] finished in
-            guard let self = self else { return }
-            let parent = self.parent as! LiteViewController
+            guard let self = self,
+                  let parent = self.parent as? LiteViewController else { return }
             UIView.animate(withDuration: 0.3, animations: {
-                self.tableView.frame = CGRect(x: 0, y: parent.view.frame.height, width: self.tableView.frame.width, height: self.tableView.frame.height)
+                self.tableView.frame = CGRect(x: 0,
+                                              y: parent.view.frame.height,
+                                              width: self.tableView.frame.width,
+                                              height: self.tableView.frame.height)
             }, completion: { finished in
                 self.view.removeFromSuperview()
                 self.removeFromParent()
@@ -29,6 +32,9 @@ class PairViewController: UIViewController {
         })
     }
     var selectedSensor: GMBTSensor!
+    var isFromStartButton: Bool = false
+    var workoutData: GMSResponseWorkoutInit!
+    var userData: GMSResponseUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +45,7 @@ class PairViewController: UIViewController {
             self.tableView.reloadData()
         }
         
-        if BTManager.shared.bt.hrArray.contains(where: { $0.state == .connected }) {
+        if isFromStartButton, BTManager.shared.bt.hrArray.contains(where: { $0.state == .connected }) {
             self.close()
         }
         
@@ -64,14 +70,12 @@ class PairViewController: UIViewController {
     
     func close() {
         self.tapCancelButton(UIButton())
-        let parent = self.parent as? LiteViewController
-        DispatchQueue.main.async {
-            parent?.performSegue(withIdentifier: "LiteToWorkout", sender: nil)
-        }
+        self.performSegue(withIdentifier: "PairToWorkout", sender: nil)
         NotificationCenter.default.removeObserver(self, name: .hrUpdate, object: nil)
     }
     
     @objc func updateHr(_ notification: Notification) {
+        guard self.isFromStartButton else { return }
         let userInfo = notification.userInfo ?? [:]
         let hr = userInfo["hr"] as? Int ?? 0
         if hr > 0 {
@@ -85,6 +89,16 @@ class PairViewController: UIViewController {
             DispatchQueue.main.async {
                 self.showAlert(title: "無法取得心率", message: "")
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is WorkoutViewController {
+            guard let lastWorkout = RealmManager.realm.objects(RMWorkoutFinal.self).last else { return }
+            let second = (Date().timeIntervalSince1970 - lastWorkout.timeEnd.timeIntervalSince1970)
+            let _ = GMKitManager.shared.initUser(userData: self.userData,
+                                                 workoutData: self.workoutData,
+                                                 second: second)
         }
     }
 }

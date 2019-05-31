@@ -13,6 +13,7 @@ import RealmSwift
 
 class LiteViewController: UIViewController {
     
+    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var avatarView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var staminaLabel: UILabel!
@@ -29,9 +30,10 @@ class LiteViewController: UIViewController {
     }
     
     @IBAction func tapBTButton(_ sender: UIButton) {
+        tapStartButton(UIButton())
     }
     
-    @IBAction func tapStartButton(_ sender: Any) {
+    @IBAction func tapStartButton(_ sender: UIButton) {
         BTManager.shared.bt.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
             guard let self = self else { return }
             if isPowerOn {
@@ -47,6 +49,9 @@ class LiteViewController: UIViewController {
                                                     y: self.view.frame.height,
                                                     width: vc.tableView.frame.width,
                                                     height: vc.tableView.frame.height)
+                        vc.isFromStartButton = (sender == self.startButton)
+                        vc.userData = self.userData
+                        vc.workoutData = self.workoutData
                         
                         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
                             vc.tableView.frame = CGRect(x: 0,
@@ -132,16 +137,6 @@ class LiteViewController: UIViewController {
             }
         }
         
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is WorkoutViewController {
-            guard let lastWorkout = RealmManager.realm.objects(RMWorkoutFinal.self).last else { return }
-            let second = (Date().timeIntervalSince1970 - lastWorkout.timeEnd.timeIntervalSince1970)
-            let _ = GMKitManager.shared.initUser(userData: self.userData,
-                                                 workoutData: self.workoutData,
-                                                 second: second)
-        }
     }
     
     func showBlur() {

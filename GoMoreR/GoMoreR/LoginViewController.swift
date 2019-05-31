@@ -35,9 +35,6 @@ class LoginViewController: UIViewController {
         accountTextField.delegate = self
         passwordTextField.delegate = self
         
-//        accountTextField.text = "chris.luo+474@bomdic.com"
-//        passwordTextField.text = "111111"
-        
         let pickerView = UIPickerView()
         pickerView.delegate = self
         platformTextField.inputView = pickerView
