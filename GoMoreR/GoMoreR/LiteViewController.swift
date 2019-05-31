@@ -19,7 +19,13 @@ class LiteViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func tapLogoutButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.showAlert(title: "登出後會清除所有資料，確定登出？", message: nil, buttonTitles: ["取消", "確定"], highlightedButtonIndex: 0) { (index) in
+            guard index != 0 else { return }
+            try! RealmManager.realm.write {
+                RealmManager.realm.deleteAll()
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func tapSettingButton(_ sender: UIButton) {
