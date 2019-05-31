@@ -37,4 +37,25 @@ import RealmSwift
         return "id"
     }
     
+    func toDict() -> [String: Any] {
+        var dict: [String: Any] = [:]
+        dict["workoutId"] = self.workoutId.string
+        dict["hr"] = String(self.hr)
+        dict["distanceKm"] = self.distanceKm
+        dict["distanceKmMax"] = self.distanceKmMax
+        dict["kcal"] = self.kcal
+        dict["kcalMax"] = self.kcalMax
+        dict["speed"] = self.speed
+        dict["staminaEnd"] = self.stamina
+        dict["staminaAerobic"] = self.staminaAerobic
+        dict["staminaAnaerobic"] = self.staminaAnaerobic
+        dict["timeStart"] = self.timeStart
+        dict["timeSeconds"] = self.timeSeconds
+        dict["teStamina"] = self.teStamina
+        dict["teAerobic"] = self.teAer
+        dict["teAnaerobic"] = self.teAnaer
+
+        return dict
+    }
+    
 }

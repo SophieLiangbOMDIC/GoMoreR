@@ -111,8 +111,18 @@ class LiteViewController: UIViewController {
             case .success( _, _, let data):
                 self.data = data
                 self.tableView.reloadData()
+                
             case .failure(let error):
                 print(error)
+                /*let workoutDB = RealmManager.realm.objects(RMWorkoutFinal.self)
+                for workout in workoutDB {
+                    if !self.data.contains(where: { (workoutData) -> Bool in
+                        workoutData.userWorkoutId == workout.workoutId
+                    }) {
+                        self.data.insert(GMSResponseWorkout(from: workout.toDict()), at: 0)
+                    }
+                }
+                self.tableView.reloadData()*/
             }
         }
         

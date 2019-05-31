@@ -26,9 +26,14 @@ public class UploadManager {
             dataArray.append(workoutData.toDict())
         }
         
-        let dataJson = (try? JSONSerialization.data(withJSONObject: dataArray, options: .prettyPrinted)) ?? Data()
-        let dataJsonString = String(data: dataJson, encoding: .utf8) ?? ""
-        
+        let dataJson = try? JSONSerialization.data(withJSONObject: dataArray, options: .prettyPrinted)
+        var dataJsonString = ""
+        if let dataJson = dataJson {
+            dataJsonString = String(data: dataJson, encoding: .utf8) ?? ""
+        } else {
+            dataJsonString = String(describing: dataArray)
+        }
+    
         let requestData = GMSRequestWorkout(typeId: .run,
                                             timeStart: workoutFinal.timeStart,
                                             timeSeconds: workoutFinal.timeSeconds,
