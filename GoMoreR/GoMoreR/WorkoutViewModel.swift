@@ -69,6 +69,8 @@ class WorkoutViewModel: NSObject {
     let motionManager = CMMotionManager()
     let workoutFinal = RMWorkoutFinal()
     var time: Int = 0
+    var timer: DispatchSourceTimer!
+    var updateUIInTimer: (() -> Void)?
     
     func updateData() {
         self.rows[1] = (type: .distance, data: String(format: "%.2f", self.distance))
@@ -155,6 +157,66 @@ class WorkoutViewModel: NSObject {
                 completionHandler()
             }
         }
+    }
+    
+    func timerResume() {
+        timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+        timer.schedule(deadline: .now(), repeating: .seconds(1))
+        timer.setEventHandler { [weak self] in
+            guard let self = self else { return }
+            
+            let _ = GMKitManager.kit.updateHr(currentDateTime: Date().timeIntervalSince1970.GMInt ?? 0,
+                                              timerSec: self.time,
+                                              hrRaw: self.hr,
+                                              speed: self.speed == 0 ? -1 : Float(self.speed),
+                                              cyclingCadence: -1,
+                                              cyclingPower: -1)
+            
+            // MARK: update time
+            self.time += 1
+            let data = self.time.hhmmss()
+            self.rows[0] = (type: .time, data: data)
+            
+            print(self.time)
+            
+            // MARK: update zone
+            self.zone = GMKitManager.kit.hrZone(hrRaw: self.hr)
+            
+            // MARK: update stamina
+            self.stamina = GMKitManager.kit.stamina()
+            
+            self.updateData()
+            
+            DispatchQueue.main.async {
+                self.updateUIInTimer?()
+                
+                // MARK: save workout data into DB every second
+                guard self.hr > 0 else { return }
+                let workoutData = RMWorkoutData()
+                workoutData.timeDate = Date()
+                workoutData.seconds = self.time
+                workoutData.hr = self.hr
+                workoutData.hrZone = self.zone
+                workoutData.kcal = GMKitManager.kit.kcal()
+                workoutData.latitude = self.location.coordinate.latitude
+                workoutData.longitude = self.location.coordinate.longitude
+                workoutData.altitude = self.location.altitude
+                workoutData.speed = self.speed
+                workoutData.distanceKm = self.distance
+                try! RealmManager.realm.write {
+                    self.workoutFinal.workoutDatas.append(workoutData)
+                }
+            }
+        }
+        timer.resume()
+    }
+    
+    func stop() {
+        self.motionManager.stopAccelerometerUpdates()
+        guard self.timer != nil else { return }
+        timer.cancel()
+        timer = nil
+        self.removeObserver()
     }
 }
 

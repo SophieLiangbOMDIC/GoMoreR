@@ -644,7 +644,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="clickLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P3d-1s-T0d"/>
-                                    <action selector="tapFinishButton:" destination="Iz1-Dq-Dh0" eventType="touchUpInside" id="oXU-1e-1F7"/>
+                                    <action selector="tapButton:" destination="Iz1-Dq-Dh0" eventType="touchUpInside" id="O26-7x-tvY"/>
                                     <action selector="tapStartButton:" destination="cVE-6g-glZ" eventType="touchUpInside" id="5nJ-HV-TdE"/>
                                 </connections>
                             </button>
@@ -656,7 +656,7 @@
                                 </constraints>
                                 <state key="normal" image="icArrow"/>
                                 <connections>
-                                    <action selector="tapBackButton:" destination="Iz1-Dq-Dh0" eventType="touchUpInside" id="ZjI-Fn-zvo"/>
+                                    <action selector="tapButton:" destination="Iz1-Dq-Dh0" eventType="touchUpInside" id="oZ1-3Z-C6p"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -682,6 +682,8 @@
                         <viewLayoutGuide key="safeArea" id="msR-fa-MlT"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="XJW-Cb-T4K" id="P0N-UA-SX1"/>
+                        <outlet property="finishButton" destination="MNs-Te-N7O" id="cqi-jt-PUh"/>
                         <outlet property="staminaLabel" destination="Yha-pz-41R" id="DaA-Tu-Fle"/>
                         <outlet property="tableView" destination="Ski-pQ-rTc" id="Nbq-L3-7Wv"/>
                         <outlet property="waveView" destination="oFz-TG-0GC" id="Nyh-Yj-aDT"/>
