@@ -18,7 +18,7 @@ class PairViewController: UIViewController {
             self.tableView.frame = CGRect(x: 0, y: self.tableView.frame.minY - 50, width: self.tableView.frame.width, height: self.tableView.frame.height)
         }, completion: { [weak self] finished in
             guard let self = self,
-                  let parent = self.parent as? LiteViewController else { return }
+                  let parent = self.parent as? MainViewController else { return }
             UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.frame = CGRect(x: 0,
                                               y: parent.view.frame.height,

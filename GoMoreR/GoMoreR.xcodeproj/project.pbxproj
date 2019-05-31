@@ -12,13 +12,10 @@
 		23D396CE2285077700441B40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D396CC2285077700441B40 /* Main.storyboard */; };
 		23D396D02285077800441B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23D396CF2285077800441B40 /* Assets.xcassets */; };
 		23D396D32285077800441B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D396D12285077800441B40 /* LaunchScreen.storyboard */; };
-		23D396DB2285083700441B40 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D396DA2285083700441B40 /* MainViewController.swift */; };
-		23D396DD22850A2D00441B40 /* TransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D396DC22850A2D00441B40 /* TransitioningDelegate.swift */; };
 		38C3B4273AC2E0480067683C /* Pods_GoMoreR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1F1174524E68DD08BFB80B /* Pods_GoMoreR.framework */; };
 		442EA453228BB1C5007DF0FD /* PairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA452228BB1C5007DF0FD /* PairViewController.swift */; };
 		442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA454228BB58E007DF0FD /* PairTableViewCell.swift */; };
 		442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442EA489228BDB93007DF0FD /* Intents.framework */; };
-		442EA4AE228BFA95007DF0FD /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA4AD228BFA95007DF0FD /* SidebarViewController.swift */; };
 		442EA4B8228C13EE007DF0FD /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA4B7228C13EE007DF0FD /* IntentHandler.swift */; };
 		442EA4BF228C13EE007DF0FD /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442EA473228BDA3B007DF0FD /* IntentsUI.framework */; };
 		442EA4C2228C13EE007DF0FD /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA4C1228C13EE007DF0FD /* IntentViewController.swift */; };
@@ -34,11 +31,9 @@
 		44E63E48228D4C77006CF8EC /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */; };
 		44E63E4A228D4EA1006CF8EC /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */; };
 		44E63E4C228D6A28006CF8EC /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E4B228D6A28006CF8EC /* ServerManager.swift */; };
-		44E9B5EC228D3118009A1D7B /* LiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EB228D3118009A1D7B /* LiteViewController.swift */; };
+		44E9B5EC228D3118009A1D7B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EB228D3118009A1D7B /* MainViewController.swift */; };
 		44E9B5F0228D3A37009A1D7B /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */; };
 		44EFBE4E229CE87F00E5473D /* GMServerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */; };
-		44F37897228957E9000A4B5C /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F37896228957E9000A4B5C /* MainCollectionViewCell.swift */; };
-		44F3789922895C32000A4B5C /* MainCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */; };
 		44F3789B22895C84000A4B5C /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789A22895C84000A4B5C /* WaveView.swift */; };
 		44F5945B2292AA48008D4728 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5945A2292AA48008D4728 /* BTManager.swift */; };
 		44F6B90D229E68AE009E3F20 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F6B90C229E68AE009E3F20 /* UploadManager.swift */; };
@@ -87,15 +82,12 @@
 		23D396CF2285077800441B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23D396D22285077800441B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23D396D42285077800441B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		23D396DA2285083700441B40 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		23D396DC22850A2D00441B40 /* TransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitioningDelegate.swift; sourceTree = "<group>"; };
 		43FA05123E0AF9F43F052DCB /* Pods_MessageIntentsUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageIntentsUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		442EA452228BB1C5007DF0FD /* PairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairViewController.swift; sourceTree = "<group>"; };
 		442EA454228BB58E007DF0FD /* PairTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairTableViewCell.swift; sourceTree = "<group>"; };
 		442EA463228BD7E5007DF0FD /* GoMoreR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoMoreR.entitlements; sourceTree = "<group>"; };
 		442EA473228BDA3B007DF0FD /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		442EA489228BDB93007DF0FD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
-		442EA4AD228BFA95007DF0FD /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		442EA4B5228C13EE007DF0FD /* MessageIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessageIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		442EA4B7228C13EE007DF0FD /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		442EA4B9228C13EE007DF0FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,11 +106,9 @@
 		44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		44E63E4B228D6A28006CF8EC /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
-		44E9B5EB228D3118009A1D7B /* LiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteViewController.swift; sourceTree = "<group>"; };
+		44E9B5EB228D3118009A1D7B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
 		44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GMServerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		44F37896228957E9000A4B5C /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
-		44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainCollectionViewCell.xib; sourceTree = "<group>"; };
 		44F3789A22895C84000A4B5C /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		44F5944E22924BFA008D4728 /* GMBluetoothSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GMBluetoothSDK.framework; sourceTree = "<group>"; };
 		44F5945A2292AA48008D4728 /* BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
@@ -212,14 +202,13 @@
 				23D396D42285077800441B40 /* Info.plist */,
 				23D396C82285077700441B40 /* AppDelegate.swift */,
 				23D396CA2285077700441B40 /* LoginViewController.swift */,
-				44E9B5EB228D3118009A1D7B /* LiteViewController.swift */,
+				44E9B5EB228D3118009A1D7B /* MainViewController.swift */,
 				44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */,
 				44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */,
 				44E63E45228D4C39006CF8EC /* WorkoutViewController.swift */,
 				44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */,
 				442EA452228BB1C5007DF0FD /* PairViewController.swift */,
 				442EA454228BB58E007DF0FD /* PairTableViewCell.swift */,
-				44E63E4D228D6BAB006CF8EC /* Old */,
 				23D396CF2285077800441B40 /* Assets.xcassets */,
 			);
 			path = GoMoreR;
@@ -274,18 +263,6 @@
 				44F6B90E229E79FE009E3F20 /* RealmManager.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		44E63E4D228D6BAB006CF8EC /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				23D396DA2285083700441B40 /* MainViewController.swift */,
-				442EA4AD228BFA95007DF0FD /* SidebarViewController.swift */,
-				23D396DC22850A2D00441B40 /* TransitioningDelegate.swift */,
-				44F37896228957E9000A4B5C /* MainCollectionViewCell.swift */,
-				44F3789822895C32000A4B5C /* MainCollectionViewCell.xib */,
-			);
-			path = Old;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,7 +382,6 @@
 			files = (
 				23D396D32285077800441B40 /* LaunchScreen.storyboard in Resources */,
 				23D396D02285077800441B40 /* Assets.xcassets in Resources */,
-				44F3789922895C32000A4B5C /* MainCollectionViewCell.xib in Resources */,
 				23D396CE2285077700441B40 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,7 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44E9B5EC228D3118009A1D7B /* LiteViewController.swift in Sources */,
+				44E9B5EC228D3118009A1D7B /* MainViewController.swift in Sources */,
 				44E9B5F0228D3A37009A1D7B /* RecordTableViewCell.swift in Sources */,
 				44E63E48228D4C77006CF8EC /* WorkoutTableViewCell.swift in Sources */,
 				23D396CB2285077700441B40 /* LoginViewController.swift in Sources */,
@@ -547,15 +523,11 @@
 				23D396C92285077700441B40 /* AppDelegate.swift in Sources */,
 				44F5945B2292AA48008D4728 /* BTManager.swift in Sources */,
 				44F6B90D229E68AE009E3F20 /* UploadManager.swift in Sources */,
-				442EA4AE228BFA95007DF0FD /* SidebarViewController.swift in Sources */,
 				44F6B90F229E79FF009E3F20 /* RealmManager.swift in Sources */,
 				44F3789B22895C84000A4B5C /* WaveView.swift in Sources */,
 				442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */,
 				44E63E46228D4C39006CF8EC /* WorkoutViewController.swift in Sources */,
-				44F37897228957E9000A4B5C /* MainCollectionViewCell.swift in Sources */,
 				449DEFB9229670BC0005215E /* PublicEnum.swift in Sources */,
-				23D396DD22850A2D00441B40 /* TransitioningDelegate.swift in Sources */,
-				23D396DB2285083700441B40 /* MainViewController.swift in Sources */,
 				449DEFC22297F8FD0005215E /* RMWorkoutFinal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

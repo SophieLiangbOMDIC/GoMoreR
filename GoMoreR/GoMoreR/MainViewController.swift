@@ -11,7 +11,7 @@ import GMServerSDK
 import GoMoreKit
 import RealmSwift
 
-class LiteViewController: UIViewController {
+class MainViewController: UIViewController {
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var avatarView: UIImageView!
@@ -35,7 +35,7 @@ class LiteViewController: UIViewController {
         tapStartButton(UIButton())
     }
     
-    // MARK: start workout
+    // MARK: start workout should go to pair page first
     @IBAction func tapStartButton(_ sender: UIButton) {
         BTManager.shared.bt.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
             guard let self = self else { return }
@@ -168,7 +168,7 @@ class LiteViewController: UIViewController {
 
 }
 
-extension LiteViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -187,7 +187,7 @@ extension LiteViewController: UITableViewDataSource {
     
 }
 
-extension LiteViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120

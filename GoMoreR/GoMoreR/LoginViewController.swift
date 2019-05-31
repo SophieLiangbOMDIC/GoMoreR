@@ -46,14 +46,14 @@ class LoginViewController: UIViewController {
             accountTextField.text = account
             passwordTextField.text = password
             login(platform: platform, account: account, password: password) {
-                guard let controller = self.storyboard?.instantiateViewController(withClass: LiteViewController.self) else { return }
+                guard let controller = self.storyboard?.instantiateViewController(withClass: MainViewController.self) else { return }
                 self.present(controller, animated: true, completion: nil)
             }
         }
     }
 
     @IBAction func clickLoginButton(_ sender: Any) {
-        if let controller = storyboard?.instantiateViewController(withClass: LiteViewController.self),
+        if let controller = storyboard?.instantiateViewController(withClass: MainViewController.self),
             let account = accountTextField.text,
             let password = passwordTextField.text {
             self.login(platform: selectedPlatform.rawValue, account: account, password: password) {
