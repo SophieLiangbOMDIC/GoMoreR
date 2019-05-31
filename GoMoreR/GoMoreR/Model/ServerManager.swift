@@ -11,6 +11,6 @@ import GMServerSDK
 
 class ServerManager {
     
-    static let sdk = GMSManager(platform: .develop, showLog: true)
+    static var sdk = GMSManager(platform: .develop, showLog: true)
     
 }

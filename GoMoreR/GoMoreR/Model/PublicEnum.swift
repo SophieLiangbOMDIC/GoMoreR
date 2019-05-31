@@ -12,6 +12,9 @@ enum UserDefaultsKey: String {
     case attribute
     case secretKey
     case user
+    case account
+    case password
+    case platform
 }
 
 @objc enum UploadStatus: Int, Error {

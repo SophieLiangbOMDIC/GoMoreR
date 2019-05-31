@@ -36,19 +36,25 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRv-5Y-2hf">
-                                        <rect key="frame" x="20" y="100" width="374" height="257"/>
+                                        <rect key="frame" x="20" y="100" width="374" height="385"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kRx-pC-CFB">
-                                                <rect key="frame" x="25" y="50" width="324" height="157"/>
+                                                <rect key="frame" x="25" y="50" width="324" height="285"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="帳號" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="axH-rE-GQ5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="324" height="68.5"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="平台" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CTn-KE-yG5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="324" height="81.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="帳號" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="axH-rE-GQ5">
+                                                        <rect key="frame" x="0.0" y="101.5" width="324" height="82"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                    </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hl-xg-glV">
-                                                        <rect key="frame" x="0.0" y="88.5" width="324" height="68.5"/>
+                                                        <rect key="frame" x="0.0" y="203.5" width="324" height="81.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -57,6 +63,7 @@
                                                 <constraints>
                                                     <constraint firstItem="axH-rE-GQ5" firstAttribute="width" secondItem="kRx-pC-CFB" secondAttribute="width" id="Rmq-yv-BxH"/>
                                                     <constraint firstItem="9hl-xg-glV" firstAttribute="width" secondItem="kRx-pC-CFB" secondAttribute="width" id="XRh-DJ-H5q"/>
+                                                    <constraint firstItem="CTn-KE-yG5" firstAttribute="width" secondItem="axH-rE-GQ5" secondAttribute="width" id="ihO-I4-6dU"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -64,16 +71,27 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="kRx-pC-CFB" secondAttribute="bottom" constant="50" id="3dY-hj-Aax"/>
                                             <constraint firstItem="kRx-pC-CFB" firstAttribute="leading" secondItem="JRv-5Y-2hf" secondAttribute="leading" constant="25" id="NCn-h9-MqL"/>
-                                            <constraint firstAttribute="width" secondItem="JRv-5Y-2hf" secondAttribute="height" multiplier="335:230" id="a7V-np-OQR"/>
+                                            <constraint firstAttribute="width" secondItem="JRv-5Y-2hf" secondAttribute="height" multiplier="335:345" id="a7V-np-OQR"/>
                                             <constraint firstAttribute="trailing" secondItem="kRx-pC-CFB" secondAttribute="trailing" constant="25" id="aZO-2L-Avq"/>
                                             <constraint firstItem="kRx-pC-CFB" firstAttribute="top" secondItem="JRv-5Y-2hf" secondAttribute="top" constant="50" id="raq-vO-W9f"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjW-Km-86L">
+                                        <rect key="frame" x="5" y="490" width="404" height="213"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="GjW-Km-86L" firstAttribute="centerX" secondItem="qFB-3H-BwB" secondAttribute="centerX" id="CIN-b3-sNc"/>
+                                    <constraint firstAttribute="trailing" secondItem="GjW-Km-86L" secondAttribute="trailing" constant="5" id="FRz-Lj-bY2"/>
+                                    <constraint firstItem="GjW-Km-86L" firstAttribute="leading" secondItem="qFB-3H-BwB" secondAttribute="leading" constant="5" id="K7x-8T-24a"/>
+                                    <constraint firstItem="AkI-p0-ims" firstAttribute="top" secondItem="GjW-Km-86L" secondAttribute="bottom" constant="5" id="UXw-rw-IaM"/>
                                     <constraint firstItem="JRv-5Y-2hf" firstAttribute="leading" secondItem="qFB-3H-BwB" secondAttribute="leading" constant="20" id="Yri-OI-7k0"/>
                                     <constraint firstItem="AkI-p0-ims" firstAttribute="centerX" secondItem="qFB-3H-BwB" secondAttribute="centerX" id="k6g-zH-dUy"/>
+                                    <constraint firstItem="GjW-Km-86L" firstAttribute="top" secondItem="JRv-5Y-2hf" secondAttribute="bottom" constant="5" id="myg-fU-hlh"/>
                                     <constraint firstItem="JRv-5Y-2hf" firstAttribute="top" secondItem="qFB-3H-BwB" secondAttribute="top" constant="100" id="p4X-k4-f7f"/>
                                     <constraint firstAttribute="trailing" secondItem="JRv-5Y-2hf" secondAttribute="trailing" constant="20" id="qPi-fS-YUN"/>
                                     <constraint firstAttribute="bottom" secondItem="AkI-p0-ims" secondAttribute="bottom" constant="60" id="r4t-Os-hmY"/>
@@ -93,8 +111,10 @@
                     <connections>
                         <outlet property="accountTextField" destination="axH-rE-GQ5" id="oUa-hy-y8G"/>
                         <outlet property="backView" destination="JRv-5Y-2hf" id="sAe-px-hSq"/>
+                        <outlet property="errorLabel" destination="GjW-Km-86L" id="pCv-Pp-s0n"/>
                         <outlet property="loginButton" destination="AkI-p0-ims" id="6dK-gb-rKu"/>
                         <outlet property="passwordTextField" destination="9hl-xg-glV" id="jIC-7o-f9t"/>
+                        <outlet property="platformTextField" destination="CTn-KE-yG5" id="e6f-yo-K1p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
