@@ -17,23 +17,41 @@ import CoreMotion
 class WorkoutViewController: UIViewController {
 
     @IBAction func tapBackButton(_ sender: Any) {
-        motionManager.stopAccelerometerUpdates()
-        self.stopTimer()
-        GMKitManager.kit.stopSession()
-        self.dismiss(animated: true, completion: nil)
+        self.showAlert(title: "將不記錄此筆資料，\n並離開此頁", message: nil, buttonTitles: ["取消", "確定"], highlightedButtonIndex: 0) { (index) in
+            guard index != 0 else { return }
+            self.motionManager.stopAccelerometerUpdates()
+            self.stopTimer()
+            GMKitManager.kit.stopSession()
+            try! RealmManager.realm.write {
+                RealmManager.realm.delete(self.workoutFinal)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func tapFinishButton(_ sender: UIButton) {
         sender.isEnabled = false
-        self.stopTimer()
-        motionManager.stopAccelerometerUpdates()
-        self.upload {
-            GMKitManager.kit.stopSession()
-            DispatchQueue.main.async {
+        timer.suspend()
+        self.showAlert(title: "結束運動並上傳？", message: nil, buttonTitles: ["取消", "確定"], highlightedButtonIndex: 0) { [weak self] (index) in
+            guard let self = self else { return }
+            self.timer.resume()
+            
+            guard index != 0 else {
                 sender.isEnabled = true
-                self.dismiss(animated: true, completion: nil)
+                return
+            }
+            
+            self.motionManager.stopAccelerometerUpdates()
+            self.stopTimer()
+            self.upload {
+                GMKitManager.kit.stopSession()
+                DispatchQueue.main.async {
+                    sender.isEnabled = true
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
+        
     }
     
     @IBOutlet weak var staminaLabel: UILabel!
@@ -116,6 +134,7 @@ class WorkoutViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 
+                // MARK: save workout data into DB every second
                 guard self.vm.hr > 0 else { return }
                 let workoutData = RMWorkoutData()
                 workoutData.timeDate = Date()
