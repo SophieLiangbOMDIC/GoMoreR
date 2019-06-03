@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum UserDefaultsKey: String {
-    case attribute
-    case secretKey
-    case user
-    case account
-    case password
-    case platform
+struct UserDefaultsKey {
+    static let attribute = "attribute"
+    static let secretKey = "secretKey"
+    static let user = "user"
+    static let account = "account"
+    static let password = "password"
+    static let platform = "platform"
 }
 
 @objc enum UploadStatus: Int, Error {

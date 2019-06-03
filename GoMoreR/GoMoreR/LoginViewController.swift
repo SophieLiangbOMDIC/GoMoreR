@@ -39,9 +39,9 @@ class LoginViewController: UIViewController {
         pickerView.delegate = self
         platformTextField.inputView = pickerView
         
-        if let account = UserDefaults.standard.string(forKey: UserDefaultsKey.account.rawValue),
-            let password = UserDefaults.standard.string(forKey: UserDefaultsKey.password.rawValue),
-            let platform = UserDefaults.standard.string(forKey: UserDefaultsKey.platform.rawValue) {
+        if let account = UserDefaults.standard.string(forKey: UserDefaultsKey.account),
+            let password = UserDefaults.standard.string(forKey: UserDefaultsKey.password),
+            let platform = UserDefaults.standard.string(forKey: UserDefaultsKey.platform) {
             platformTextField.text = platform
             accountTextField.text = account
             passwordTextField.text = password
@@ -70,11 +70,11 @@ class LoginViewController: UIViewController {
                 ServerManager.sdk.getSdkAuth(userId: data.userId ?? "", deviceId: "AAAAAAAA", completionHandler: { (resultType) in
                     switch resultType {
                     case .success(let data):
-                        UserDefaults.standard.set(data.attribute, forKey: UserDefaultsKey.attribute.rawValue)
-                        UserDefaults.standard.set(data.secretKey, forKey: UserDefaultsKey.secretKey.rawValue)
-                        UserDefaults.standard.set(account, forKey: UserDefaultsKey.account.rawValue)
-                        UserDefaults.standard.set(password, forKey: UserDefaultsKey.password.rawValue)
-                        UserDefaults.standard.set(self.selectedPlatform.rawValue, forKey: UserDefaultsKey.platform.rawValue)
+                        UserDefaults.standard.set(data.attribute, forKey: UserDefaultsKey.attribute)
+                        UserDefaults.standard.set(data.secretKey, forKey: UserDefaultsKey.secretKey)
+                        UserDefaults.standard.set(account, forKey: UserDefaultsKey.account)
+                        UserDefaults.standard.set(password, forKey: UserDefaultsKey.password)
+                        UserDefaults.standard.set(self.selectedPlatform.rawValue, forKey: UserDefaultsKey.platform)
                         UserDefaults.standard.synchronize()
                         
                         self.errorLabel.text = "登入成功"
