@@ -356,6 +356,21 @@ currentDateTime:(int)currentDateTime;
                           elapsedSecond:(int)elapsedSecond;
 
 /*!
+ @brief Get Recovery time From Target Stamina.
+ @param prevAerobicPtc previous aerobic, in percentage.
+ @param prevAnaerobicPtc previous anaerobic, in percentage.
+ @param targetAerobicPtc target aerobic, in percentage.
+ @param targetAnaerobicPtc target anaerobic, in percentage.
+ @param elapsedSecond Time since last workout end, in second.
+ @return Calculated seconds. If the value is < 0, it is error code.
+ */
+- (int)getRecoverySecondsFromTargetStamina:(float)prevAerobicPtc
+                          prevAnaerobicPtc:(float)prevAnaerobicPtc
+                          targetAerobicPtc:(float)targetAerobicPtc
+                        targetAnaerobicPtc:(float)targetAnaerobicPtc
+                            elapsedSecond:(int)elapsedSecond;
+
+/*!
  @brief To stop this SDK session.
  */
 - (void)stopSession;

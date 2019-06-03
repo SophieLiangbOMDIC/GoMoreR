@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>GoMoreR</string>
+	<string>GoMore Lite</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,13 +19,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>開啟藍芽連接，取得心率資料，以計算完整數據</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>取得位置</string>
-	<key>NSSiriUsageDescription</key>
-	<string>開啟語音助理</string>
+	<string>取得位置，以計算正確距離</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

@@ -16,12 +16,6 @@
 		442EA453228BB1C5007DF0FD /* PairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA452228BB1C5007DF0FD /* PairViewController.swift */; };
 		442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA454228BB58E007DF0FD /* PairTableViewCell.swift */; };
 		442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442EA489228BDB93007DF0FD /* Intents.framework */; };
-		442EA4B8228C13EE007DF0FD /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA4B7228C13EE007DF0FD /* IntentHandler.swift */; };
-		442EA4BF228C13EE007DF0FD /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442EA473228BDA3B007DF0FD /* IntentsUI.framework */; };
-		442EA4C2228C13EE007DF0FD /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA4C1228C13EE007DF0FD /* IntentViewController.swift */; };
-		442EA4C5228C13EE007DF0FD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442EA4C3228C13EE007DF0FD /* MainInterface.storyboard */; };
-		442EA4C9228C13EE007DF0FD /* MessageIntentsUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 442EA4BE228C13EE007DF0FD /* MessageIntentsUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		442EA4CC228C13EE007DF0FD /* MessageIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 442EA4B5228C13EE007DF0FD /* MessageIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449DEFB622966F7C0005215E /* GoMoreKit.framework */; };
 		449DEFB9229670BC0005215E /* PublicEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFB8229670BC0005215E /* PublicEnum.swift */; };
 		449DEFBB22978BF40005215E /* RMWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFBA22978BF40005215E /* RMWorkoutData.swift */; };
@@ -38,26 +32,7 @@
 		44F5945B2292AA48008D4728 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5945A2292AA48008D4728 /* BTManager.swift */; };
 		44F6B90D229E68AE009E3F20 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F6B90C229E68AE009E3F20 /* UploadManager.swift */; };
 		44F6B90F229E79FF009E3F20 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F6B90E229E79FE009E3F20 /* RealmManager.swift */; };
-		A272AB63E784FB5B8C170859 /* Pods_MessageIntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FA05123E0AF9F43F052DCB /* Pods_MessageIntentsUI.framework */; };
-		C3D172E1AC98BB17FE9490D4 /* Pods_MessageIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63BFB14B2329B83CF0389C33 /* Pods_MessageIntents.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		442EA4C7228C13EE007DF0FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23D396BD2285077700441B40 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 442EA4BD228C13EE007DF0FD;
-			remoteInfo = MessageIntentsUI;
-		};
-		442EA4CA228C13EE007DF0FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23D396BD2285077700441B40 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 442EA4B4228C13EE007DF0FD;
-			remoteInfo = MessageIntents;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		442EA488228BDA3B007DF0FD /* Embed App Extensions */ = {
@@ -66,8 +41,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				442EA4CC228C13EE007DF0FD /* MessageIntents.appex in Embed App Extensions */,
-				442EA4C9228C13EE007DF0FD /* MessageIntentsUI.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,13 +61,6 @@
 		442EA463228BD7E5007DF0FD /* GoMoreR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoMoreR.entitlements; sourceTree = "<group>"; };
 		442EA473228BDA3B007DF0FD /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		442EA489228BDB93007DF0FD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
-		442EA4B5228C13EE007DF0FD /* MessageIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessageIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		442EA4B7228C13EE007DF0FD /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
-		442EA4B9228C13EE007DF0FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		442EA4BE228C13EE007DF0FD /* MessageIntentsUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessageIntentsUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		442EA4C1228C13EE007DF0FD /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
-		442EA4C4228C13EE007DF0FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		442EA4C6228C13EE007DF0FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4446CB1E2293AAB2002DE47F /* GoMoreR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoMoreR.h; sourceTree = "<group>"; };
 		449DEFB622966F7C0005215E /* GoMoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoMoreKit.framework; sourceTree = "<group>"; };
 		449DEFB8229670BC0005215E /* PublicEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicEnum.swift; sourceTree = "<group>"; };
@@ -136,23 +102,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		442EA4B2228C13EE007DF0FD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3D172E1AC98BB17FE9490D4 /* Pods_MessageIntents.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		442EA4BB228C13EE007DF0FD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				442EA4BF228C13EE007DF0FD /* IntentsUI.framework in Frameworks */,
-				A272AB63E784FB5B8C170859 /* Pods_MessageIntentsUI.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -173,8 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				23D396C72285077700441B40 /* GoMoreR */,
-				442EA4B6228C13EE007DF0FD /* MessageIntents */,
-				442EA4C0228C13EE007DF0FD /* MessageIntentsUI */,
 				442EA472228BDA3B007DF0FD /* Frameworks */,
 				23D396C62285077700441B40 /* Products */,
 				00A0B77879C9399055C93496 /* Pods */,
@@ -185,8 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				23D396C52285077700441B40 /* GoMoreR.app */,
-				442EA4B5228C13EE007DF0FD /* MessageIntents.appex */,
-				442EA4BE228C13EE007DF0FD /* MessageIntentsUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,25 +175,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		442EA4B6228C13EE007DF0FD /* MessageIntents */ = {
-			isa = PBXGroup;
-			children = (
-				442EA4B7228C13EE007DF0FD /* IntentHandler.swift */,
-				442EA4B9228C13EE007DF0FD /* Info.plist */,
-			);
-			path = MessageIntents;
-			sourceTree = "<group>";
-		};
-		442EA4C0228C13EE007DF0FD /* MessageIntentsUI */ = {
-			isa = PBXGroup;
-			children = (
-				442EA4C1228C13EE007DF0FD /* IntentViewController.swift */,
-				442EA4C3228C13EE007DF0FD /* MainInterface.storyboard */,
-				442EA4C6228C13EE007DF0FD /* Info.plist */,
-			);
-			path = MessageIntentsUI;
-			sourceTree = "<group>";
-		};
 		449DEFBC22978BFA0005215E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,49 +208,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				442EA4C8228C13EE007DF0FD /* PBXTargetDependency */,
-				442EA4CB228C13EE007DF0FD /* PBXTargetDependency */,
 			);
 			name = GoMoreR;
 			productName = GoMoreR;
 			productReference = 23D396C52285077700441B40 /* GoMoreR.app */;
 			productType = "com.apple.product-type.application";
-		};
-		442EA4B4228C13EE007DF0FD /* MessageIntents */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 442EA4D0228C13EE007DF0FD /* Build configuration list for PBXNativeTarget "MessageIntents" */;
-			buildPhases = (
-				5C505226138423F99361F1CA /* [CP] Check Pods Manifest.lock */,
-				442EA4B1228C13EE007DF0FD /* Sources */,
-				442EA4B2228C13EE007DF0FD /* Frameworks */,
-				442EA4B3228C13EE007DF0FD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MessageIntents;
-			productName = MessageIntents;
-			productReference = 442EA4B5228C13EE007DF0FD /* MessageIntents.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		442EA4BD228C13EE007DF0FD /* MessageIntentsUI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 442EA4CD228C13EE007DF0FD /* Build configuration list for PBXNativeTarget "MessageIntentsUI" */;
-			buildPhases = (
-				511AE3296DCEB0633B2A1445 /* [CP] Check Pods Manifest.lock */,
-				442EA4BA228C13EE007DF0FD /* Sources */,
-				442EA4BB228C13EE007DF0FD /* Frameworks */,
-				442EA4BC228C13EE007DF0FD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MessageIntentsUI;
-			productName = MessageIntentsUI;
-			productReference = 442EA4BE228C13EE007DF0FD /* MessageIntentsUI.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -343,15 +231,9 @@
 								enabled = 1;
 							};
 							com.apple.Siri = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
-					};
-					442EA4B4228C13EE007DF0FD = {
-						CreatedOnToolsVersion = 10.2.1;
-					};
-					442EA4BD228C13EE007DF0FD = {
-						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
 			};
@@ -369,8 +251,6 @@
 			projectRoot = "";
 			targets = (
 				23D396C42285077700441B40 /* GoMoreR */,
-				442EA4B4228C13EE007DF0FD /* MessageIntents */,
-				442EA4BD228C13EE007DF0FD /* MessageIntentsUI */,
 			);
 		};
 /* End PBXProject section */
@@ -383,21 +263,6 @@
 				23D396D32285077800441B40 /* LaunchScreen.storyboard in Resources */,
 				23D396D02285077800441B40 /* Assets.xcassets in Resources */,
 				23D396CE2285077700441B40 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		442EA4B3228C13EE007DF0FD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		442EA4BC228C13EE007DF0FD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				442EA4C5228C13EE007DF0FD /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,50 +325,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		511AE3296DCEB0633B2A1445 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MessageIntentsUI-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5C505226138423F99361F1CA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MessageIntents-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -532,36 +353,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		442EA4B1228C13EE007DF0FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				442EA4B8228C13EE007DF0FD /* IntentHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		442EA4BA228C13EE007DF0FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				442EA4C2228C13EE007DF0FD /* IntentViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		442EA4C8228C13EE007DF0FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 442EA4BD228C13EE007DF0FD /* MessageIntentsUI */;
-			targetProxy = 442EA4C7228C13EE007DF0FD /* PBXContainerItemProxy */;
-		};
-		442EA4CB228C13EE007DF0FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 442EA4B4228C13EE007DF0FD /* MessageIntents */;
-			targetProxy = 442EA4CA228C13EE007DF0FD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		23D396CC2285077700441B40 /* Main.storyboard */ = {
@@ -578,14 +370,6 @@
 				23D396D22285077800441B40 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		442EA4C3228C13EE007DF0FD /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				442EA4C4228C13EE007DF0FD /* Base */,
-			);
-			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -713,7 +497,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = GoMoreR/GoMoreR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JRH8E985QQ;
 				ENABLE_BITCODE = NO;
@@ -728,7 +511,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jake.GoMoreR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bomdic.GoMoreLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -741,8 +524,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = GoMoreR/GoMoreR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JRH8E985QQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -756,92 +539,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jake.GoMoreR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bomdic.GoMoreLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		442EA4CE228C13EE007DF0FD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D787BF01B7AD40B774F037A /* Pods-MessageIntentsUI.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JRH8E985QQ;
-				INFOPLIST_FILE = MessageIntentsUI/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jake.GoMoreR.MessageIntentsUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		442EA4CF228C13EE007DF0FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 760EF56A998C902D51206A4B /* Pods-MessageIntentsUI.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JRH8E985QQ;
-				INFOPLIST_FILE = MessageIntentsUI/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jake.GoMoreR.MessageIntentsUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		442EA4D1228C13EE007DF0FD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45C36C7274ABB09D83FA0AE4 /* Pods-MessageIntents.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JRH8E985QQ;
-				INFOPLIST_FILE = MessageIntents/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jake.GoMoreR.MessageIntents;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		442EA4D2228C13EE007DF0FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 840D7854A79975F17FFD2257 /* Pods-MessageIntents.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JRH8E985QQ;
-				INFOPLIST_FILE = MessageIntents/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jake.GoMoreR.MessageIntents;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -864,24 +563,6 @@
 			buildConfigurations = (
 				23D396D82285077800441B40 /* Debug */,
 				23D396D92285077800441B40 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		442EA4CD228C13EE007DF0FD /* Build configuration list for PBXNativeTarget "MessageIntentsUI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				442EA4CE228C13EE007DF0FD /* Debug */,
-				442EA4CF228C13EE007DF0FD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		442EA4D0228C13EE007DF0FD /* Build configuration list for PBXNativeTarget "MessageIntents" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				442EA4D1228C13EE007DF0FD /* Debug */,
-				442EA4D2228C13EE007DF0FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
