@@ -2,7 +2,7 @@
   "name": "GMFoundation",
   "version": "1.0.3",
   "summary": "A short description of GMFoundation.",
-  "swift_version": "5.0",
+  "swift_versions": "5.0",
   "description": "Asdasd\nAsdasd",
   "homepage": "http://EXAMPLE/GMFoundation",
   "license": "proprietary",
@@ -20,5 +20,6 @@
     "Classes",
     "GMFoundation/GMFoundation/release/*.{swift}"
   ],
-  "exclude_files": "Classes/Exclude"
+  "exclude_files": "Classes/Exclude",
+  "swift_version": "5.0"
 }

@@ -2,7 +2,7 @@
   "name": "GMServerSDK",
   "version": "0.1.1",
   "summary": "GMServerSDK",
-  "swift_version": "5.0",
+  "swift_versions": "5.0",
   "source_files": [
     "Classes",
     "GMServerSDK/**/*.{swift}"
@@ -28,5 +28,6 @@
     "Zip": [
 
     ]
-  }
+  },
+  "swift_version": "5.0"
 }

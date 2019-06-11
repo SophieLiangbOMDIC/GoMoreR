@@ -1,18 +1,23 @@
 PODS:
   - Alamofire (4.8.2)
+  - Crashlytics (3.13.1):
+    - Fabric (~> 1.10.1)
+  - Fabric (1.10.1)
   - GMBluetoothSDK (1.0.1)
   - GMFoundation (1.0.3)
   - GMServerSDK (0.1.1):
     - Alamofire
     - Zip
-  - Realm (3.16.0):
-    - Realm/Headers (= 3.16.0)
-  - Realm/Headers (3.16.0)
-  - RealmSwift (3.16.0):
-    - Realm (= 3.16.0)
+  - Realm (3.16.1):
+    - Realm/Headers (= 3.16.1)
+  - Realm/Headers (3.16.1)
+  - RealmSwift (3.16.1):
+    - Realm (= 3.16.1)
   - Zip (1.1.0)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - GMBluetoothSDK (from `https://github.com/bOMDIC/SDK_iOS_Bluetooth.git`)
   - GMFoundation (from `https://github.com/bOMDIC/Kit_iOS_Foundation.git`)
   - GMServerSDK (from `https://github.com/bOMDIC/Kit_iOS_ServerAPI.git`)
@@ -21,6 +26,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Crashlytics
+    - Fabric
     - Realm
     - RealmSwift
     - Zip
@@ -46,13 +53,15 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  GMBluetoothSDK: 3e6e3998e948fd4f829693c596baa5252331cdee
-  GMFoundation: cf12477cb26007ca0498b0acb20a410632d415c0
-  GMServerSDK: 2e4fb131a8809fd83b42c7e75660d86612a3e165
-  Realm: 5ca1b8c472dfc532cd0ba0bfe2ce49f97130158f
-  RealmSwift: 2ee401dbcc188706261921326146f5a539d4d4a7
+  Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
+  Fabric: f6f21452846788bb44595d73e9909d79d328e617
+  GMBluetoothSDK: d3fdce68b04b46efe19ead3bd38a865512489667
+  GMFoundation: c0765564fc6fde0d8e36f8edcfea24d69787694b
+  GMServerSDK: e1970ad43394f40b969fdeab6cfbc1de3a093e31
+  Realm: 601cacc51d8be3b17a377ef787be0f6ee0e76cf1
+  RealmSwift: 486f2e09d5a8ccff63ed66e48d0846b111deb5e5
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 6ed45beb8528bbef0596e01c5e55194f7d2ad541
+PODFILE CHECKSUM: 69aba8cd44df8f709b5c8f926aeffaa9f81dff5c
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.1

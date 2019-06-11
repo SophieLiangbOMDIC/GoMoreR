@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4848B71077F71DC3B10E45323CFCD00"
+               BlueprintIdentifier = "CB1A7F57202C65AD1CF72A9D46918EA0"
                BuildableName = "GMFoundation.framework"
                BlueprintName = "GMFoundation"
                ReferencedContainer = "container:Pods.xcodeproj">

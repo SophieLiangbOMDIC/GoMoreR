@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EF09E6A99775159CE33F1E46A5FE791C"
+               BlueprintIdentifier = "6FF746995E5FA0FF08631A415E586D04"
                BuildableName = "Pods_GoMoreR.framework"
                BlueprintName = "Pods-GoMoreR"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EF09E6A99775159CE33F1E46A5FE791C"
+            BlueprintIdentifier = "6FF746995E5FA0FF08631A415E586D04"
             BuildableName = "Pods_GoMoreR.framework"
             BlueprintName = "Pods-GoMoreR"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9CAE9FDCD63F1FF690C2E52C48A13135"
+               BlueprintIdentifier = "22880F1883B5F457C6AF1370CA9A7AC9"
                BuildableName = "GMBluetoothSDK.framework"
                BlueprintName = "GMBluetoothSDK"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,0 +1,8 @@
+${PODS_ROOT}/Target Support Files/Pods-GoMoreR/Pods-GoMoreR-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/GMBluetoothSDK/GMBluetoothSDK.framework
+${BUILT_PRODUCTS_DIR}/GMFoundation/GMFoundation.framework
+${BUILT_PRODUCTS_DIR}/GMServerSDK/GMServerSDK.framework
+${BUILT_PRODUCTS_DIR}/Realm/Realm.framework
+${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework
+${BUILT_PRODUCTS_DIR}/Zip/Zip.framework

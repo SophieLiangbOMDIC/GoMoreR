@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B4CF49F256EB89A6571E65B2DCF5D9DB"
+               BlueprintIdentifier = "31708EE6929C61C0EDA6F5DAE3AF9DB7"
                BuildableName = "Zip.framework"
                BlueprintName = "Zip"
                ReferencedContainer = "container:Pods.xcodeproj">
