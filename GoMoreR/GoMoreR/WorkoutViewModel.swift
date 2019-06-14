@@ -103,7 +103,7 @@ class WorkoutViewModel: NSObject {
                 distance >= 0 {
                 self.distance = Float(distance)
             }
-            
+
             // MARK: update speed
             if let speedStr = array[1] as? String,
                 let speed = speedStr.double(),
@@ -183,13 +183,13 @@ class WorkoutViewModel: NSObject {
             self.zone = GMKitManager.kit.hrZone(hrRaw: self.hr)
             
             // MARK: update stamina
-            self.stamina = GMKitManager.kit.stamina()
+            self.stamina = GMKitManager.kit.stamina() > 0 ? GMKitManager.kit.stamina() : 100
             
             self.updateData()
             
             DispatchQueue.main.async {
                 self.updateUIInTimer?()
-                
+            
                 // MARK: save workout data into DB every second
                 guard self.hr > 0 else { return }
                 let workoutData = RMWorkoutData()
@@ -212,10 +212,24 @@ class WorkoutViewModel: NSObject {
     }
     
     func stop() {
+        stopAcc()
+        stopTimer()
+        stopObserver()
+    }
+    
+    func stopAcc() {
         self.motionManager.stopAccelerometerUpdates()
+    }
+    
+    func stopTimer() {
         guard self.timer != nil else { return }
+        timer.resume()
         timer.cancel()
         timer = nil
+        print("stop")
+    }
+    
+    func stopObserver() {
         self.removeObserver()
     }
 }

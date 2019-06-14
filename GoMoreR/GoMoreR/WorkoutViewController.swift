@@ -19,13 +19,16 @@ class WorkoutViewController: UIViewController {
     @IBAction func tapButton(_ sender: UIButton) {
         sender.isEnabled = false
         vm.timer.suspend()
+        vm.stopAcc()
         let title: String = sender == finishButton ? "結束運動並上傳？" : "將不記錄此筆資料，\n並離開此頁"
         self.showAlert(title: title, message: nil, buttonTitles: ["取消", "確定"], highlightedButtonIndex: 0) { [weak self] (index) in
+            
             guard let self = self else { return }
-            self.vm.timer.resume()
             
             guard index != 0 else {
                 sender.isEnabled = true
+                self.vm.timer.resume()
+                self.vm.startAcc()
                 return
             }
             
@@ -46,6 +49,7 @@ class WorkoutViewController: UIViewController {
                 }
                 self.dismiss(animated: true, completion: nil)
             }
+            
         }
     }
 
