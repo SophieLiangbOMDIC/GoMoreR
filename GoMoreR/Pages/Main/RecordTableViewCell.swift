@@ -34,10 +34,15 @@ class RecordTableViewCell: UITableViewCell {
         distanceLabel.text = String(format: "%.2f", data.distanceKm ?? 0.0) + " km"
         timeLabel.text = secondsToString(data.timeSeconds ?? 0)
         let stamina = CGFloat(Double(data.staminaEnd ?? 0) / 100.00)/*CGFloat.random(in: 0...1)*/
-        staminaLabel.text = String(format: "%.f", stamina * 100) + "%"
+        if stamina < 0 {
+            staminaLabel.text = "計算錯誤"
+        } else {
+            staminaLabel.text = String(format: "%.f", stamina * 100) + "%"
+        }
         dateLabel.text = (data.timeStart ?? Date()).string(withFormat: "yyyy.MM.dd HH:mm")
         workoutIdLabel.text = data.userWorkoutId?.string ?? ""
         
+        guard stamina >= 0 else { return }
         let height = waveView.frame.height * stamina
         let wave = WaveView(frame: CGRect(x: 0,
                                           y: waveView.frame.height - height,
