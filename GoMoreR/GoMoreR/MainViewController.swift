@@ -37,14 +37,17 @@ class MainViewController: UIViewController {
     
     // MARK: start workout should go to pair page first
     @IBAction func tapStartButton(_ sender: UIButton) {
+        sender.isEnabled = false
         BTManager.shared.bt.scan(type: [.hr, .cadence, .power]) { [weak self] (isPowerOn) in
-            guard let self = self else { return }
+            guard let self = self else { return sender.isEnabled = true }
             if isPowerOn {
                 DispatchQueue.main.async {
-                    self.showBlur()
+                    
+                    sender.isEnabled = true
                     
                     if let vc = self.storyboard?.instantiateViewController(withClass: PairViewController.self) {
                         
+                        self.showBlur()
                         self.addChild(vc)
                         self.view.addSubview(vc.view)
                         
@@ -68,6 +71,7 @@ class MainViewController: UIViewController {
                 
             } else {
                 DispatchQueue.main.async {
+                    sender.isEnabled = true
                     self.showAlert(title: "請開啟藍芽", message: nil)
                 }
             }
