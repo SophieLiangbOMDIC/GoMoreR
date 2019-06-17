@@ -67,17 +67,26 @@ public enum GMSFailError: Error {
     case jsonTypeError
     case statusError(code: String)
     case noData
+    case uploadFail
+    case calculateFail(code: String, workoutId: String)
     
     var errorCode: String {
         switch self {
-        case .noInternet, .urlFailed, .jsonTypeError, .noData:
-            return ""
-        case .statusError(let code):
+        case .statusError(let code), .calculateFail(let code, _):
             return code
+        default:
+            return ""
         }
-        
     }
     
+    var workoutId: String {
+        switch self {
+        case .calculateFail(_, let id):
+            return id
+        default:
+            return ""
+        }
+    }
 }
 
 enum HTTPMethod: String {

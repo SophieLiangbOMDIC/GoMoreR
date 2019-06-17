@@ -16,6 +16,7 @@
 		442EA453228BB1C5007DF0FD /* PairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA452228BB1C5007DF0FD /* PairViewController.swift */; };
 		442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA454228BB58E007DF0FD /* PairTableViewCell.swift */; };
 		442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442EA489228BDB93007DF0FD /* Intents.framework */; };
+		443E5E2F22B743EE003E8936 /* GMServerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 443E5E2E22B743EE003E8936 /* GMServerSDK.framework */; };
 		449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449DEFB622966F7C0005215E /* GoMoreKit.framework */; };
 		449DEFB9229670BC0005215E /* PublicEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFB8229670BC0005215E /* PublicEnum.swift */; };
 		449DEFBB22978BF40005215E /* RMWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFBA22978BF40005215E /* RMWorkoutData.swift */; };
@@ -27,7 +28,6 @@
 		44E63E4C228D6A28006CF8EC /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E63E4B228D6A28006CF8EC /* ServerManager.swift */; };
 		44E9B5EC228D3118009A1D7B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EB228D3118009A1D7B /* MainViewController.swift */; };
 		44E9B5F0228D3A37009A1D7B /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */; };
-		44EFBE4E229CE87F00E5473D /* GMServerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */; };
 		44F3789B22895C84000A4B5C /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3789A22895C84000A4B5C /* WaveView.swift */; };
 		44F5945B2292AA48008D4728 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F5945A2292AA48008D4728 /* BTManager.swift */; };
 		44F6B90D229E68AE009E3F20 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F6B90C229E68AE009E3F20 /* UploadManager.swift */; };
@@ -61,6 +61,7 @@
 		442EA463228BD7E5007DF0FD /* GoMoreR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoMoreR.entitlements; sourceTree = "<group>"; };
 		442EA473228BDA3B007DF0FD /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		442EA489228BDB93007DF0FD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		443E5E2E22B743EE003E8936 /* GMServerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GMServerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4446CB1E2293AAB2002DE47F /* GoMoreR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoMoreR.h; sourceTree = "<group>"; };
 		449DEFB622966F7C0005215E /* GoMoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoMoreKit.framework; sourceTree = "<group>"; };
 		449DEFB8229670BC0005215E /* PublicEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicEnum.swift; sourceTree = "<group>"; };
@@ -95,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44EFBE4E229CE87F00E5473D /* GMServerSDK.framework in Frameworks */,
+				443E5E2F22B743EE003E8936 /* GMServerSDK.framework in Frameworks */,
 				442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */,
 				449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */,
 				38C3B4273AC2E0480067683C /* Pods_GoMoreR.framework in Frameworks */,
@@ -162,6 +163,7 @@
 		442EA472228BDA3B007DF0FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				443E5E2E22B743EE003E8936 /* GMServerSDK.framework */,
 				44EFBE4D229CE87F00E5473D /* GMServerSDK.framework */,
 				449DEFBF2297A34D0005215E /* GMServerSDK.framework */,
 				449DEFB622966F7C0005215E /* GoMoreKit.framework */,
@@ -497,7 +499,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBA6E09E3D5C30201E0A2043 /* Pods-GoMoreR.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JRH8E985QQ;
@@ -524,7 +525,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C67283721B2E6CD48D5F2014 /* Pods-GoMoreR.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;

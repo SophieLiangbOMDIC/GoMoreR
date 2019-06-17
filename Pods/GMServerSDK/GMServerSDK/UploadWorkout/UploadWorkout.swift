@@ -47,7 +47,8 @@ extension GMSManager {
             
         }, to: self.api + "workout/upload.php") { (result) in
             switch result {
-                
+            
+            // MARK: upload success
             case .success(let request, _, _):
                 request.responseJSON(completionHandler: { (response) in
                     switch response.result {
@@ -56,7 +57,17 @@ extension GMSManager {
                         let status = result["status"] as? String ?? ""
                         if status == "0" {
                             let workoutId = result["user_workout_id"] as? String ?? ""
-                            completionHandler(.success(workoutId))
+                            
+                            // MARK: Call Calculate workout
+                            self.calculateWorkout(userWorkoutId: workoutId.GMSInt ?? 0, completionHandler: { (resultType) in
+                                switch resultType {
+                                case .success( _):
+                                    completionHandler(.success(workoutId))
+
+                                case .failure(let error):
+                                    completionHandler(.failure(.calculateFail(code: error.errorCode, workoutId: workoutId)))
+                                }
+                            })
                         } else {
                             completionHandler(.failure(.statusError(code: status)))
                         }
@@ -65,7 +76,7 @@ extension GMSManager {
                     }
                 })
             case .failure(_):
-                completionHandler(.failure(.noData))
+                completionHandler(.failure(.uploadFail))
             }
         }
     }

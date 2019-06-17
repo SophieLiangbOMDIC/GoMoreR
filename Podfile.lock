@@ -5,14 +5,14 @@ PODS:
   - Fabric (1.10.1)
   - GMBluetoothSDK (1.0.1)
   - GMFoundation (1.0.3)
-  - GMServerSDK (0.1.1):
+  - GMServerSDK (0.1.2):
     - Alamofire
     - Zip
-  - Realm (3.16.1):
-    - Realm/Headers (= 3.16.1)
-  - Realm/Headers (3.16.1)
-  - RealmSwift (3.16.1):
-    - Realm (= 3.16.1)
+  - Realm (3.16.2):
+    - Realm/Headers (= 3.16.2)
+  - Realm/Headers (3.16.2)
+  - RealmSwift (3.16.2):
+    - Realm (= 3.16.2)
   - Zip (1.1.0)
 
 DEPENDENCIES:
@@ -48,7 +48,7 @@ CHECKOUT OPTIONS:
     :commit: ffe2037ca30f2221911dc3573e49bd7acb82609b
     :git: https://github.com/bOMDIC/Kit_iOS_Foundation.git
   GMServerSDK:
-    :commit: f9f0fa76009fcf9624564ae72bd781d51a9bc20a
+    :commit: 5acfff368e641bc1051ced4a95eeb6710ae98800
     :git: https://github.com/bOMDIC/Kit_iOS_ServerAPI.git
 
 SPEC CHECKSUMS:
@@ -57,9 +57,9 @@ SPEC CHECKSUMS:
   Fabric: f6f21452846788bb44595d73e9909d79d328e617
   GMBluetoothSDK: d3fdce68b04b46efe19ead3bd38a865512489667
   GMFoundation: c0765564fc6fde0d8e36f8edcfea24d69787694b
-  GMServerSDK: e1970ad43394f40b969fdeab6cfbc1de3a093e31
-  Realm: 601cacc51d8be3b17a377ef787be0f6ee0e76cf1
-  RealmSwift: 486f2e09d5a8ccff63ed66e48d0846b111deb5e5
+  GMServerSDK: 69d0a7a8dd926de9b4d76bccaef182d4600fd432
+  Realm: 0e73b4edeb5b6a90da3d83206883b2e34e00eb38
+  RealmSwift: a81e650171ef0a5f999df1ed8d39ba8d6fce88a4
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
 PODFILE CHECKSUM: 69aba8cd44df8f709b5c8f926aeffaa9f81dff5c
