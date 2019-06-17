@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
     
     // MARK: pair bluetooth
     @IBAction func tapBTButton(_ sender: UIButton) {
-        tapStartButton(UIButton())
+        tapStartButton(sender)
     }
     
     // MARK: start workout should go to pair page first
