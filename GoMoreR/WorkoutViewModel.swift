@@ -145,9 +145,7 @@ class WorkoutViewModel: NSObject {
                 try! RealmManager.realm.write {
                     self.workoutFinal.workoutId = workoutId.int ?? 0
                 }
-                UploadManager.shared.calculate(workoutFinal: self.workoutFinal) {
-                    completionHandler()
-                }
+                completionHandler()
                 
             case .failure(let error):
                 print(error)

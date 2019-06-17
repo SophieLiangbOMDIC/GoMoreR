@@ -19,7 +19,7 @@ public class UploadManager {
         return datas
     }()
     
-    func upload(workoutFinal: RMWorkoutFinal, completionHandler: @escaping (Result<String, UploadStatus>) -> Void) {
+    func upload(workoutFinal: RMWorkoutFinal, completionHandler: @escaping (Result<String, GMSFailError>) -> Void) {
         var dataArray: [[String: Any]] = []
         let workoutDataArr = workoutFinal.workoutDatas
         for workoutData in workoutDataArr {
@@ -60,27 +60,26 @@ public class UploadManager {
             case .success(let workoutId):
                 completionHandler(.success(workoutId))
                 
-            case .failure(_):
-                completionHandler(.failure(.uploadFail))
+            case .failure(let error):
+                completionHandler(.failure(error))
             }
         }
     }
     
-    func calculate(workoutFinal: RMWorkoutFinal, completionHandler: @escaping () -> Void) {
+    func calculate(workoutFinal: RMWorkoutFinal) {
         ServerManager.sdk.calculateWorkout(userWorkoutId: workoutFinal.workoutId, completionHandler: { (resultType) in
             switch resultType {
             case .success(_):
                 try! RealmManager.realm.write {
                     workoutFinal.uploadStatus = .uploaded
                 }
-                
+
             case .failure(let error):
                 print(error)
                 try! RealmManager.realm.write {
                     workoutFinal.uploadStatus = .calculateFail
                 }
             }
-            completionHandler()
         })
     }
     
@@ -97,17 +96,28 @@ public class UploadManager {
                             workoutFinal.uploadStatus = .uploaded
                             workoutFinal.workoutId = workoutId.int ?? 0
                         }
-                        self.calculate(workoutFinal: workoutFinal) { }
                         
                     case .failure(let error):
-                        try! RealmManager.realm.write {
-                            workoutFinal.uploadStatus = error
+                        switch error {
+                        case .uploadFail:
+                            try! RealmManager.realm.write {
+                                workoutFinal.uploadStatus = .uploadFail
+                            }
+                            
+                        case .calculateFail(let code, _):
+                            print(code, "calculate fail")
+                            try! RealmManager.realm.write {
+                                workoutFinal.uploadStatus = .calculateFail
+                            }
+                            
+                        default:
+                            break
                         }
                     }
                 })
                 
             case .calculateFail:
-                self.calculate(workoutFinal: workoutFinal) { }
+                self.calculate(workoutFinal: workoutFinal)
                 
             case .uploaded:
                 continue
