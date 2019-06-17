@@ -48,6 +48,7 @@ class LoginViewController: UIViewController {
             login(platform: platform, account: account, password: password) {
                 guard let controller = self.storyboard?.instantiateViewController(withClass: MainViewController.self) else { return }
                 self.present(controller, animated: true, completion: nil)
+                self.errorLabel.text = ""
             }
         }
     }
@@ -58,6 +59,7 @@ class LoginViewController: UIViewController {
             let password = passwordTextField.text {
             self.login(platform: selectedPlatform.rawValue, account: account, password: password) {
                 self.present(controller, animated: true, completion: nil)
+                self.errorLabel.text = ""
             }
         }
     }
@@ -77,7 +79,6 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.set(self.selectedPlatform.rawValue, forKey: UserDefaultsKey.platform)
                         UserDefaults.standard.synchronize()
                         
-                        self.errorLabel.text = "登入成功"
                         completionHandler()
                         
                     case .failure(let error):
