@@ -56,8 +56,8 @@ class MainViewController: UIViewController {
                                                     width: vc.tableView.frame.width,
                                                     height: vc.tableView.frame.height)
                         vc.isFromStartButton = (sender == self.startButton)
-                        vc.userData = self.userData
-                        vc.workoutData = self.workoutData
+                        vc.userData = self.vm.userData
+                        vc.workoutData = self.vm.workoutData
                         
                         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 3, options: .curveEaseInOut, animations: {
                             vc.tableView.frame = CGRect(x: 0,
@@ -79,10 +79,8 @@ class MainViewController: UIViewController {
         
     }
     
-    var data: [GMSResponseWorkout] = []
     var blurView: UIView!
-    var workoutData: GMSResponseWorkoutInit!
-    var userData: GMSResponseUser!
+    let vm = MainViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,57 +93,20 @@ class MainViewController: UIViewController {
         let finalData = RealmManager.realm.objects(RMWorkoutFinal.self)
         print(finalData)
         
-        // MARK: init sdk and user to get stamina
-        ServerManager.sdk.getWorkoutInit(typeId: "run") { (resultType) in
-            switch resultType {
-            case .success(let workout):
-                self.workoutData = workout
-                ServerManager.sdk.getUser { (resultType) in
-                    switch resultType {
-                    case .success(let data):
-                        self.userData = data
-                        let _ = GMKitManager.shared.initUser(userData: data, workoutData: workout)
-                        let percentageArr = GMKitManager.kit.getPercentageAfterRecovery(
-                            aerobicPtc: Float(workout.prevAerobicPtc ?? 100.0),
-                            anaerobicPtc: Float(workout.prevAnaerobicPtc ?? 100.0),
-                            elapsedSecond: 0)
-                        let stamina = percentageArr[0] as? String ?? "100.0"
-                        self.staminaLabel.text = String(stamina.split(separator: ".").first ?? "100") + "%"
-                        self.userNameLabel.text = data.userName ?? "bOMDIC"
-                        
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
+        vm.getStamina { [weak self] (stamina) in
+            guard let self = self else { return }
+            self.staminaLabel.text = String(stamina.split(separator: ".").first ?? "100") + "%"
+            self.userNameLabel.text = self.vm.userData.userName ?? "bOMDIC"
         }
         
-        // MARK: check DB data status
-        UploadManager.shared.checkAndUpload()
-
+        vm.checkAndUpload()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        ServerManager.sdk.getWorkoutList(requestData: GMSRequestWorkoutList(typeId: .run, page: 1, pageNum: 10, dateStart: nil, dateEnd: nil, flagCalc: nil)) { (resultType) in
-            switch resultType {
-            case .success( _, _, let data):
-                self.data = data
-                self.tableView.reloadData()
-                
-            case .failure(let error):
-                print(error)
-                /*let workoutDB = RealmManager.realm.objects(RMWorkoutFinal.self)
-                for workout in workoutDB {
-                    if !self.data.contains(where: { (workoutData) -> Bool in
-                        workoutData.userWorkoutId == workout.workoutId
-                    }) {
-                        self.data.insert(GMSResponseWorkout(from: workout.toDict()), at: 0)
-                    }
-                }
-                self.tableView.reloadData()*/
-            }
+        vm.getWorkoutList { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
         }
         
     }
@@ -174,18 +135,13 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return vm.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: RecordTableViewCell.self, for: indexPath)
-        let thisData = data[indexPath.row]
-        cell.setLabel(distance: thisData.distanceKm ?? 0.0,
-                      time: thisData.timeSeconds ?? 0,
-                      date: thisData.timeStart ?? Date(),
-                      stamina: CGFloat(Double(thisData.staminaEnd ?? 0) / 100.00)/*CGFloat.random(in: 0...1)*/,
-                      workoutId: thisData.userWorkoutId?.string ?? "")
-
+        let thisData = vm.data[indexPath.row]
+        cell.setLabel(data: thisData)
         return cell
     }
     

@@ -17,6 +17,7 @@
 		442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442EA454228BB58E007DF0FD /* PairTableViewCell.swift */; };
 		442EA48A228BDB93007DF0FD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442EA489228BDB93007DF0FD /* Intents.framework */; };
 		443E5E2F22B743EE003E8936 /* GMServerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 443E5E2E22B743EE003E8936 /* GMServerSDK.framework */; };
+		443E5E3622B74657003E8936 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443E5E3522B74657003E8936 /* MainViewModel.swift */; };
 		449DEFB722966F7C0005215E /* GoMoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449DEFB622966F7C0005215E /* GoMoreKit.framework */; };
 		449DEFB9229670BC0005215E /* PublicEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFB8229670BC0005215E /* PublicEnum.swift */; };
 		449DEFBB22978BF40005215E /* RMWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449DEFBA22978BF40005215E /* RMWorkoutData.swift */; };
@@ -62,6 +63,7 @@
 		442EA473228BDA3B007DF0FD /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		442EA489228BDB93007DF0FD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		443E5E2E22B743EE003E8936 /* GMServerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GMServerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		443E5E3522B74657003E8936 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4446CB1E2293AAB2002DE47F /* GoMoreR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoMoreR.h; sourceTree = "<group>"; };
 		449DEFB622966F7C0005215E /* GoMoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoMoreKit.framework; sourceTree = "<group>"; };
 		449DEFB8229670BC0005215E /* PublicEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicEnum.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				44E9B5EB228D3118009A1D7B /* MainViewController.swift */,
+				443E5E3522B74657003E8936 /* MainViewModel.swift */,
 				44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */,
 			);
 			path = Main;
@@ -389,6 +392,7 @@
 				44F5945B2292AA48008D4728 /* BTManager.swift in Sources */,
 				44F6B90D229E68AE009E3F20 /* UploadManager.swift in Sources */,
 				44F6B90F229E79FF009E3F20 /* RealmManager.swift in Sources */,
+				443E5E3622B74657003E8936 /* MainViewModel.swift in Sources */,
 				44F3789B22895C84000A4B5C /* WaveView.swift in Sources */,
 				442EA455228BB58E007DF0FD /* PairTableViewCell.swift in Sources */,
 				44E63E46228D4C39006CF8EC /* WorkoutViewController.swift in Sources */,

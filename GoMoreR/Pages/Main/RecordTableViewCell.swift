@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GMServerSDK
 
 class RecordTableViewCell: UITableViewCell {
 
@@ -29,12 +30,13 @@ class RecordTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setLabel(distance: Double, time: Int, date: Date, stamina: CGFloat, workoutId: String) {
-        distanceLabel.text = String(format: "%.2f", distance) + " km"
-        timeLabel.text = secondsToString(time)
+    func setLabel(data: GMSResponseWorkout) {
+        distanceLabel.text = String(format: "%.2f", data.distanceKm ?? 0.0) + " km"
+        timeLabel.text = secondsToString(data.timeSeconds ?? 0)
+        let stamina = CGFloat(Double(data.staminaEnd ?? 0) / 100.00)/*CGFloat.random(in: 0...1)*/
         staminaLabel.text = String(format: "%.f", stamina * 100) + "%"
-        dateLabel.text = date.string(withFormat: "yyyy.MM.dd HH:mm")
-        workoutIdLabel.text = workoutId
+        dateLabel.text = (data.timeStart ?? Date()).string(withFormat: "yyyy.MM.dd HH:mm")
+        workoutIdLabel.text = data.userWorkoutId?.string ?? ""
         
         let height = waveView.frame.height * stamina
         let wave = WaveView(frame: CGRect(x: 0,
