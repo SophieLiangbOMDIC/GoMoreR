@@ -140,21 +140,14 @@
 		23D396C72285077700441B40 /* GoMoreR */ = {
 			isa = PBXGroup;
 			children = (
-				449DEFBC22978BFA0005215E /* Model */,
 				4446CB1E2293AAB2002DE47F /* GoMoreR.h */,
 				442EA463228BD7E5007DF0FD /* GoMoreR.entitlements */,
 				23D396CC2285077700441B40 /* Main.storyboard */,
 				23D396D12285077800441B40 /* LaunchScreen.storyboard */,
 				23D396D42285077800441B40 /* Info.plist */,
 				23D396C82285077700441B40 /* AppDelegate.swift */,
-				23D396CA2285077700441B40 /* LoginViewController.swift */,
-				44E9B5EB228D3118009A1D7B /* MainViewController.swift */,
-				44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */,
-				44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */,
-				44E63E45228D4C39006CF8EC /* WorkoutViewController.swift */,
-				44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */,
-				442EA452228BB1C5007DF0FD /* PairViewController.swift */,
-				442EA454228BB58E007DF0FD /* PairTableViewCell.swift */,
+				449DEFBC22978BFA0005215E /* Model */,
+				443E5E3022B745C5003E8936 /* Pages */,
 				23D396CF2285077800441B40 /* Assets.xcassets */,
 			);
 			path = GoMoreR;
@@ -175,6 +168,53 @@
 				43FA05123E0AF9F43F052DCB /* Pods_MessageIntentsUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		443E5E3022B745C5003E8936 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				443E5E3122B745D8003E8936 /* Login */,
+				443E5E3222B745DF003E8936 /* Main */,
+				443E5E3422B74600003E8936 /* Pair */,
+				443E5E3322B745ED003E8936 /* Workout */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		443E5E3122B745D8003E8936 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				23D396CA2285077700441B40 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		443E5E3222B745DF003E8936 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				44E9B5EB228D3118009A1D7B /* MainViewController.swift */,
+				44E9B5EF228D3A37009A1D7B /* RecordTableViewCell.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		443E5E3322B745ED003E8936 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				44E63E49228D4EA1006CF8EC /* WorkoutViewModel.swift */,
+				44E63E45228D4C39006CF8EC /* WorkoutViewController.swift */,
+				44E63E47228D4C77006CF8EC /* WorkoutTableViewCell.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		443E5E3422B74600003E8936 /* Pair */ = {
+			isa = PBXGroup;
+			children = (
+				442EA452228BB1C5007DF0FD /* PairViewController.swift */,
+				442EA454228BB58E007DF0FD /* PairTableViewCell.swift */,
+			);
+			path = Pair;
 			sourceTree = "<group>";
 		};
 		449DEFBC22978BFA0005215E /* Model */ = {
